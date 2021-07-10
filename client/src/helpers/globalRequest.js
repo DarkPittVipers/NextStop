@@ -3,16 +3,16 @@ import axios from 'axios';
 export function getImages(count = 100) {
   return axios.get('/api/images', {
     params: {
-      count
-    }
+      count,
+    },
   }).then((response) => response.data);
 }
 
 export function getCards(count = 5) {
   return axios.get('/api/cards', {
     params: {
-      count
-    }
+      count,
+    },
   }).then((response) => response.data);
 }
 
@@ -74,11 +74,11 @@ export function uploadPhoto(file) {
 
       return axios.post('https://api.imgbb.com/1/upload', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': 'multipart/form-data',
         },
         params: {
-          key: '811b6930fa34cc442fd5f319e9d975f6'
-        }
+          key: '811b6930fa34cc442fd5f319e9d975f6',
+        },
       });
     })
     .then((response) => response.data.data);

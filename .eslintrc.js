@@ -2,31 +2,24 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    node: true
+    node: true,
   },
   extends: [
     'plugin:react/recommended',
-    'airbnb'
+    'airbnb',
   ],
   parserOptions: {
     ecmaFeatures: {
-      jsx: true
+      jsx: true,
     },
     ecmaVersion: 12,
-    sourceType: 'module'
+    sourceType: 'module',
   },
   plugins: [
-    'react'
+    'react',
   ],
   rules: {
-    'comma-dangle': ['error', {
-      arrays: 'never',
-      objects: 'never',
-      imports: 'never',
-      exports: 'never',
-      functions: 'never'
-    }],
     'import/extensions': ['error', { jsx: 'always' }],
-    'no-console': ['warn']
-  }
+    'no-console': ['warn'],
+  },
 };

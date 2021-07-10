@@ -12,8 +12,8 @@ import AppContext from './helpers/context';
 
 const theme = createMuiTheme({
   palette: {
-    type: 'dark'
-  }
+    type: 'dark',
+  },
 });
 
 function App() {

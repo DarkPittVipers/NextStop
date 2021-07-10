@@ -3,5 +3,5 @@ const hotels = require('./hotels');
 
 module.exports = {
   events,
-  hotels
+  hotels,
 };

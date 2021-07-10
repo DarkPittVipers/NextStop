@@ -9,7 +9,7 @@ export default function Navigation() {
       alignItems="center"
       justify="space-between"
       style={{
-        backgroundColor: '#8595da',
+        backgroundColor: '#1A535C',
         borderBottom: '2px solid #4a62c8',
         height: 80,
         padding: '10px 30px',

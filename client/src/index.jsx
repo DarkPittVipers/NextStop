@@ -5,7 +5,7 @@ import { Container, CssBaseline } from '@material-ui/core';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import Navigation from './components/Navigation.jsx';
-import Home from './components/main/Home.jsx';
+import Home from './components/home/Home.jsx';
 
 import { getCards } from './helpers/globalRequest';
 import AppContext from './helpers/context';

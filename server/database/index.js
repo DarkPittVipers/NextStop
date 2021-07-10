@@ -6,7 +6,7 @@ if (process.env.NODE_ENV !== 'testing') {
   require('dotenv').config();
 }
 
-const mongoURI = process.env.DATABASE_URI;
+const mongoURI = process.env.DATABASE_URI || 'mongodb://localhost:27017';
 
 const db = mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
 

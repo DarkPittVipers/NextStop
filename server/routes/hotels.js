@@ -54,4 +54,4 @@ router.put('/:cardId', (req, res) => {
     .catch((err) => console.log(err));
 });
 
-module.exports.router = router;
+module.exports = router;

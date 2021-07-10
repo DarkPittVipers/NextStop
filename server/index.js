@@ -45,8 +45,8 @@ app.use(session(sess));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/api/events', routes.events.router);
-app.use('/api/hotels', routes.hotels.router);
+app.use('/api/events', routes.events);
+app.use('/api/hotels', routes.hotels);
 
 passport.serializeUser((user, done) => {
   done(null, user);

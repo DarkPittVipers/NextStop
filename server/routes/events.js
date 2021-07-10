@@ -7,4 +7,4 @@ router.get('/', (req, res) => {
   res.status(200).send([{ id: 0, url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/7.png' }]);
 });
 
-module.exports.router = router;
+module.exports = router;

@@ -1,28 +1,37 @@
 # NextStop #
 
-## Heading ##
-  > The Travel app that finds you Hotels, Flights, and Events in one search to make your traveling planning as painless as possible.
+## Table of Contents ##
 
-## Sub-Heading ##
-  > Every future voyager needs to plan with a destination in mind, a budget, and a timeline, this app not only helps consolidate your travel interests, but includes the most precise search results based off your interests.
+## Introduction ##
+> This project serves as a travel application that will allow a user to input an origin, a destination, and a date range and expect a display of the most relevant results pertaining to events, flights, and hotels. The application uses available APIs to send data regarding the user's desired locations and times with a response that includes all the content needed for an accurate selection.
 
-## Summary ##
-  > The NextStop app is a tool for those who may not know where the next adventure takes them. But it is also a useful resourse for those who know when and where they want to plan their next trip, but don't know where to start. NextStop finds you the best prices, rated and reviewed experiences, and most relavent search results based off your interests.
+## General Info ##
 
-## Problem ##
-  > Planning a trip can be daunting. Whether you are searching on your pc or mobile device the active switching between windows and tabs is tedious. Why should planning our future adventures be such a headache, especially when we might not even know what's out there?
 
-## Solution ##
-  > NextStop is an app that tailors your search to a precisely relevant result. Using
+## Technologies ##
+<p>Javascript <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/></p>
+<p>Node <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/></p>
+<p>React: 16.4 <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="40" height="40"/></p>
+<p>Axios: 0.21.1 <img src="https://axios-http.com/assets/logo.svg" alt="Material UI" width="40" height="40"/></p>
+<p>Material UI <img src="https://material-ui.com/static/logo_raw.svg" alt="Material UI" width="40" height="40"/></p>
+<p></p>Jest: 27.0.4 <img src="https://www.vectorlogo.zone/logos/jestjsio/jestjsio-icon.svg" alt="jest" width="40" height="40"/>
+<p></p>Cypress: 7.4 <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/6e46ec1fc23b60c8fd0d2f2ff46db82e16dbd75f/icons/cypress.svg" alt="cypress" width="40" height="40"/>
+<p>Express: 4.17.1 <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="express" width="40" height="40"/></p>
+<p>mongoose: 5.13.2 <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original-wordmark.svg" alt="mongodb" width="40" height="40"/></p>
+<p>bable <img src="https://www.vectorlogo.zone/logos/babeljs/babeljs-icon.svg" alt="babel" width="40" height="40"/></p>
+<p>webpack <img src="https://raw.githubusercontent.com/devicons/devicon/d00d0969292a6569d45b06d3f350f463a0107b0d/icons/webpack/webpack-original-wordmark.svg" alt="webpack" width="40" height="40"/></p>
 
-## Quote from You ##
-  > "If planning your trip discourages you from taking the time off you deserve, then take a vacation from those planning frustrations and book your next dream trip with us!"
+## Setup ##
+<p>To run the project</p>
+<p>-npm install</p>
+<p>npm start</p>
+<p>npm run react-dev</p>
 
-## How to Get Started ##
-  > Getting started is simple! Enter a destination and a time range and Go! Instantaniously, you will receive 100s of options to choose from pertaining to hotels, flights, and events with ratings, reviews, and pricing available.
+## Status ##
+Currently in Early development
 
-## Customer Quote ##
-  > "Our last trip took us days to plan around our budget, timeline, and decisions on destination. This time around we used the nextStop App. Wow! We really loved the insight into upcoming events happening within areas around the world. Not only was that the most helpful it was the center for what we based our plans on."
-
-## Closing and Call to Action ##
-  > Do you want your travel agency/business to continually grow? This application is an exetremely useful tool to help facilitate your customers needs by saving them time, money and helps them plan their dream trip with efficiency.
+### Authors ###
+<p>Kirk Easton</p>
+<p>Justin Schreiber</p>
+<p>Matt Hutton</p>
+<p>Caleb Bratton</p>

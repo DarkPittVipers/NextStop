@@ -12,9 +12,9 @@ router.get('/events', (req, res) => {
   }).then((response) => {
     console.log(response);
     res.status(200).send(response);
-  }).catch((response) => {
-    console.error(response);
-    res.status(500).send(response);
+  }).catch((err) => {
+    console.log(err);
+    res.status(500).send(err);
   });
 });
 

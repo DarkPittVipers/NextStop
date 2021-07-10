@@ -16,7 +16,7 @@ export default function Navigation() {
         margin: 0,
       }}
     >
-      <img src="assets/Social3LogoSmall.png" alt="logo" />
+      <img src="assets/NextStopLogo.svg" height="64" alt="logo" />
     </Grid>
   );
 }

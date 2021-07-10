@@ -1,0 +1,8 @@
+.item-inline {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+body {
+  margin: 0px;
+}

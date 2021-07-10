@@ -22,15 +22,16 @@
 ><p>webpack <img src="https://raw.githubusercontent.com/devicons/devicon/d00d0969292a6569d45b06d3f350f463a0107b0d/icons/webpack/webpack-original-wordmark.svg" alt="webpack" width="40" height="40"/></p>
 
 ## Setup ##
-To run the project
--npm install
-npm start
-npm run react-dev
+<p>To run the project</p>
+<p>-npm install</p>
+<p>npm start</p>
+<p>npm run react-dev</p>
+
 ## Status ##
 Currently in Early development
 
 ### Authors ###
-Kirk Easton
-Justin Schreiber
-Matt Hutton
-Caleb Bratton
+<p>Kirk Easton</p>
+<p>Justin Schreiber</p>
+<p>Matt Hutton</p>
+<p>Caleb Bratton</p>

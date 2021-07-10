@@ -14,7 +14,7 @@ const amadeus = new Amadeus();
 
 const getFlightInspiration = (currentLocationCode, callback) => {
   amadeus.shopping.flightDestinations.get({
-    origin: currentLocation,
+    currentLocationCode,
   }).then((response) => {
     console.log(response);
     callback(null, response);
@@ -26,9 +26,9 @@ const getFlightInspiration = (currentLocationCode, callback) => {
 
 // returns flight based on locations (current and destination), departure date, number of adults
 // not for round trips
-// departure date format is 'YYYY-MM-DD"
+// departure date format is 'YYYY-MM-DD'
 
-const getFlightsOneWay = (currentLocationCode, destinationLocationCode, departureDate, numberOfAdults, callback) => {
+const getFlightsOneWay = (currentLocationCode, destinationLocationCode, departureDate, numberOfAdults) => {
   amadeus.shopping.flightOffersSearch.get({
     currentLocationCode,
     destinationLocationCode,

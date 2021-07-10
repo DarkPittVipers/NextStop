@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const express = require('express');
 const Amadeus = require('amadeus');
 
@@ -42,7 +43,7 @@ router.get('/flights/oneWay', (req, res) => {
 // FOR round trips
 // departure date format is 'YYYY-MM-DD"
 
-router.get('/flights/roundTrip', (req, rs) => {
+router.get('/flights/roundTrip', (req, res) => {
   amadeus.shopping.flightOffersSearch.get({
     originLocationCode: req.params.originLocationCode,
     destinationLocationCode: req.params.destinationLocationCode,

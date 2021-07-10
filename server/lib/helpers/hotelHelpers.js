@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const Amadeus = require('amadeus');
 
 const amadeus = new Amadeus();

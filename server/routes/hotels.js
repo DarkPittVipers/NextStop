@@ -22,12 +22,6 @@ router.get('/hotels', (req, res) => {
   });
 });
 
-
-
-
-
-
-
 router.get('/', (req, res) => {
   let { count = 5, page = 0 } = req.query;
   count = Number(count);

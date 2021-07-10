@@ -16,7 +16,7 @@ router.get('/flights/landing', (req, res) => {
     res.status(200).send(response);
   }).catch((err) => {
     console.log('error in server getting flights', err);
-    res.status(404).send(err);
+    res.status(500).send(err);
   });
 });
 
@@ -35,7 +35,7 @@ router.get('/flights/oneWay', (req, res) => {
     res.status(200).send(response);
   }).catch((err) => {
     console.log('error in server getting flights', err);
-    res.status(404).send(err);
+    res.status(500).send(err);
   });
 });
 
@@ -55,7 +55,7 @@ router.get('/flights/roundTrip', (req, res) => {
     res.status(200).send(response);
   }).catch((err) => {
     console.log('error in server getting flights', err);
-    res.status(404).send(err);
+    res.status(500).send(err);
   });
 });
 

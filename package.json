@@ -27,6 +27,7 @@
     "@babel/preset-react": "^7.12.5",
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
+    "amadeus": "^5.7.0",
     "axios": "^0.21.1",
     "babel-loader": "^8.2.1",
     "body-parser": "^1.19.0",

@@ -1,22 +1,29 @@
-import React, {useContext, UseState, useEffect } from 'react';
-import { Paper, Grid } from '@material-ui/core';
+import React, { useContext, useState } from 'react';
+import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-
+  flightContainer: {
+    backgroundColor: 'blue',
+    height: '71vh',
+    width: '88vw',
+    padding: '0px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontFamily: '"Oswald", sans-serif',
+    color: 'black',
+    borderBottomLeftRadius: '20px',
+    borderBottomRightRadius: '20px',
+  },
 }));
 
-export default function Event() {
+export default function Flights() {
   const classes = useStyles();
-
   return (
-    <Grid
-    className={classes.event_container}
-      container
-      alignItem="center"
-      justify="space-between"
-    >
-
-    </Grid>
+    <div className={classes.flightContainer}>
+      flight stuff
+    </div>
   );
 }

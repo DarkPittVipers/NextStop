@@ -3,30 +3,29 @@ import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  eventsContainer: {
-    backgroundColor: '#1A535C',
+  eventContainer: {
+    backgroundColor: 'green',
     borderBottom: '2px solid #f7fff7',
-    height: '50%',
+    height: '71vh',
+    width: '88vw',
     padding: '10px 30px',
-    margin: 0,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    height: '50vh',
-    border: "2px solid black",
-    borderRadius: "20px",
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontFamily: '"Oswald", sans-serif',
+    color: 'black',
+    borderBottomLeftRadius: '20px',
+    borderBottomRightRadius: '20px',
+
   },
 }));
 
 export default function Events() {
   const classes = useStyles();
   return (
-    <Grid
-      container
-      className="events-container"
-    >
+    <div className={classes.eventContainer}>
       details go here
-    </Grid>
+    </div>
   );
 }

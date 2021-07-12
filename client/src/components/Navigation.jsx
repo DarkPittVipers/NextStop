@@ -72,7 +72,19 @@ export default function Navigation() {
   return (
     <Grid
       container
+<<<<<<< HEAD
       className={classes.nav}
+=======
+      alignItems="center"
+      justifyContent="space-between"
+      style={{
+        backgroundColor: '#8595da',
+        borderBottom: '2px solid #4a62c8',
+        height: 80,
+        padding: '10px 30px',
+        margin: 0,
+      }}
+>>>>>>> fec8110f9a0b0532b7fb2087029162c6502a382b
     >
       <img src="assets/NextStopLogo.svg" height="64" alt="logo" />
       <Grid

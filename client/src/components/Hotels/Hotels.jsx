@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react';
-import { Grid } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   hotelContainer: {
-    backgroundColor: 'red',
+    backgroundColor: '#f7fff7',
     borderBottom: '2px solid #f7fff7',
     height: '71vh',
     width: '88vw',

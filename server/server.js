@@ -4,9 +4,6 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
-const React = require('react');
-const { renderToString } = require('react-dom/server');
-const { match, RoutingContext } = require('react-router');
 // eslint-disable-next-line no-unused-vars
 const db = require('./database');
 const routes = require('./routes');
@@ -59,24 +56,6 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((user, done) => {
   done(null, user);
-});
-
-// req.isAuthenticated is provided from the auth router
-app.get('*', (req, res) => {
-  match({ routes, location: req.url }, (err, redirectLocation, renderProps) => {
-    if (err) {
-      res.status(500).send(err.message);
-    } else if (redirectLocation) {
-      res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-    } else if (renderProps) {
-      // eslint-disable-next-line max-len
-      // eslint-disable-next-line react/react-in-jsx-scope, react/jsx-filename-extension, react/jsx-props-no-spreading
-      const html = renderToString(<RoutingContext {...renderProps} />);
-      res.status(200).send(html);
-    } else {
-      res.status(404).send('Not found');
-    }
-  });
 });
 
 module.exports = app;

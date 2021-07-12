@@ -1,6 +1,10 @@
 import React from 'react';
-import axios from 'axios';
-import { Grid, Typography, InputBase, Button } from '@material-ui/core';
+import {
+  Grid,
+  Typography,
+  InputBase,
+  Button,
+} from '@material-ui/core';
 
 // MATERIAL UI ICONS
 import SearchIcon from '@material-ui/icons/Search';
@@ -8,7 +12,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   nav: {
     display: 'flex',
     flexDirection: 'row',
@@ -58,33 +62,17 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
     border: '2px solid white',
     borderRadius: '8px',
-    marginLeft: "5px",
+    marginLeft: '5px',
   },
 }));
 
 export default function Navigation() {
   const classes = useStyles();
 
-  const login = () => {
-    axios.get('/login');
-  };
-
   return (
     <Grid
       container
-<<<<<<< HEAD
       className={classes.nav}
-=======
-      alignItems="center"
-      justifyContent="space-between"
-      style={{
-        backgroundColor: '#8595da',
-        borderBottom: '2px solid #4a62c8',
-        height: 80,
-        padding: '10px 30px',
-        margin: 0,
-      }}
->>>>>>> fec8110f9a0b0532b7fb2087029162c6502a382b
     >
       <img src="assets/NextStopLogo.svg" height="64" alt="logo" />
       <Grid
@@ -107,12 +95,18 @@ export default function Navigation() {
         item
       >
         <AccountCircle />
-        <Button
-          className={classes.loginBtn}
-          onClick={() => { login(); }}
+        <a
+          href="/login"
+          style={{
+            textDecoration: 'none',
+          }}
         >
-        LOG IN
-        </Button>
+          <Button
+            className={classes.loginBtn}
+          >
+            LOG IN
+          </Button>
+        </a>
       </Grid>
 
     </Grid>

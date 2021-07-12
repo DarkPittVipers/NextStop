@@ -7,7 +7,7 @@ export default function Navigation() {
     <Grid
       container
       alignItems="center"
-      justify="space-between"
+      justifyContent="space-between"
       style={{
         backgroundColor: '#8595da',
         borderBottom: '2px solid #4a62c8',

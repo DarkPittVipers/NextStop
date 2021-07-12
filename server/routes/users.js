@@ -3,13 +3,17 @@ const secured = require('../lib/middleware/secured');
 
 const router = express.Router();
 
-/* GET user profile. */
-router.get('/user', secured(), (req, res) => {
-  const { _raw, _json, ...userProfile } = req.user;
-  res.render('user', {
-    userProfile: JSON.stringify(userProfile, null, 2),
-    title: 'Profile page',
-  });
+router.get('/profile', secured(), (req, res) => {
+  // TODO display user profile page
+  res.status(200).send(
+    `<!DOCTYPE html>
+    <html>
+      <body>
+        Profile Page
+        <a href="/">Home</a>
+      </body>
+    </html>`,
+  );
 });
 
 module.exports = router;

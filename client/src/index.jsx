@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
-import { Container, CssBaseline } from '@material-ui/core';
-import { createTheme, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { CssBaseline } from '@material-ui/core';
+// import { createTheme, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 import Navigation from './components/Navigation.jsx';
 import Home from './components/Home/Home.jsx';
 
 import { getCards } from './helpers/globalRequest';
 import AppContext from './helpers/context';
-import { makeStyles } from '@material-ui/core/styles';
 
 // const theme = createMuiTheme({
 //   palette: {
@@ -17,7 +17,7 @@ import { makeStyles } from '@material-ui/core/styles';
 //   },
 // });
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   main: {
     backgroundColor: '#4ecdc4',
     display: 'flex',
@@ -42,14 +42,14 @@ function App() {
 
   return (
     <div>
-        <AppContext.Provider value={{}}>
-          <CssBaseline />
-          <Navigation />
-          <div  className={classes.main}>
+      <AppContext.Provider value={{}}>
+        <CssBaseline />
+        <Navigation />
+        <div className={classes.main}>
           <Home cards={cards} />
-          </div>
+        </div>
 
-        </AppContext.Provider>
+      </AppContext.Provider>
     </div>
   );
 }

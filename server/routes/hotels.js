@@ -5,7 +5,10 @@ const Amadeus = require('amadeus');
 const Card = require('../database/models/card');
 
 const router = express.Router();
-const amadeus = new Amadeus();
+const amadeus = new Amadeus({
+  clientId: process.env.AMADEUS_CLIENT_ID,
+  clientSecret: process.env.AMADEUS_CLIENT_SECRET,
+});
 
 router.get('/hotels', (req, res) => {
   amadeus.shopping.hotelOffers.get({

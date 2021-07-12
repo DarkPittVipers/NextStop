@@ -1,9 +1,26 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
 const express = require('express');
+const Amadeus = require('amadeus');
 const Card = require('../database/models/card');
 
 const router = express.Router();
+const amadeus = new Amadeus();
+
+router.get('/hotels', (req, res) => {
+  amadeus.shopping.hotelOffers.get({
+    cityCode: req.params.cityCode,
+    checkInDate: req.params.checkInDate,
+    checkOutDate: req.params.checkOutDate,
+    adults: req.params.adults,
+  }).then((response) => {
+    console.log(response);
+    res.status(200).send(response);
+  }).catch((err) => {
+    console.log('error in server getting flights', err);
+    res.status(500).send(err);
+  });
+});
 
 router.get('/', (req, res) => {
   let { count = 5, page = 0 } = req.query;

@@ -8,7 +8,7 @@
     "start": "node server/index.js",
     "test": "jest"
   },
-  "author": "Pix3lAssassin",
+  "author": "DarkPittVipers",
   "license": "No License",
   "devDependencies": {
     "@testing-library/react": "^11.2.7",

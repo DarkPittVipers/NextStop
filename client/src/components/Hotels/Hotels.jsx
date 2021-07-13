@@ -1,13 +1,15 @@
 import React, { useContext, useState } from 'react';
-import { TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import HotelController from './HotelController.jsx';
+import HotelTile from './HotelTile.jsx';
+import DatePicker from './DatePicker.jsx';
 
 const useStyles = makeStyles((theme) => ({
   hotelContainer: {
     backgroundColor: '#f7fff7',
     borderBottom: '2px solid #f7fff7',
-    height: '71vh',
     width: '88vw',
+    height: '72vh',
     padding: '10px 30px',
     display: 'flex',
     flexDirection: 'column',
@@ -17,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
     color: 'black',
     borderBottomLeftRadius: '20px',
     borderBottomRightRadius: '20px',
+    overflow: 'auto',
   },
 }));
 
@@ -24,7 +27,8 @@ export default function Hotels() {
   const classes = useStyles();
   return (
     <div className={classes.hotelContainer}>
-      HOTEL STUFF
+      <HotelController />
+      <HotelTile />
     </div>
   );
 }

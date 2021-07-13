@@ -1,13 +1,17 @@
 import React, { useContext, useState } from 'react';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import FlightController from './FlightController.jsx';
+import FlightTile from './FlightTile.jsx';
+import DatePicker from './DatePicker.jsx';
 
 const useStyles = makeStyles((theme) => ({
   flightContainer: {
-    backgroundColor: 'blue',
-    height: '71vh',
+    backgroundColor: '#f7fff7',
+    borderBottom: '2px solid #f7fff7',
     width: '88vw',
-    padding: '0px',
+    height: '72vh',
+    padding: '10px 30px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -16,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     color: 'black',
     borderBottomLeftRadius: '20px',
     borderBottomRightRadius: '20px',
+    overflow: 'auto',
   },
 }));
 
@@ -23,7 +28,8 @@ export default function Flights() {
   const classes = useStyles();
   return (
     <div className={classes.flightContainer}>
-      flight stuff
+      <FlightController />
+      <FlightTile />
     </div>
   );
 }

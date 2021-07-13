@@ -43,7 +43,6 @@ export default function Home() {
   return (
     <div className={classes.homeContainer}>
       <FullWidthTabs />
-
     </div>
   );
 }

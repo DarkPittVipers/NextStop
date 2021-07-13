@@ -20,39 +20,28 @@ const useStyles = makeStyles(() => ({
     padding: '10px 30px',
     marginTop: '3%',
     display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'top',
-    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
     borderRadius: '20px',
     fontFamily: '"Oswald", sans-serif',
     color: 'black',
     boxShadow: '0 20px 20px 20px rgba(0, 0, 0, 0.15), 0 5px 15px 15px rgba(0, 0, 0, 0.15)',
   },
-  homebtnContainer: {
-
-  },
-  topContainer: {
+  leftContainer: {
+    border: '1px solid red',
     display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    flexDirection: 'column',
+    justifyContent: 'center',
     alignItems: 'center',
   },
-  bottomContainer: {
-
+  rightContainer: {
+    border: '1px solid blue',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   profile: {
-    border: '1px solid black',
-    borderRadius: '8px',
-    padding: '10px',
-    margin: '10px',
-  },
-  myTrip: {
-    border: '1px solid black',
-    borderRadius: '8px',
-    padding: '10px',
-    margin: '10px',
-  },
-  wishList: {
     border: '1px solid black',
     borderRadius: '8px',
     padding: '10px',
@@ -62,26 +51,52 @@ const useStyles = makeStyles(() => ({
     backgroundColor: 'white',
     height: '20vh',
   },
+  budget: {
+    border: '1px solid black',
+    borderRadius: '8px',
+    padding: '10px',
+    margin: '10px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '80%',
+    height: '60%',
+  },
+  budItems: {
+    border: '1px solid black',
+    borderRadius: '8px',
+    width: '90%',
+    padding: '10px',
+    margin: '5px 0 5px 0',
+  },
+  myTrip: {
+    border: '1px solid black',
+    borderRadius: '8px',
+    padding: '10px',
+    margin: '10px',
+    width: '80%',
+    height: '80%',
+  },
+  logOutBtn: {
+    border: '1px solid black',
+    borderRadius: '8px',
+  },
+
 }));
 
-export default function Home() {
+export default function UserProfile() {
   const classes = useStyles();
   return (
     <Grid
       container
+      xs={12}
       className={classes.profileContainer}
     >
       <Grid
-        item
-        className={classes.homebtnContainer}
-      >
-        <Button>
-          {/* <Link to="/">Home</Link> */}
-        </Button>
-      </Grid>
-      <Grid
+        xs={6}
         container
-        className={classes.topContainer}
+        className={classes.leftContainer}
       >
         <Grid
         item
@@ -100,29 +115,77 @@ export default function Home() {
             <img className={classes.profilePic} src="assets/png.png" alt="Broken Profile Pic" />
 
           </Grid>
+
         </Grid>
         <Grid
-        item
-        className={classes.myTrip}
+          item
+          className={classes.budget}
         >
-          My Trip
+          <Grid
+            item
+            className={classes.budItems}
+          >
+            Budget:
+          </Grid>
+          <Grid
+            item
+            className={classes.budItems}
+          >
+            Events:
+          </Grid>
+          <Grid
+            item
+            className={classes.budItems}
+          >
+            Hotels:
+          </Grid>
+          <Grid
+            item
+            className={classes.budItems}
+          >
+            Flights:
+          </Grid>
+          <Grid
+            item
+            className={classes.budItems}
+          >
+            Total:
+          </Grid>
         </Grid>
       </Grid>
+
       <Grid
         item
-        className={classes.BottomContainer}
+        xs={6}
+        className={classes.rightContainer}
       >
-        <div className={classes.wishList}>
-          Wish List
-        </div>
+        <Grid
+          item
+          className={classes.myTrip}
+        >
+          My Trip List
+        </Grid>
+        <Grid
+          item
+          className={classes.logOutBtn}
+        >
+          <a
+            href="/logout"
+            style={{
+              textDecoration: 'none',
+            }}
+          >
+            <Button>Log Out</Button>
+          </a>
+        </Grid>
       </Grid>
       {/* <Route path="/"><Home /></Route> */}
     </Grid>
   );
 }
 
-Home.propTypes = {
+UserProfile.propTypes = {
 };
 
-Home.defaultProps = {
+UserProfile.defaultProps = {
 };

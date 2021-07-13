@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 
 import {
   TextField,
-  DialogContent
+  DialogContent,
 } from '@material-ui/core';
 
 import useStyles from '../styles';
 
 export default function CardDialogBody({
-  setBody, setUsername, validation
+  setBody, setUsername, validation,
 }) {
   const classes = useStyles();
 
@@ -52,8 +52,8 @@ CardDialogBody.propTypes = {
     username: PropTypes.string,
     usernameError: PropTypes.bool,
     email: PropTypes.string,
-    emailError: PropTypes.bool
-  })
+    emailError: PropTypes.bool,
+  }),
 };
 
 CardDialogBody.defaultProps = {
@@ -65,6 +65,6 @@ CardDialogBody.defaultProps = {
     username: 'For privacy reasons, do not use your full name or email address',
     usernameError: false,
     email: 'For authentication reasons, you will not be emailed',
-    emailError: false
-  }
+    emailError: false,
+  },
 };

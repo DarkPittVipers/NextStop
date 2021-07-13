@@ -46,6 +46,7 @@ app.use(passport.session());
 
 app.use('/api/events', routes.events);
 app.use('/api/hotels', routes.hotels);
+app.use('/api/flights', routes.flights);
 app.use('/', routes.auth);
 app.use('/', routes.users);
 app.use('/', routes.home);

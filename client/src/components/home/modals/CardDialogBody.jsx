@@ -6,14 +6,14 @@ import {
   Typography,
   TextField,
   Button,
-  DialogContent
+  DialogContent,
 } from '@material-ui/core';
 
 import { uploadPhoto } from '../../../helpers/globalRequest';
 import useStyles from '../styles';
 
 export default function CardDialogBody({
-  image, setImage, setBody, setUsername, validation
+  image, setImage, setBody, setUsername, validation,
 }) {
   // Helps display errors related to the photo upload
   const [networkError, setNetworkError] = useState(null);
@@ -95,8 +95,8 @@ CardDialogBody.propTypes = {
     username: PropTypes.string,
     usernameError: PropTypes.bool,
     email: PropTypes.string,
-    emailError: PropTypes.bool
-  })
+    emailError: PropTypes.bool,
+  }),
 };
 
 CardDialogBody.defaultProps = {
@@ -110,6 +110,6 @@ CardDialogBody.defaultProps = {
     username: 'For privacy reasons, do not use your full name or email address',
     usernameError: false,
     email: 'For authentication reasons, you will not be emailed',
-    emailError: false
-  }
+    emailError: false,
+  },
 };

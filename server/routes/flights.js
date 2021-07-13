@@ -34,6 +34,7 @@ router.get('/oneWay', (req, res) => {
 // departure date format is 'YYYY-MM-DD"
 
 router.get('/roundTrip', (req, res) => {
+  console.log('I AM IN ROUNDTRIP');
   amadeus.shopping.flightOffersSearch.get({
     originLocationCode: req.query.originLocationCode,
     destinationLocationCode: req.query.destinationLocationCode,

@@ -6,13 +6,13 @@ const router = express.Router();
 router.get('/profile', secured(), (req, res) => {
   // TODO display user profile page
   res.status(200).send(
-    `<!DOCTYPE html>
-    <html>
-      <body>
-        Profile Page
-        <a href="/">Home</a>
-      </body>
-    </html>`,
+    // `<!DOCTYPE html>
+    // <html>
+    //   <body>
+    //     Profile Page
+    //     <a href="/">Home</a>
+    //   </body>
+    // </html>`,
   );
 });
 

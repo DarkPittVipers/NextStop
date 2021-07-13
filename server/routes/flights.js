@@ -3,7 +3,10 @@ const express = require('express');
 const Amadeus = require('amadeus');
 
 const router = express.Router();
-const amadeus = new Amadeus();
+const amadeus = new Amadeus({
+  clientId: process.env.AMADEUS_CLIENT_ID,
+  clientSecret: process.env.AMADEUS_CLIENT_SECRET,
+});
 
 // flight inspiration for landing page from user current destination
 // description link https://developers.amadeus.com/self-service/category/air/api-doc/flight-inspiration-search

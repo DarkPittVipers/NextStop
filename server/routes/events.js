@@ -2,7 +2,10 @@ const express = require('express');
 const Amadeus = require('amadeus');
 
 const router = express.Router();
-const amadeus = new Amadeus();
+const amadeus = new Amadeus({
+  clientId: process.env.AMADEUS_CLIENT_ID,
+  clientSecret: process.env.AMADEUS_CLIENT_SECRET,
+});
 
 // Returns activities for a location in Barcelona based on geolocation coordinates
 router.get('/events', (req, res) => {

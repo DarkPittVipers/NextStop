@@ -2,20 +2,13 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 import { CssBaseline } from '@material-ui/core';
-// import { createTheme, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Navigation from './components/Navigation.jsx';
 import Home from './components/Home/Home.jsx';
 
 import { getCards } from './helpers/globalRequest';
-import AppContext from './helpers/context';
-
-// const theme = createMuiTheme({
-//   palette: {
-//     type: 'dark',
-//   },
-// });
+import { AppContext } from './helpers/context';
 
 const useStyles = makeStyles(() => ({
   main: {

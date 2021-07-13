@@ -1,10 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, TextField } from '@material-ui/core';
-import { alpha, makeStyles } from '@material-ui/core/styles';
-import SearchIcon from '@material-ui/icons/Search';
+import { makeStyles } from '@material-ui/core/styles';
 import DatePicker from './DatePicker.jsx';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   hotelContainer: {
     backgroundColor: '#f7fff7',
     borderBottom: '2px solid #f7fff7',

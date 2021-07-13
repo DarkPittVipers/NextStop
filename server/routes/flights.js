@@ -48,11 +48,11 @@ router.get('/flights/oneWay', (req, res) => {
 
 router.get('/flights/roundTrip', (req, res) => {
   amadeus.shopping.flightOffersSearch.get({
-    originLocationCode: req.params.originLocationCode,
-    destinationLocationCode: req.params.destinationLocationCode,
-    departureDate: req.params.departureDate,
-    adults: req.params.adults,
-    returnDate: req.params.returnDate,
+    originLocationCode: req.body.originLocationCode,
+    destinationLocationCode: req.body.destinationLocationCode,
+    departureDate: req.body.departureDate,
+    adults: req.body.adults,
+    returnDate: req.body.returnDate,
   }).then((response) => {
     console.log(response);
     res.status(200).send(response);

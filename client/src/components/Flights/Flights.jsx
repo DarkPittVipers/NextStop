@@ -25,10 +25,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Flights() {
+  const [flights, setFlights] = useState([]);
+
   const classes = useStyles();
   return (
     <div className={classes.flightContainer}>
-      <FlightController />
+      <FlightController flights={flights} setFlights={setFlights} />
       <FlightTile />
     </div>
   );

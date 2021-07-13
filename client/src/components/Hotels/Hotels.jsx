@@ -1,10 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import HotelController from './HotelController.jsx';
 import HotelTile from './HotelTile.jsx';
-import DatePicker from './DatePicker.jsx';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   hotelContainer: {
     backgroundColor: '#f7fff7',
     borderBottom: '2px solid #f7fff7',

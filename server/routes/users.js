@@ -1,5 +1,6 @@
 const express = require('express');
 const secured = require('../lib/middleware/secured');
+const userInViews = require('../lib/middleware/userInViews');
 
 const router = express.Router();
 
@@ -14,6 +15,10 @@ router.get('/user', secured(), (req, res) => {
       </body>
     </html>`,
   );
+});
+
+router.get('/userdata', userInViews(), (req, res) => {
+  res.sendStatus(200);
 });
 
 module.exports = router;

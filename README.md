@@ -23,7 +23,7 @@
 
 ## Setup ##
 <p>To run the project</p>
-<p>-npm install</p>
+<p>npm install</p>
 <p>npm start</p>
 <p>npm run react-dev</p>
 

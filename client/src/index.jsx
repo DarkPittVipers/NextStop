@@ -1,6 +1,6 @@
-/* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 
@@ -32,18 +32,12 @@ function App() {
   const classes = useStyles();
 
   useEffect(() => {
-    getCards()
-      .then((postArr) => {
-        setCards(postArr);
+    axios.get('/userdata')
+      .then((res) => {
+        setUser(res.locals.user);
       })
       .catch((err) => console.log(err));
   }, []);
-
-  // const getUserInfo = () {
-  //   axios.get('/profile', (req, res) => {
-  //     setUser(res.locals.user)
-  //   });
-  // }
 
   // let UserProfile = () => <UserProfile />
 
@@ -53,17 +47,17 @@ function App() {
         <CssBaseline />
         <Navigation />
         <div className={classes.main}>
-          {/* <Link to="/"><Home /></Link> */}
-          {/* <Link to="profile"><UserProfile /></Link> */}
-          <UserProfile />
+          <Link to="/"><Home /></Link>
+          <Link to="/profile"><UserProfile /></Link>
+          {/* <UserProfile /> */}
         </div>
       </AppContext.Provider>
-      {/* <Route path="/"><Home /></Route>
-      <Route path="/profile"><UserProfile /></Route> */}
+      <Route path="/"><Home /></Route>
+      <Route path="/profile"><UserProfile /></Route>
 
     </div>
   );
 }
-ReactDOM.render(<App />, document.getElementById('app'));
+// ReactDOM.render(<App />, document.getElementById('app'));
 
-// ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, document.getElementById('app'));
+ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, document.getElementById('app'));

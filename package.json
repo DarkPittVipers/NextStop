@@ -8,7 +8,7 @@
     "start": "node server/index.js",
     "test": "jest"
   },
-  "author": "Pix3lAssassin",
+  "author": "DarkPittVipers",
   "license": "No License",
   "devDependencies": {
     "@testing-library/react": "^11.2.7",
@@ -43,6 +43,7 @@
     "react-dom": "^16.4",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
+    "react-swipeable-views": "^0.14.0",
     "webpack": "^5.38.1",
     "webpack-cli": "^4.2.0"
   }

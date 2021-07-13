@@ -4,7 +4,7 @@ const userInViews = require('../lib/middleware/userInViews');
 
 const router = express.Router();
 
-router.get('/user', secured(), (req, res) => {
+router.get('/profile', secured(), (req, res) => {
   // TODO display user profile page
   res.status(200).send(
     `<!DOCTYPE html>

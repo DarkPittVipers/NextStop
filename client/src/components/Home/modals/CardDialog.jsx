@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -6,26 +7,26 @@ import {
   DialogTitle,
   DialogActions,
   Typography,
-  IconButton
+  IconButton,
 } from '@material-ui/core/';
 import { withStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 
-import CommentDialogBody from './CommentDialogBody.jsx';
+import CardDialogBody from './CardDialogBody.jsx';
 import useStyles from '../styles';
-import { createComment } from '../helpers/cardRequests';
+import { createCard } from '../helpers/cardRequests';
 
 const styles = (theme) => ({
   root: {
     margin: 0,
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
   },
   closeButton: {
     position: 'absolute',
     right: theme.spacing(1),
     top: theme.spacing(1),
-    color: theme.palette.grey[500]
-  }
+    color: theme.palette.grey[500],
+  },
 });
 
 // Title bar with a close button
@@ -49,12 +50,13 @@ const DialogTitleBar = withStyles(styles)((props) => {
   );
 });
 
-export default function CommentDialog({ cardId }) {
+export default function CardDialog() {
   // Boolean for if the modal is open or not
   const [open, setOpen] = useState(false);
   // Form data
   const [body, setBody] = useState('');
   const [username, setUsername] = useState('');
+  const [image, setImage] = useState(null);
   // Validation object for showing info to user
   const [validation, setValidation] = useState({
     body: '',
@@ -62,7 +64,7 @@ export default function CommentDialog({ cardId }) {
     username: 'For privacy reasons, do not use your full name or email address',
     usernameError: false,
     email: 'For authentication reasons, you will not be emailed',
-    emailError: false
+    emailError: false,
   });
 
   const classes = useStyles();
@@ -126,14 +128,14 @@ export default function CommentDialog({ cardId }) {
     const nameValidator = validateName();
     const newValidator = { ...bodyValidator, ...nameValidator };
 
-    if (!newValidator.bodyError && !newValidator.usernameError && cardId.length > 0) {
+    if (!newValidator.bodyError && !newValidator.usernameError && !newValidator.emailError) {
       // If the card is valid create it
       const card = {
-        body,
-        username
+        description: body,
+        username,
+        image,
       };
-
-      createComment(card, cardId)
+      createCard(card)
         .then(() => handleClose())
         .catch();
     } else {
@@ -145,15 +147,17 @@ export default function CommentDialog({ cardId }) {
   return (
     <>
       <Button variant="contained" color="primary" onClick={handleOpen}>
-        Add Comment
+        Create a new card
       </Button>
 
       <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitleBar id="customized-dialog-title" onClose={handleClose}>
-          Post a new comment
+          Create a card
         </DialogTitleBar>
 
-        <CommentDialogBody
+        <CardDialogBody
+          image={image}
+          setImage={setImage}
           setBody={setBody}
           setUsername={setUsername}
           validation={validation}
@@ -169,17 +173,15 @@ export default function CommentDialog({ cardId }) {
   );
 }
 
-CommentDialog.propTypes = {
+CardDialog.propTypes = {
   classes: PropTypes.shape({
     // eslint-disable-next-line react/forbid-prop-types
     root: PropTypes.object,
     // eslint-disable-next-line react/forbid-prop-types
-    closeButton: PropTypes.object
+    closeButton: PropTypes.object,
   }),
-  cardId: PropTypes.string
 };
 
-CommentDialog.defaultProps = {
+CardDialog.defaultProps = {
   classes: { root: {}, closeButton: {} },
-  cardId: ''
 };

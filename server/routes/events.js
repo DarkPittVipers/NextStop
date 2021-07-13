@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const express = require('express');
 const Amadeus = require('amadeus');
 
@@ -8,13 +9,15 @@ const amadeus = new Amadeus({
 });
 
 // Returns activities for a location in Barcelona based on geolocation coordinates
-router.get('/events', (req, res) => {
-  amadeus.shopping.activities.get({
-    latitude: req.params.latitude,
-    longitude: req.params.longitude,
+// categories to choose from: SIGHTS, NIGHTLIFE, RESTAURANT, SHOPPING
+router.get('/', (req, res) => {
+  amadeus.referenceData.locations.pointsOfInterest.get({
+    latitude: req.query.latitude,
+    longitude: req.query.longitude,
+    radius: 100,
+    categories: req.query.categories,
   }).then((response) => {
-    console.log(response);
-    res.status(200).send(response);
+    res.status(200).send(response.result);
   }).catch((err) => {
     console.log(err);
     res.status(500).send(err);

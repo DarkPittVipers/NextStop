@@ -29,7 +29,7 @@ router.get('/callback', (req, res, next) => {
       if (err2) { return next(err2); }
       const { returnTo } = req.session;
       delete req.session.returnTo;
-      res.redirect(returnTo || '/profile');
+      res.redirect(returnTo || '/');
     });
   })(req, res, next);
 });

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -6,7 +7,7 @@ import {
   DialogTitle,
   DialogActions,
   Typography,
-  IconButton
+  IconButton,
 } from '@material-ui/core/';
 import { withStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
@@ -18,14 +19,14 @@ import { createComment } from '../helpers/cardRequests';
 const styles = (theme) => ({
   root: {
     margin: 0,
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
   },
   closeButton: {
     position: 'absolute',
     right: theme.spacing(1),
     top: theme.spacing(1),
-    color: theme.palette.grey[500]
-  }
+    color: theme.palette.grey[500],
+  },
 });
 
 // Title bar with a close button
@@ -62,7 +63,7 @@ export default function CommentDialog({ cardId }) {
     username: 'For privacy reasons, do not use your full name or email address',
     usernameError: false,
     email: 'For authentication reasons, you will not be emailed',
-    emailError: false
+    emailError: false,
   });
 
   const classes = useStyles();
@@ -130,7 +131,7 @@ export default function CommentDialog({ cardId }) {
       // If the card is valid create it
       const card = {
         body,
-        username
+        username,
       };
 
       createComment(card, cardId)
@@ -174,12 +175,12 @@ CommentDialog.propTypes = {
     // eslint-disable-next-line react/forbid-prop-types
     root: PropTypes.object,
     // eslint-disable-next-line react/forbid-prop-types
-    closeButton: PropTypes.object
+    closeButton: PropTypes.object,
   }),
-  cardId: PropTypes.string
+  cardId: PropTypes.string,
 };
 
 CommentDialog.defaultProps = {
   classes: { root: {}, closeButton: {} },
-  cardId: ''
+  cardId: '',
 };

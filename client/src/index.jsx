@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
@@ -8,7 +9,7 @@ import Navigation from './components/Navigation.jsx';
 import Home from './components/Home/Home.jsx';
 
 import { getCards } from './helpers/globalRequest';
-import { AppContext } from './helpers/context';
+import AppContext from './helpers/context';
 
 const useStyles = makeStyles(() => ({
   main: {
@@ -35,14 +36,12 @@ function App() {
 
   return (
     <div>
-      <AppContext.Provider value={{}}>
-        <CssBaseline />
-        <Navigation />
-        <div className={classes.main}>
-          <Home cards={cards} />
-        </div>
+      <CssBaseline />
+      <Navigation />
+      <div className={classes.main}>
+        <Home cards={cards} />
+      </div>
 
-      </AppContext.Provider>
     </div>
   );
 }

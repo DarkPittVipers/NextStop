@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function FlightController(setFlights) {
+export default function FlightController({ setFlights, flights }) {
   const [flightInfo, setFlightInfo] = useState({
     originLocationCode: 'JFK',
     destinationLocationCode: '',
@@ -42,14 +42,24 @@ export default function FlightController(setFlights) {
     returnDate: '',
   });
   const getRoundTrip = () => {
-    axios.get('/flights/roundTrip', flightInfo)
+    axios.get('api/flights/roundTrip', {
+      params: {
+        originLocationCode: flightInfo.originLocationCode,
+        destinationLocationCode: flightInfo.destinationLocationCode,
+        departureDate: flightInfo.departureDate,
+        adults: flightInfo.adults,
+        returnDate: flightInfo.returnDate,
+        currencyCode: 'USD',
+        maxPrice: 500,
+        max: 100,
+      },
+    })
       .then((response) => {
-        setFlights(response.results);
+        setFlights(response);
       })
       .catch((err) => {
         console.log(err);
       });
-    console.log(flightInfo);
   };
 
   const onFlightInfoChange = (input) => (e) => {

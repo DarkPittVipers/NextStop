@@ -1,95 +1,22 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
 import {
-  // BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-} from 'react-router-dom';
-import {
-  Tab, Paper, Tabs, Grid, Button,
+  Grid, Button,
 } from '@material-ui/core';
 
-import { makeStyles } from '@material-ui/core/styles';
+import userProStyles from './UserProStyles.jsx';
 
-const useStyles = makeStyles(() => ({
-  profileContainer: {
-    backgroundColor: '#f7fff7',
-    borderBottom: '2px solid #f7fff7',
-    height: '80vh',
-    width: '90vw',
-    padding: '10px 30px',
-    marginTop: '3%',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    borderRadius: '20px',
-    fontFamily: '"Oswald", sans-serif',
-    color: 'black',
-    boxShadow: '0 20px 20px 20px rgba(0, 0, 0, 0.15), 0 5px 15px 15px rgba(0, 0, 0, 0.15)',
-  },
-  leftContainer: {
-    border: '1px solid red',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  rightContainer: {
-    border: '1px solid blue',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  profile: {
-    border: '1px solid black',
-    borderRadius: '8px',
-    padding: '10px',
-    margin: '10px',
-  },
-  profilePic: {
-    backgroundColor: 'white',
-    height: '20vh',
-  },
-  budget: {
-    border: '1px solid black',
-    borderRadius: '8px',
-    padding: '10px',
-    margin: '10px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '80%',
-    height: '60%',
-  },
-  budItems: {
-    border: '1px solid black',
-    borderRadius: '8px',
-    width: '90%',
-    padding: '10px',
-    margin: '5px 0 5px 0',
-  },
-  myTrip: {
-    border: '1px solid black',
-    borderRadius: '8px',
-    padding: '10px',
-    margin: '10px',
-    width: '80%',
-    height: '80%',
-  },
-  logOutBtn: {
-    border: '1px solid black',
-    borderRadius: '8px',
-  },
-
-}));
-
-export default function UserProfile() {
-  const classes = useStyles();
+export default function UserProfile({ user }) {
+  const classes = userProStyles();
+  const [eventsTot, setHotelTot] = useState(0);
+  const [hotelsTot, setHotelsTot] = useState(0);
+  const [flightsTot, setFlightsTot] = useState(0);
+  const [total, setTotal] = useState(0);
   return (
     <Grid
       container
+      spacing={2}
       className={classes.profileContainer}
     >
       <Grid
@@ -98,17 +25,22 @@ export default function UserProfile() {
         className={classes.leftContainer}
       >
         <Grid
-        item
-        className={classes.profile}
+          item
+          xs={12}
+          className={classes.profile}
         >
           <Grid
             item
+            xs={6}
             className={classes.userName}
           >
             Username:
+            &nbsp;
+            {user}
           </Grid>
           <Grid
             item
+            xs={6}
             className={classes.profilePic}
           >
             <img className={classes.profilePic} src="assets/png.png" alt="Broken Profile Pic" />
@@ -118,37 +50,67 @@ export default function UserProfile() {
         </Grid>
         <Grid
           item
+          xs={12}
           className={classes.budget}
         >
           <Grid
             item
-            className={classes.budItems}
+            xs={12}
+            className={classes.budTitle}
           >
             Budget:
           </Grid>
           <Grid
             item
+            xs={12}
             className={classes.budItems}
           >
-            Events:
+            <div>
+              Events:
+            </div>
+            <div>
+              $
+              {eventsTot}
+            </div>
           </Grid>
           <Grid
             item
+            xs={12}
             className={classes.budItems}
           >
-            Hotels:
+            <div>
+              Hotels:
+            </div>
+            <div>
+              $
+              {hotelsTot}
+            </div>
           </Grid>
           <Grid
             item
+            xs={12}
             className={classes.budItems}
           >
-            Flights:
+            <div>
+              Flights:
+            </div>
+            <div>
+              $
+              {flightsTot}
+            </div>
           </Grid>
           <Grid
             item
+            xs={12}
             className={classes.budItems}
           >
-            Total:
+            <div>
+              Total:
+            </div>
+            <div>
+              $
+              {total}
+            </div>
           </Grid>
         </Grid>
       </Grid>
@@ -160,11 +122,40 @@ export default function UserProfile() {
       >
         <Grid
           item
+          xs={12}
           className={classes.myTrip}
         >
-          My Trip List
+          <Grid
+            item
+            xs={12}
+            className={classes.myTripTitle}
+          >
+            My Trip List
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            className={classes.myTripEvents}
+          >
+            Events
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            className={classes.myTripHotels}
+          >
+            Hotels
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            className={classes.myTripFlights}
+          >
+            Flights
+          </Grid>
         </Grid>
-        <div
+        <Grid
+          item
           className={classes.logOutBtn}
         >
           <a
@@ -173,17 +164,20 @@ export default function UserProfile() {
               textDecoration: 'none',
             }}
           >
-            <Button>Log Out</Button>
+            <Button>
+              Log Out
+            </Button>
           </a>
-        </div>
+        </Grid>
       </Grid>
-      {/* <Route path="/"><Home /></Route> */}
     </Grid>
   );
 }
 
 UserProfile.propTypes = {
+  user: PropTypes.string,
 };
 
 UserProfile.defaultProps = {
+  user: '',
 };

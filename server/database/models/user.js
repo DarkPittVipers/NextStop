@@ -14,6 +14,7 @@ const UserSchema = mongoose.Schema({
     familyName: String,
     givenName: String,
   },
+  budget: { type: Number, default: 10000 },
 }, {
   timestamps: true,
 });

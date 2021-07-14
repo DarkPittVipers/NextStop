@@ -34,11 +34,12 @@ function App() {
   useEffect(() => {
     axios.get('/userdata')
       .then((res) => {
-        setUser(res.locals.user);
+        setUser(res.locals);
+        console.log('res', res);
       })
       .catch((err) => console.log(err));
   }, []);
-
+  console.log(user);
   // let UserProfile = () => <UserProfile />
 
   return (
@@ -48,12 +49,12 @@ function App() {
         <Navigation />
         <div className={classes.main}>
           <Link to="/"><Home /></Link>
-          <Link to="/profile"><UserProfile /></Link>
-          {/* <UserProfile /> */}
+          {/* <Link to="/profile"><UserProfile /></Link> */}
+          <UserProfile />
         </div>
       </AppContext.Provider>
       <Route path="/"><Home /></Route>
-      <Route path="/profile"><UserProfile /></Route>
+      {/* <Route path="/profile"><UserProfile /></Route> */}
 
     </div>
   );

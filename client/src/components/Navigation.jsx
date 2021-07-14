@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Grid,
   Typography,
@@ -6,11 +7,15 @@ import {
   Button,
 } from '@material-ui/core';
 
+import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
+
 // MATERIAL UI ICONS
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
 import { makeStyles } from '@material-ui/core/styles';
+
+import Home from './Home/Home.jsx';
 
 const useStyles = makeStyles(() => ({
   nav: {
@@ -74,7 +79,10 @@ export default function Navigation() {
       container
       className={classes.nav}
     >
-      <img src="assets/NextStopLogo.svg" height="64" alt="logo" />
+      <Link to={<Home />}>
+        <img src="assets/NextStopLogo.svg" height="64" alt="logo" />
+      </Link>
+      {/* <img src="assets/NextStopLogo.svg" height="64" alt="logo" /> */}
       <Grid
         className={classes.destSearch}
         item

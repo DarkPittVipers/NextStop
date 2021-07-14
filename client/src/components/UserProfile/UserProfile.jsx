@@ -90,12 +90,11 @@ export default function UserProfile() {
   return (
     <Grid
       container
-      xs={12}
       className={classes.profileContainer}
     >
       <Grid
         xs={6}
-        container
+        item
         className={classes.leftContainer}
       >
         <Grid
@@ -165,8 +164,7 @@ export default function UserProfile() {
         >
           My Trip List
         </Grid>
-        <Grid
-          item
+        <div
           className={classes.logOutBtn}
         >
           <a
@@ -177,7 +175,7 @@ export default function UserProfile() {
           >
             <Button>Log Out</Button>
           </a>
-        </Grid>
+        </div>
       </Grid>
       {/* <Route path="/"><Home /></Route> */}
     </Grid>

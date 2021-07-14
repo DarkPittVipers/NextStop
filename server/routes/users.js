@@ -1,5 +1,4 @@
 const express = require('express');
-
 const userInViews = require('../lib/middleware/userInViews');
 
 const router = express.Router();

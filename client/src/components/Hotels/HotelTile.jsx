@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function HotelTile() {
+export default function HotelTile({ hotel }) {
   const classes = useStyles();
 
   return (
@@ -43,10 +43,10 @@ export default function HotelTile() {
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  Standard license
+                  {hotel.hotel.name}
                 </Typography>
                 <Typography variant="body2" gutterBottom>
-                  Full resolution 1920x1080 • JPEG
+                  {hotel.hotel.description ? hotel.hotel.description.text : <span>undefined</span>}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
                   ID: 1030114
@@ -59,7 +59,7 @@ export default function HotelTile() {
               </Grid>
             </Grid>
             <Grid item>
-              <Typography variant="subtitle1">$19.00</Typography>
+              <Typography variant="subtitle1">Price</Typography>
             </Grid>
           </Grid>
         </Grid>

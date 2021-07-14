@@ -1,33 +1,29 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState, useEffect } from 'react';
+import { CircularProgress } from '@material-ui/core';
+import useStyles from '../TabStyle.jsx';
 import HotelController from './HotelController.jsx';
 import HotelTile from './HotelTile.jsx';
 
-const useStyles = makeStyles(() => ({
-  hotelContainer: {
-    backgroundColor: '#f7fff7',
-    borderBottom: '2px solid #f7fff7',
-    width: '88vw',
-    height: '72vh',
-    padding: '10px 30px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontFamily: '"Oswald", sans-serif',
-    color: 'black',
-    borderBottomLeftRadius: '20px',
-    borderBottomRightRadius: '20px',
-    overflow: 'auto',
-  },
-}));
-
 export default function Hotels() {
+  const [hotelInfo, setHotelInfo] = useState({
+    cityCode: '',
+    checkInDate: '',
+    checkOutDate: '',
+    adults: null,
+
+  });
+  const [hotels, setHotels] = useState([]);
   const classes = useStyles();
+  useEffect(() => {
+    console.log(hotels);
+  }, [hotels]);
   return (
-    <div className={classes.hotelContainer}>
-      <HotelController />
-      <HotelTile />
+    <div className={classes.tabContainer}>
+      <HotelController hotelInfo={hotelInfo} setHotels={setHotels} hotels={hotels} />
+      {hotels.length === 0 ? <CircularProgress />
+        : hotels.map((hotel) => {
+          return <HotelTile key={hotel.hotel.hotelId} hotel={hotel} />;
+        })}
     </div>
   );
 }

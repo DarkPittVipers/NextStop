@@ -27,7 +27,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FlightTile() {
+const displaySegments = (itinerary, arriveDepart) => {
+  if (itinerary.segments.length === 1) {
+    let arrivalTime = itinerary.segments[0][arriveDepart].at;
+    arrivalTime = arrivalTime.split('T');
+    const date = arrivalTime[0];
+    const time = arrivalTime[1];
+    return `${itinerary.segments[0][arriveDepart].iataCode} @
+    ${time} ${date}`;
+  }
+  if (itinerary.segments.length > 1) {
+    itinerary.segments.map((segment) => `${segment[arriveDepart].iataCode} @ ${segment[arriveDepart].at}`);
+  }
+};
+
+export default function FlightTile({ flight }) {
   const classes = useStyles();
 
   return (
@@ -46,10 +60,18 @@ export default function FlightTile() {
                   Standard license
                 </Typography>
                 <Typography variant="body2" gutterBottom>
-                  Full resolution 1920x1080 • JPEG
+                  Departure:
+                  {' '}
+                  {displaySegments(flight.itineraries[0], 'departure')}
+                  <br />
+                  Arrival:
+                  {' '}
+                  {displaySegments(flight.itineraries[0], 'arrival')}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  ID: 1030114
+                  Availabile Seats:
+                  {' '}
+                  {flight.numberOfBookableSeats}
                 </Typography>
               </Grid>
               <Grid item>
@@ -59,7 +81,10 @@ export default function FlightTile() {
               </Grid>
             </Grid>
             <Grid item>
-              <Typography variant="subtitle1">$19.00</Typography>
+              <Typography variant="subtitle1">
+                $
+                {flight.price.base}
+              </Typography>
             </Grid>
           </Grid>
         </Grid>

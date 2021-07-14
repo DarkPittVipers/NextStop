@@ -1,55 +1,183 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-} from 'react-router-dom';
-import {
-  Tab, Paper, Tabs,
+  Grid, Button,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import Events from '../Events/Events.jsx';
-import Flights from '../Flights/Flights.jsx';
-import Hotels from '../Hotels/Hotels.jsx';
-import FullWidthTabs from '../Tabs.jsx';
 
-const useStyles = makeStyles((theme) => ({
-  homeContainer: {
-    backgroundColor: '#f7fff7',
-    borderBottom: '2px solid #f7fff7',
-    height: '80vh',
-    width: '90vw',
-    padding: '10px 30px',
-    marginTop: '3%',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'top',
-    alignItems: 'center',
-    borderRadius: '20px',
-    fontFamily: '"Oswald", sans-serif',
-    color: 'black',
-    boxShadow: '0 20px 20px 20px rgba(0, 0, 0, 0.15), 0 5px 15px 15px rgba(0, 0, 0, 0.15)',
-  },
-  tabs: {
-    width: '100%',
-    position: 'relative',
-    top: '0',
-  },
-}));
+import userProStyles from './UserProStyles.jsx';
 
-export default function Home() {
-  const classes = useStyles();
+export default function UserProfile({ user }) {
+  const classes = userProStyles();
+  const [eventsTot, setHotelTot] = useState(0);
+  const [hotelsTot, setHotelsTot] = useState(0);
+  const [flightsTot, setFlightsTot] = useState(0);
+  const [total, setTotal] = useState(0);
   return (
-    <div className={classes.homeContainer}>
-      <FullWidthTabs />
+    <Grid
+      container
+      spacing={2}
+      className={classes.profileContainer}
+    >
+      <Grid
+        xs={6}
+        item
+        className={classes.leftContainer}
+      >
+        <Grid
+          item
+          xs={12}
+          className={classes.profile}
+        >
+          <Grid
+            item
+            xs={6}
+            className={classes.userName}
+          >
+            Username:
+            &nbsp;
+            {user}
+          </Grid>
+          <Grid
+            item
+            xs={6}
+            className={classes.profilePic}
+          >
+            <img className={classes.profilePic} src="assets/png.png" alt="Broken Profile Pic" />
 
-    </div>
+          </Grid>
+
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          className={classes.budget}
+        >
+          <Grid
+            item
+            xs={12}
+            className={classes.budTitle}
+          >
+            Budget:
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            className={classes.budItems}
+          >
+            <div>
+              Events:
+            </div>
+            <div>
+              $
+              {eventsTot}
+            </div>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            className={classes.budItems}
+          >
+            <div>
+              Hotels:
+            </div>
+            <div>
+              $
+              {hotelsTot}
+            </div>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            className={classes.budItems}
+          >
+            <div>
+              Flights:
+            </div>
+            <div>
+              $
+              {flightsTot}
+            </div>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            className={classes.budItems}
+          >
+            <div>
+              Total:
+            </div>
+            <div>
+              $
+              {total}
+            </div>
+          </Grid>
+        </Grid>
+      </Grid>
+
+      <Grid
+        item
+        xs={6}
+        className={classes.rightContainer}
+      >
+        <Grid
+          item
+          xs={12}
+          className={classes.myTrip}
+        >
+          <Grid
+            item
+            xs={12}
+            className={classes.myTripTitle}
+          >
+            My Trip List
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            className={classes.myTripEvents}
+          >
+            Events
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            className={classes.myTripHotels}
+          >
+            Hotels
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            className={classes.myTripFlights}
+          >
+            Flights
+          </Grid>
+        </Grid>
+        <Grid
+          item
+          className={classes.logOutBtn}
+        >
+          <a
+            href="/logout"
+            style={{
+              textDecoration: 'none',
+            }}
+          >
+            <Button>
+              Log Out
+            </Button>
+          </a>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 }
 
-Home.propTypes = {
+UserProfile.propTypes = {
+  user: PropTypes.string,
 };
 
-Home.defaultProps = {
+UserProfile.defaultProps = {
+  user: '',
 };

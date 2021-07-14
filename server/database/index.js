@@ -8,7 +8,8 @@ if (process.env.NODE_ENV !== 'testing') {
 
 const mongoURI = process.env.DATABASE_URI || 'mongodb://localhost:27017';
 
-const db = mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+const db = mongoose.connect(mongoURI,
+  { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 
 db
   .then(() => console.log(`Connected to: ${mongoURI}`))

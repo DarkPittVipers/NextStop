@@ -1,65 +1,63 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Button, TextField } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import DatePicker from './DatePicker.jsx';
+import useStyles from '../TabStyle.jsx';
+import HotelDatePicker from './HotelDatePicker.jsx';
 
-const useStyles = makeStyles(() => ({
-  hotelContainer: {
-    backgroundColor: '#f7fff7',
-    borderBottom: '2px solid #f7fff7',
-    width: '88vw',
-    height: '72vh',
-    padding: '10px 30px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontFamily: '"Oswald", sans-serif',
-    color: 'black',
-    borderBottomLeftRadius: '20px',
-    borderBottomRightRadius: '20px',
-    overflow: 'auto',
-  },
-  controlBar: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    height: 'auto',
-    width: '100%',
-    backgroundColor: 'white',
-  },
-  dateBar: {
-    width: '40px',
-  },
-}));
-
-export default function HotelController() {
+export default function HotelController({ setHotels, hotelInfo, hotels }) {
   const classes = useStyles();
+
+  const getHotels = () => {
+    axios.get('/api/hotels', {
+      params: {
+        cityCode: hotelInfo.cityCode,
+        checkInDate: hotelInfo.checkInDate,
+        checkOutDate: hotelInfo.checkOutDate,
+        adults: hotelInfo.adults,
+      },
+    })
+      .then((response) => {
+        setHotels(response.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const onHotelInfoChange = (input) => (e) => {
+    hotelInfo[input] = e.target.value;
+  };
+
   return (
     <div className={classes.controlBar}>
       <TextField
         label="Destination"
         id="destination-hotel"
         placeholder="Where to?"
+        onChange={onHotelInfoChange('cityCode')}
         variant="outlined"
-        defaultValue={null}
+        defaultValue={hotelInfo.cityCode}
         size="small"
       />
       <TextField
         label="Guests"
         id="guests-hotel"
         type="number"
+        onChange={onHotelInfoChange('adults')}
         placeholder="How Many Of Ya?"
         variant="outlined"
-        defaultValue={null}
+        defaultValue={hotelInfo.adults}
         size="small"
       />
 
-      <DatePicker />
+      <HotelDatePicker hotelInfo={hotelInfo} />
 
       <Button
         variant="outlined"
+        onClick={(e) => {
+          e.preventDefault();
+          getHotels();
+        }}
       >
         Go
       </Button>

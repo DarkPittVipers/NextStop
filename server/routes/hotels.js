@@ -12,7 +12,8 @@ const amadeus = new Amadeus({
 
 router.get('/', (req, res) => {
   amadeus.shopping.hotelOffers.get({
-    cityCode: req.query.cityCode,
+    latitude: req.query.latitude,
+    longitude: req.query.longitude,
     checkInDate: req.query.checkInDate,
     checkOutDate: req.query.checkOutDate,
     adults: req.query.adults,
@@ -25,8 +26,10 @@ router.get('/', (req, res) => {
 });
 
 router.post('/booking', (req, res) => {
+  console.log('hitting this');
   amadeus.shopping.hotelOffers.get({
-    cityCode: req.query.cityCode,
+    latitude: req.query.latitude,
+    longitude: req.query.longitude,
     checkInDate: req.query.checkInDate,
     checkOutDate: req.query.checkOutDate,
     adults: req.query.adults,

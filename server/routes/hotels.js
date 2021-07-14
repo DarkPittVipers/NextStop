@@ -46,21 +46,21 @@ router.post('/booking', (req, res) => {
           offerId: pricingResponse.result.data.offers[0].id,
           guests: [{
             name: {
-              title: req.query.title,
-              firstName: req.query.firstName,
-              lastName: req.query.lastName,
+              title: req.body.title,
+              firstName: req.body.firstName,
+              lastName: req.body.lastName,
             },
             contact: {
               phone: '+33679278416',
-              email: req.query.email,
+              email: req.body.email,
             },
           }],
           payments: [{
             method: 'creditCard',
             card: {
-              vendorCode: req.query.vendorCode,
-              cardNumber: req.query.cardNumber,
-              expiryDate: req.query.expiryDate,
+              vendorCode: req.body.vendorCode,
+              cardNumber: req.body.cardNumber,
+              expiryDate: req.body.expiryDate,
             },
           }],
         },

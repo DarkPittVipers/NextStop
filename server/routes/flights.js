@@ -75,6 +75,7 @@ router.get('/pricing', (req, res) => {
 });
 
 // endpoint for booking a flight
+
 router.post('/booking', (req, res) => {
   amadeus.shopping.flightOffersSearch.get({
     originLocationCode: req.query.originLocationCode,
@@ -86,7 +87,7 @@ router.post('/booking', (req, res) => {
       data: {
         type: 'flight-offers-pricing',
         flightOffers: [
-          flightOffersResponse.data[req.query.offersId - 1],
+          flightOffersResponse.data[req.body.offersId - 1],
         ],
       },
     }),
@@ -96,32 +97,32 @@ router.post('/booking', (req, res) => {
         type: 'flight-order',
         flightOffers: [pricingResponse.data.flightOffers[0]],
         travelers: [{
-          id: req.query.travelerId,
-          dateOfBirth: req.query.dateOfBirth,
+          id: req.body.travelerId,
+          dateOfBirth: req.body.dateOfBirth,
           name: {
-            firstName: req.query.firstName,
-            lastName: req.query.lastName,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
           },
-          gender: req.query.gender,
+          gender: req.body.gender,
           contact: {
-            emailAddress: req.query.email,
+            emailAddress: req.body.email,
             phones: [{
-              deviceType: req.query.deviceType,
+              deviceType: req.body.deviceType,
               countryCallingCode: '34',
-              number: req.query.phoneNumber,
+              number: req.body.phoneNumber,
             }],
           },
           documents: [{
             documentType: 'PASSPORT',
-            birthPlace: req.query.birthPlace,
-            issuanceLocation: req.query.issuanceLocation,
-            issuanceDate: req.query.issuanceDate,
-            number: req.query.passportNumber,
-            expiryDate: req.query.expiryDate,
-            issuanceCountry: req.query.issuanceCountry,
-            validityCountry: req.query.validityCountry,
-            nationality: req.query.nationality,
-            holder: req.query.holder,
+            birthPlace: req.body.birthPlace,
+            issuanceLocation: req.body.issuanceLocation,
+            issuanceDate: req.body.issuanceDate,
+            number: req.body.passportNumber,
+            expiryDate: req.body.expiryDate,
+            issuanceCountry: req.body.issuanceCountry,
+            validityCountry: req.body.validityCountry,
+            nationality: req.body.nationality,
+            holder: req.body.holder,
           }],
         }],
       },
@@ -134,7 +135,6 @@ router.post('/booking', (req, res) => {
       res.status(500).send(response);
     });
 });
-
 module.exports = router;
 
 // {

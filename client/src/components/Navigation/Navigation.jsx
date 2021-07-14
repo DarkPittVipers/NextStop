@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { Link } from 'react-router-dom';
 import {
   Grid,
   Typography,
@@ -14,7 +14,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 
 import NavStyles from './NavStyles.jsx';
 
-export default function Navigation({ handleLogin, userLogin }) {
+export default function Navigation({ userLogin, loginBtnDisplay, profileBtnDisplay }) {
   const classes = NavStyles();
 
   return (
@@ -22,7 +22,9 @@ export default function Navigation({ handleLogin, userLogin }) {
       container
       className={classes.nav}
     >
-      <img src="assets/NextStopLogo.svg" height="64" alt="logo" />
+      <Link to="/">
+        <img src="assets/NextStopLogo.svg" height="64" alt="logo" />
+      </Link>
       <Grid
         className={classes.destSearch}
         item
@@ -43,30 +45,36 @@ export default function Navigation({ handleLogin, userLogin }) {
         item
       >
         <AccountCircle />
-        <a
+        <Button
+          className={classes.loginBtn}
+          // onClick={handleLogin}
           href="/login"
-          style={{
-            textDecoration: 'none',
-          }}
+          style={{ display: loginBtnDisplay }}
         >
+          {userLogin}
+        </Button>
+        <Link to="/profile">
           <Button
             className={classes.loginBtn}
-            onClick={handleLogin}
+            style={{ display: profileBtnDisplay }}
           >
             {userLogin}
           </Button>
-        </a>
+        </Link>
+        {/* </a> */}
       </Grid>
     </Grid>
   );
 }
 
 Navigation.propTypes = {
-  handleLogin: PropTypes.func,
   userLogin: PropTypes.string,
+  loginBtnDisplay: PropTypes.string,
+  profileBtnDisplay: PropTypes.string,
 };
 
 Navigation.defaultProps = {
-  handleLogin: () => { },
   userLogin: '',
+  loginBtnDisplay: 'true',
+  profileBtnDisplay: 'none',
 };

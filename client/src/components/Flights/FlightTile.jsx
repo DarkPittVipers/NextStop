@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Paper, Typography, ButtonBase, Fab, FavoriteIcon } from '@material-ui/core/Grid';
+import {
+  Grid, Paper, Typography, ButtonBase, Fab,
+} from '@material-ui/core';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -23,34 +28,40 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const displaySegments = (itinerary, arriveDepart) => {
-  if (itinerary.segments.length === 1) {
-    const arrivalTime = itinerary.segments[0][arriveDepart].at;
-    const date = new Date(arrivalTime);
-    return `${itinerary.segments[0][arriveDepart].iataCode} @
-    ${date}`;
-  }
-  if (itinerary.segments.length > 1) {
-    itinerary.segments.map((segment) => (
-      <li>
-        `$
-        {segment[arriveDepart].iataCode}
-        {' '}
-        @ $
-        {segment[arriveDepart].at}
-        `
-      </li>
-    ));
-  }
-};
-
 export default function FlightTile({ flight }) {
   const classes = useStyles();
   const [fav, setFav] = useState(false);
 
-  const saveFlight = (flight) => {
-    axios.post('/')
-  }
+  const displaySegments = (itinerary, arriveDepart) => {
+    if (itinerary.segments.length === 1) {
+      const arrivalTime = itinerary.segments[0][arriveDepart].at;
+      const date = new Date(arrivalTime);
+      return `${itinerary.segments[0][arriveDepart].iataCode} @
+      ${date}`;
+    }
+    if (itinerary.segments.length > 1) {
+      itinerary.segments.map((segment) => (
+        <li>
+          `$
+          {segment[arriveDepart].iataCode}
+          {' '}
+          @ $
+          {segment[arriveDepart].at}
+          `
+        </li>
+      ));
+    }
+  };
+
+  const saveFlight = (favFlight) => {
+    axios.put('/user/flights', favFlight)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className={classes.root}>
@@ -100,6 +111,8 @@ export default function FlightTile({ flight }) {
                   onClick={(e) => {
                     e.preventDefault();
                     setFav(true);
+                    saveFlight(flight);
+                    console.log(flight);
                   }}
                 >
                   <FavoriteIcon />
@@ -109,10 +122,6 @@ export default function FlightTile({ flight }) {
                   disabled
                   aria-label="like"
                   size="small"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setFav(false);
-                  }}
                 >
                   <FavoriteIcon />
                 </Fab>

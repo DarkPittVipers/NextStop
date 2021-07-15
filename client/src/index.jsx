@@ -30,8 +30,6 @@ function App() {
   const [userLogin, setUserLogin] = useState('LOG IN');
   const [loginBtnDisplay, setLoginBtnDisplay] = useState('true');
   const [profileBtnDisplay, setProfileBtnDisplay] = useState('true');
-  const [flights, setFlights] = useState([]);
-  const [hotels, setHotels] = useState([]);
   const classes = useStyles();
 
   useEffect(() => {
@@ -57,13 +55,7 @@ function App() {
     <HashRouter>
       <Switch>
         <div>
-          <AppContext.Provider value={{
-            flights,
-            setFlights,
-            hotels,
-            setHotels,
-          }}
-          >
+          <AppContext.Provider value={{}}>
             <CssBaseline />
             <Navigation
               user={user}

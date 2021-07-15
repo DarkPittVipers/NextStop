@@ -4,6 +4,7 @@ import axios from 'axios';
 import useStyles from '../TabStyle.jsx';
 import FlightDatePicker from './FlightDatePicker.jsx';
 
+// eslint-disable-next-line max-len
 export default function FlightController({ setFlights, nonStop, setNonStop, roundTrip, setRoundTrip }) {
   const [flightInfo, setFlightInfo] = useState({
     originLocationCode: '',
@@ -54,12 +55,16 @@ export default function FlightController({ setFlights, nonStop, setNonStop, roun
   };
 
   const onFlightInfoChange = (input) => (e) => {
-    flightInfo[input] = e.target.value;
+    const flightState = {
+      ...flightInfo,
+      [input]: e.target.value,
+    };
+    setFlightInfo(flightState);
   };
 
-  function setDate(startDate, endDate) {
-    flightInfo.departureDate = startDate;
-    flightInfo.returnDate = endDate;
+  function setDate(dates) {
+    flightInfo.departureDate = dates.starting;
+    flightInfo.returnDate = dates.ending;
   }
 
   function nonStopSwitch() {
@@ -95,7 +100,7 @@ export default function FlightController({ setFlights, nonStop, setNonStop, roun
         placeholder="Where ya at?"
         onChange={onFlightInfoChange('originLocationCode')}
         variant="outlined"
-        defaultValue={null}
+        defaultValue={flightInfo.originLocationCode}
         size="small"
       />
       <TextField
@@ -104,7 +109,7 @@ export default function FlightController({ setFlights, nonStop, setNonStop, roun
         placeholder="Where ya going?"
         onChange={onFlightInfoChange('destinationLocationCode')}
         variant="outlined"
-        defaultValue={null}
+        defaultValue={flightInfo.destinationLocationCode}
         size="small"
       />
       <TextField
@@ -140,6 +145,7 @@ export default function FlightController({ setFlights, nonStop, setNonStop, roun
         onClick={(e) => {
           e.preventDefault();
           getFlight();
+        console.log(flightInfo);
         }}
       >
         Go

@@ -11,14 +11,14 @@ export default function Flights() {
   const classes = useStyles();
 
   useEffect(() => {
-    console.log(flights);
+    console.log(flights[0]);
   }, [flights]);
   return (
     <div className={classes.tabContainer}>
       <FlightController flights={flights} setFlights={setFlights}
         nonStop={nonStop} setNonStop={setNonStop} roundTrip={roundTrip} setRoundTrip={setRoundTrip}
       />
-      {flights.length === 0 ? <CircularProgress />
+      {flights.length === 0 ? null
         : flights.map((flight) => {
           if (nonStop === true) {
             return <FlightTile key={flight.id} flight={flight} />;

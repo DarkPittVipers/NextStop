@@ -6,7 +6,11 @@ export default function FlightDatePicker({ setDate }) {
   const onDateChange = (startDate, endDate) => {
     let start = formatDate(startDate);
     let end = formatDate(endDate);
-    setDate(start, end);
+    const dates = {
+      starting: start,
+      ending: end,
+    };
+    setDate(dates);
   };
   function formatDate(date) {
     let d = new Date(date);
@@ -28,15 +32,6 @@ export default function FlightDatePicker({ setDate }) {
       startDate={new Date()}
       endDate={new Date()}
       onChange={(startDate, endDate) => onDateChange(startDate, endDate)}
-    // minDate={new Date(1900, 0, 1)}
-    // maxDate={new Date(2100, 0, 1)}
-    // dateFormat="D"
-    // monthFormat="MMM YYYY"
-    // startDatePlaceholder="Start Date"
-    // endDatePlaceholder="End Date"
-    // disabled={false}
-    // className="my-own-class-name"
-    // startWeekDay="monday"
     />
   );
 }

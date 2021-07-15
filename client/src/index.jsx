@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Navigation from './components/Navigation/Navigation.jsx';
 import Home from './components/Home/Home.jsx';
 import UserProfile from './components/UserProfile/UserProfile.jsx';
-import AppContext from './helpers/context';
+import { AppContext } from './helpers/context';
 
 const useStyles = makeStyles(() => ({
   main: {
@@ -55,16 +55,18 @@ function App() {
 
   return (
     <div>
-      <CssBaseline />
-      <Navigation handleLogin={handleLogin} user={user} userLogin={userLogin} />
-      <div className={classes.main}>
-        <Router>
-          <Switch>
-            <Route path="/"><Home /></Route>
-            <Route path="/userPro"><UserProfile user={user} /></Route>
-          </Switch>
-        </Router>
-      </div>
+      <AppContext.Provider value={{}}>
+        <CssBaseline />
+        <Navigation handleLogin={handleLogin} user={user} userLogin={userLogin} />
+        <div className={classes.main}>
+          <Router>
+            <Switch>
+              <Route path="/"><Home /></Route>
+              <Route path="/userPro"><UserProfile user={user} /></Route>
+            </Switch>
+          </Router>
+        </div>
+      </AppContext.Provider>
     </div>
   );
 }

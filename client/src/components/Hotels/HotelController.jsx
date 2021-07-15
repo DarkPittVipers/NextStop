@@ -4,7 +4,7 @@ import { Button, TextField } from '@material-ui/core';
 import useStyles from '../TabStyle.jsx';
 import HotelDatePicker from './HotelDatePicker.jsx';
 
-export default function HotelController({ setHotels, hotelInfo, hotels }) {
+export default function HotelController({ setHotels, hotelInfo, setHotelInfo }) {
   const classes = useStyles();
 
   const getHotels = () => {
@@ -25,7 +25,10 @@ export default function HotelController({ setHotels, hotelInfo, hotels }) {
   };
 
   const onHotelInfoChange = (input) => (e) => {
-    hotelInfo[input] = e.target.value;
+    setHotelInfo({
+      ...hotelInfo,
+      [input]: e.target.value,
+    });
   };
 
   return (

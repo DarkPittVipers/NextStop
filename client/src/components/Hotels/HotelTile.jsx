@@ -46,7 +46,8 @@ export default function HotelTile({ hotel }) {
                   {hotel.hotel.name}
                 </Typography>
                 <Typography variant="body2" gutterBottom>
-                  {hotel.hotel.description ? hotel.hotel.description.text : <span>undefined</span>}
+                  {hotel.hotel.description ? hotel.hotel.description.text
+                    : <span>No Description</span>}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
                   ID: 1030114

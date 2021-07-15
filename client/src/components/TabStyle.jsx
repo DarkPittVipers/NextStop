@@ -5,6 +5,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#f7fff7',
     borderBottom: '2px solid #f7fff7',
     width: '88vw',
+    height: '72vh',
     padding: '10px 30px',
     display: 'flex',
     flexDirection: 'column',
@@ -19,6 +20,8 @@ const useStyles = makeStyles((theme) => ({
   controlBar: {
     display: 'flex',
     flexDirection: 'row',
+    position: 'absolute',
+    top: '0',
     justifyContent: 'space-evenly',
     alignItems: 'center',
     height: 'auto',

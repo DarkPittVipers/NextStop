@@ -15,12 +15,13 @@ export default function Hotels() {
   const [hotels, setHotels] = useState([]);
   const classes = useStyles();
   useEffect(() => {
-    console.log(hotels);
   }, [hotels]);
   return (
     <div className={classes.tabContainer}>
-      <HotelController hotelInfo={hotelInfo} setHotels={setHotels} hotels={hotels} />
-      {hotels.length === 0 ? <CircularProgress />
+      <HotelController hotelInfo={hotelInfo} setHotels={setHotels}
+        setHotelInfo={setHotelInfo} hotels={hotels}
+      />
+      {hotels.length === 0 ? null
         : hotels.map((hotel) => {
           return <HotelTile key={hotel.hotel.hotelId} hotel={hotel} />;
         })}

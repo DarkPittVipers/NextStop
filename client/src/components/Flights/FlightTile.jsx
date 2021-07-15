@@ -29,12 +29,10 @@ const useStyles = makeStyles((theme) => ({
 
 const displaySegments = (itinerary, arriveDepart) => {
   if (itinerary.segments.length === 1) {
-    let arrivalTime = itinerary.segments[0][arriveDepart].at;
-    arrivalTime = arrivalTime.split('T');
-    const date = arrivalTime[0];
-    const time = arrivalTime[1];
+    const arrivalTime = itinerary.segments[0][arriveDepart].at;
+    const date = new Date(arrivalTime);
     return `${itinerary.segments[0][arriveDepart].iataCode} @
-    ${time} ${date}`;
+    ${date}`;
   }
   if (itinerary.segments.length > 1) {
     itinerary.segments.map((segment) => `${segment[arriveDepart].iataCode} @ ${segment[arriveDepart].at}`);

@@ -45,12 +45,10 @@ const FlightSchema = mongoose.Schema({
     currency: String,
     total: String,
     base: String,
-    fees: [
-      {
-        amount: String,
-        type: String,
-      },
-    ],
+    fees: [{
+      amount: String,
+      type: { type: String },
+    }],
     grandTotal: String,
   },
   pricingOptions: {

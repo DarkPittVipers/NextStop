@@ -7,12 +7,20 @@ import {
 
 import userProStyles from './UserProStyles.jsx';
 
+// IMPORT MODALS
+import BookFlight from './BookingModals/BookFlight.jsx';
+import BookHotel from './BookingModals/BookHotel.jsx';
+import BookEvent from './BookingModals/BookEvent.jsx';
+
 export default function UserProfile({ user }) {
   const classes = userProStyles();
   const [eventsTot, setHotelTot] = useState('100.88');
   const [hotelsTot, setHotelsTot] = useState('6.7');
   const [flightsTot, setFlightsTot] = useState(5.4);
   const [total, setTotal] = useState(0);
+  const [flightInfo, setFlightInfo] = useState({ email: '', name: '' });
+  const [hotelInfo, setHotelInfo] = useState({ email: '', name: '' });
+  const [eventInfo, setEventInfo] = useState({ email: '', name: '' });
 
   const getTotal = (eventTot, flightTot, hotelTot) =>
     (parseFloat(eventTot) + parseFloat(flightTot) + parseFloat(hotelTot)).toFixed(2);
@@ -142,6 +150,7 @@ export default function UserProfile({ user }) {
             className={classes.myTripEvents}
           >
             Events
+            <BookEvent eventInfo={eventInfo} />
           </Grid>
           <Grid
             item
@@ -149,6 +158,7 @@ export default function UserProfile({ user }) {
             className={classes.myTripHotels}
           >
             Hotels
+            <BookHotel hotelInfo={hotelInfo} />
           </Grid>
           <Grid
             item
@@ -156,7 +166,9 @@ export default function UserProfile({ user }) {
             className={classes.myTripFlights}
           >
             Flights
+            <BookFlight flightInfo={flightInfo} />
           </Grid>
+
         </Grid>
         <Grid
           item

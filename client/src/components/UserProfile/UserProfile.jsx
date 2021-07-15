@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import {
@@ -6,31 +6,37 @@ import {
 } from '@material-ui/core';
 
 import userProStyles from './UserProStyles.jsx';
+import { AppContext } from '../../helpers/context';
 
 // IMPORT COMPONENTS
 import Budget from './Budget.jsx';
 import MyTrip from './MyTrip.jsx';
 
 export default function UserProfile({ user }) {
+  const { favorites } = useContext(AppContext);
   const classes = userProStyles();
   const [flightInfo, setFlightInfo] = useState({});
   const [hotelInfo, setHotelInfo] = useState({});
   const [eventInfo, setEventInfo] = useState({});
-  const [flightsTotPrice, setFlightsTotPrice] = useState(5.5);
+  const [flightsTotPrice, setFlightsTotPrice] = useState('5.5');
   const [eventsTotPrice, setHotelTot] = useState('100.88');
   const [hotelsTotPrice, setHotelsTot] = useState('6.7');
 
   const getFlightsHotels = () => axios.get('/user/trip')
-    .then((res) => setFlightInfo(res))
-    .then((res) => setHotelInfo(res))
-    .then((res) => setEventInfo(res));
+    .then((res) => {
+    setFlightInfo(res);
+    setHotelInfo(res);
+    setEventInfo(res);
+    console.log('RES', res);
+  });
 
   useEffect(() => {
     getFlightsHotels()
       .then(() => {
-        console.log(flightInfo);
+        console.log('FLIGHTINFO', flightInfo);
+        console.log('FAVORITES', favorites);
       });
-  }, []);
+  }, [favorites]);
   return (
     <Grid
       container

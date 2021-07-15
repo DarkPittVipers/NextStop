@@ -4,6 +4,7 @@ const home = require('./home');
 const users = require('./users');
 const auth = require('./auth');
 const flights = require('./flights');
+const meta = require('./meta');
 
 module.exports = {
   events,
@@ -12,5 +13,6 @@ module.exports = {
   users,
   auth,
   flights,
+  meta,
 };
 

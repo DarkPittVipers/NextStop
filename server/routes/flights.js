@@ -63,7 +63,7 @@ router.get('/pricing', (req, res) => {
       data: {
         type: 'flight-offers-pricing',
         flightOffers: [
-          flightOffersResponse.data[req.query.offersId],
+          flightOffersResponse.data[req.query.offersId - 1],
         ],
       },
     }),
@@ -78,25 +78,11 @@ router.get('/pricing', (req, res) => {
 // endpoint for booking a flight
 
 router.post('/booking', (req, res) => {
-  amadeus.shopping.flightOffersSearch.get({
-    originLocationCode: req.query.originLocationCode,
-    destinationLocationCode: req.query.destinationLocationCode,
-    departureDate: req.query.departureDate,
-    adults: req.query.adults,
-  }).then((flightOffersResponse) => amadeus.shopping.flightOffers.pricing.post(
-    JSON.stringify({
-      data: {
-        type: 'flight-offers-pricing',
-        flightOffers: [
-          flightOffersResponse.data[req.body.offersId],
-        ],
-      },
-    }),
-  )).then((pricingResponse) => amadeus.booking.flightOrders.post(
+  amadeus.booking.flightOrders.post(
     JSON.stringify({
       data: {
         type: 'flight-order',
-        flightOffers: [pricingResponse.data.flightOffers[0]],
+        flightOffers: [req.body.flightOffer],
         travelers: [{
           id: req.body.travelerId,
           dateOfBirth: req.body.dateOfBirth,
@@ -128,7 +114,7 @@ router.post('/booking', (req, res) => {
         }],
       },
     }),
-  )).then((response) => {
+  ).then((response) => {
     res.status(200).send(response.result);
   })
     .catch((response) => {
@@ -167,3 +153,63 @@ module.exports = router;
 //     "holder": true
 //   }]
 // }
+
+// router.post('/booking', (req, res) => {
+//   amadeus.shopping.flightOffersSearch.get({
+//     originLocationCode: req.query.originLocationCode,
+//     destinationLocationCode: req.query.destinationLocationCode,
+//     departureDate: req.query.departureDate,
+//     adults: req.query.adults,
+//   }).then((flightOffersResponse) => amadeus.shopping.flightOffers.pricing.post(
+//     JSON.stringify({
+//       data: {
+//         type: 'flight-offers-pricing',
+//         flightOffers: [
+//           flightOffersResponse.data[req.body.offersId],
+//         ],
+//       },
+//     }),
+//   )).then((pricingResponse) => amadeus.booking.flightOrders.post(
+//     JSON.stringify({
+//       data: {
+//         type: 'flight-order',
+//         flightOffers: [pricingResponse.data.flightOffers[0]],
+//         travelers: [{
+//           id: req.body.travelerId,
+//           dateOfBirth: req.body.dateOfBirth,
+//           name: {
+//             firstName: req.body.firstName,
+//             lastName: req.body.lastName,
+//           },
+//           gender: req.body.gender,
+//           contact: {
+//             emailAddress: req.body.email,
+//             phones: [{
+//               deviceType: 'mobile',
+//               countryCallingCode: '01',
+//               number: req.body.phoneNumber,
+//             }],
+//           },
+//           documents: [{
+//             documentType: 'PASSPORT',
+//             birthPlace: req.body.birthPlace,
+//             issuanceLocation: req.body.issuanceLocation,
+//             issuanceDate: req.body.issuanceDate,
+//             number: req.body.passportNumber,
+//             expiryDate: req.body.expiryDate,
+//             issuanceCountry: req.body.issuanceCountry,
+//             validityCountry: req.body.validityCountry,
+//             nationality: req.body.nationality,
+//             holder: req.body.holder,
+//           }],
+//         }],
+//       },
+//     }),
+//   )).then((response) => {
+//     res.status(200).send(response.result);
+//   })
+//     .catch((response) => {
+//       console.log('error posting booking', response);
+//       res.status(500).send(response);
+//     });
+// });

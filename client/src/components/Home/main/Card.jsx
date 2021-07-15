@@ -6,7 +6,7 @@ import {
   Container,
   Typography,
   Grid,
-  Button
+  Button,
 } from '@material-ui/core';
 import { ArrowDropUpRounded, ArrowDropDownRounded } from '@material-ui/icons';
 
@@ -78,8 +78,8 @@ Card.propTypes = {
     description: PropTypes.string,
     username: PropTypes.string,
     rating: PropTypes.number,
-    comments: PropTypes.arrayOf(PropTypes.object)
-  })
+    comments: PropTypes.arrayOf(PropTypes.object),
+  }),
 };
 
 Card.defaultProps = {
@@ -89,6 +89,6 @@ Card.defaultProps = {
     description: 'Squirtle Placeholder',
     username: 'Username Placeholder',
     rating: 0,
-    comments: []
-  }
+    comments: [],
+  },
 };

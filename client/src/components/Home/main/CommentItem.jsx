@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
-  Container, Typography, Grid
+  Container, Typography, Grid,
 } from '@material-ui/core';
 
 import useStyles from '../styles';
@@ -42,10 +42,10 @@ CommentItem.propTypes = {
     body: PropTypes.string,
     rating: PropTypes.number,
     username: PropTypes.string,
-    createdAt: PropTypes.string
-  })
+    createdAt: PropTypes.string,
+  }),
 };
 
 CommentItem.defaultProps = {
-  comment: {}
+  comment: {},
 };

@@ -1,10 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import ButtonBase from '@material-ui/core/ButtonBase';
-
+import { Grid, Paper, Typography, ButtonBase, Fab, FavoriteIcon } from '@material-ui/core/Grid';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -35,14 +31,26 @@ const displaySegments = (itinerary, arriveDepart) => {
     ${date}`;
   }
   if (itinerary.segments.length > 1) {
-    itinerary.segments.map((segment) => {
-      return <li>`${segment[arriveDepart].iataCode} @ ${segment[arriveDepart].at}`</li>
-    });
+    itinerary.segments.map((segment) => (
+      <li>
+        `$
+        {segment[arriveDepart].iataCode}
+        {' '}
+        @ $
+        {segment[arriveDepart].at}
+        `
+      </li>
+    ));
   }
 };
 
 export default function FlightTile({ flight }) {
   const classes = useStyles();
+  const [fav, setFav] = useState(false);
+
+  const saveFlight = (flight) => {
+    axios.post('/')
+  }
 
   return (
     <div className={classes.root}>
@@ -85,6 +93,31 @@ export default function FlightTile({ flight }) {
                 $
                 {flight.price.base}
               </Typography>
+              {fav === false ? (
+                <Fab
+                  aria-label="like"
+                  size="small"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setFav(true);
+                  }}
+                >
+                  <FavoriteIcon />
+                </Fab>
+              ) : (
+                <Fab
+                  disabled
+                  aria-label="like"
+                  size="small"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setFav(false);
+                  }}
+                >
+                  <FavoriteIcon />
+                </Fab>
+              )}
+
             </Grid>
           </Grid>
         </Grid>

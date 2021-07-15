@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const EventSchema = mongoose.Schema({
-  userId: String,
+  authId: String,
 });
 
 const Event = mongoose.model('event', EventSchema);

@@ -47,8 +47,9 @@ app.use(passport.session());
 app.use('/api/events', routes.events);
 app.use('/api/hotels', routes.hotels);
 app.use('/api/flights', routes.flights);
+app.use('/api/meta', routes.meta);
+app.use('/user', routes.users);
 app.use('/', routes.auth);
-app.use('/', routes.users);
 app.use('/', routes.home);
 
 passport.serializeUser((user, done) => {

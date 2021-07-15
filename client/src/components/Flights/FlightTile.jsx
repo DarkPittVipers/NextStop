@@ -8,6 +8,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    top: '20px',
     flexGrow: 1,
     width: '100%',
   },
@@ -33,24 +34,13 @@ export default function FlightTile({ flight }) {
   const [fav, setFav] = useState(false);
 
   const displaySegments = (itinerary, arriveDepart) => {
-    if (itinerary.segments.length === 1) {
-      const arrivalTime = itinerary.segments[0][arriveDepart].at;
+    itinerary.segments.map((segment) => {
+      const arrivalTime = segment[arriveDepart].at;
       const date = new Date(arrivalTime);
-      return `${itinerary.segments[0][arriveDepart].iataCode} @
-      ${date}`;
-    }
-    if (itinerary.segments.length > 1) {
-      itinerary.segments.map((segment) => (
-        <li>
-          `$
-          {segment[arriveDepart].iataCode}
-          {' '}
-          @ $
-          {segment[arriveDepart].at}
-          `
-        </li>
-      ));
-    }
+      return (
+        console.log('segment', segment[arriveDepart].iataCode, date)
+      );
+    });
   };
 
   const saveFlight = (favFlight) => {
@@ -78,15 +68,38 @@ export default function FlightTile({ flight }) {
                 <Typography gutterBottom variant="subtitle1">
                   Standard license
                 </Typography>
-                <Typography variant="body2" gutterBottom>
-                  Departure:
-                  {' '}
-                  {displaySegments(flight.itineraries[0], 'departure')}
-                  <br />
-                  Arrival:
-                  {' '}
-                  {displaySegments(flight.itineraries[0], 'arrival')}
-                </Typography>
+                {flight.itineraries.length < 2 ? (
+                  <Typography variant="body2" gutterBottom>
+                    Departure:
+                    {' '}
+                    {displaySegments(flight.itineraries[0], 'departure')}
+                    <br />
+                    Arrival:
+                    {' '}
+                    {displaySegments(flight.itineraries[0], 'arrival')}
+                  </Typography>
+                ) : (
+                  <>
+                    <Typography variant="body2" gutterBottom>
+                      Departure:
+                      {' '}
+                      {displaySegments(flight.itineraries[0], 'departure')}
+                      <br />
+                      Arrival:
+                      {' '}
+                      {displaySegments(flight.itineraries[0], 'arrival')}
+                    </Typography>
+                    <Typography variant="body2" gutterBottom>
+                      `Departure:
+                      {displaySegments(flight.itineraries[1], 'departure')}
+                      `
+                      <br />
+                      Arrival:
+                      {' '}
+                      {displaySegments(flight.itineraries[1], 'arrival')}
+                    </Typography>
+                  </>
+                )}
                 <Typography variant="body2" color="textSecondary">
                   Availabile Seats:
                   {' '}

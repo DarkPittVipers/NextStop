@@ -1,7 +1,10 @@
 const db = require('../index');
+// eslint-disable-next-line no-unused-vars
 const City = require('../models/cities');
 const Airline = require('../models/airlines');
+// eslint-disable-next-line no-unused-vars
 const cities = require('../closestAirports');
+// eslint-disable-next-line no-unused-vars
 const airlines = require('../airCarrierCodes');
 
 // db.then(() => {
@@ -14,12 +17,15 @@ const airlines = require('../airCarrierCodes');
 // .catch((err) => console.log(err));
 
 db.then(() => {
-    Airline.findOne({ iata: 'AS' })
-      .then((doc) => {
-        console.log('Airline: ', doc);
-      })
-      .catch((err) => console.log(err));
-  })
+  Airline.findOne({ iata: 'AS' })
+    .then((doc) => {
+      // eslint-disable-next-line no-console
+      console.log('Airline: ', doc);
+    })
+    // eslint-disable-next-line no-console
+    .catch((err) => console.log(err));
+})
+  // eslint-disable-next-line no-console
   .catch((err) => console.log(err));
 
 // db.then(() => {

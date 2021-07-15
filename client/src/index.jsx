@@ -31,6 +31,7 @@ function App() {
   const [loginBtnDisplay, setLoginBtnDisplay] = useState('true');
   const [profileBtnDisplay, setProfileBtnDisplay] = useState('true');
   const [flights, setFlights] = useState([]);
+  const [hotels, setHotels] = useState([]);
   const classes = useStyles();
 
   useEffect(() => {
@@ -59,6 +60,8 @@ function App() {
           <AppContext.Provider value={{
             flights,
             setFlights,
+            hotels,
+            setHotels,
           }}
           >
             <CssBaseline />

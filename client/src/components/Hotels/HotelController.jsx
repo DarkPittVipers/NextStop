@@ -1,86 +1,69 @@
-import React, { useContext, useState } from 'react';
-import { InputBase, TextField } from '@material-ui/core';
-import { alpha, makeStyles } from '@material-ui/core/styles';
-import SearchIcon from '@material-ui/icons/Search';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Button, TextField } from '@material-ui/core';
+import useStyles from '../TabStyle.jsx';
+import HotelDatePicker from './HotelDatePicker.jsx';
 
-const useStyles = makeStyles((theme) => ({
-  eventContainer: {
-    backgroundColor: '#f7fff7',
-    borderBottom: '2px solid #f7fff7',
-    width: '88vw',
-    padding: '10px 30px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontFamily: '"Oswald", sans-serif',
-    color: 'black',
-    borderBottomLeftRadius: '20px',
-    borderBottomRightRadius: '20px',
-    overflow: 'auto',
-  },
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
-      width: 'auto',
-    },
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  inputRoot: {
-    color: 'inherit',
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
-    width: '20%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
-  controlBar: {
-    height: '3em',
-    width: '100%',
-    backgroundColor: 'white',
-  },
-}));
-
-export default function HotelController() {
+export default function HotelController({ setHotels, hotelInfo, setHotelInfo }) {
   const classes = useStyles();
+
+  const getHotels = () => {
+    axios.get('/api/hotels', {
+      params: {
+        cityCode: hotelInfo.cityCode,
+        checkInDate: hotelInfo.checkInDate,
+        checkOutDate: hotelInfo.checkOutDate,
+        adults: hotelInfo.adults,
+      },
+    })
+      .then((response) => {
+        setHotels(response.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const onHotelInfoChange = (input) => (e) => {
+    setHotelInfo({
+      ...hotelInfo,
+      [input]: e.target.value,
+    });
+  };
+
   return (
     <div className={classes.controlBar}>
       <TextField
         label="Destination"
         id="destination-hotel"
         placeholder="Where to?"
-        defaultValue={null}
+        onChange={onHotelInfoChange('cityCode')}
+        variant="outlined"
+        defaultValue={hotelInfo.cityCode}
         size="small"
       />
       <TextField
         label="Guests"
         id="guests-hotel"
+        type="number"
+        onChange={onHotelInfoChange('adults')}
         placeholder="How Many Of Ya?"
-        defaultValue={null}
+        variant="outlined"
+        defaultValue={hotelInfo.adults}
         size="small"
       />
+
+      <HotelDatePicker hotelInfo={hotelInfo} />
+
+      <Button
+        variant="outlined"
+        onClick={(e) => {
+          e.preventDefault();
+          getHotels();
+        }}
+      >
+        Go
+      </Button>
     </div>
   );
 }

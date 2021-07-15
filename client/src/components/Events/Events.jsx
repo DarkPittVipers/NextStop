@@ -2,6 +2,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+// eslint-disable-next-line import/no-named-as-default-member
 import Entry from './Entry.jsx';
 import EventForm from './EventForm.jsx';
 
@@ -92,10 +93,11 @@ export default function Events() {
         />
       </div>
       <div className={classes.entryContainer}>
-        {eventData ? eventData.map((event) => (
+        {eventData ? eventData.map((event, index) => (
           <Entry
+            // eslint-disable-next-line react/no-array-index-key
+            key={index}
             event={event}
-            key={eventData.id}
             category={category}
             tags={event.tags}
             name={event.name}

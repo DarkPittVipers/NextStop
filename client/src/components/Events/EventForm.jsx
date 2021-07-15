@@ -1,12 +1,9 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useContext, useState, useEffect } from 'react';
 import {
-  // eslint-disable-next-line no-unused-vars
-  Grid, TextField, MenuItem,
+  TextField, MenuItem,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-// eslint-disable-next-line no-unused-vars
-import axios from 'axios';
 
 const categories = [
   {

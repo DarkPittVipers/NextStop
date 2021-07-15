@@ -15,4 +15,3 @@ module.exports = {
   flights,
   meta,
 };
-

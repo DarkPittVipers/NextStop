@@ -6,9 +6,11 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable eol-last */
 import React, { useContext, useState, useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import {
-  makeStyles, Grid, Paper, Typography, ButtonBase, FavoriteIcon, Button, IconButton, Fab,
-} from '@material-ui/core/styles';
+  Grid, Paper, Typography, ButtonBase, Button, Fab,
+} from '@material-ui/core/';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import axios from 'axios';
 import AppContext from '../../helpers/context';
 
@@ -77,7 +79,7 @@ export default function Entry({
               <img className={classes.img} src={icon} />
             </ButtonBase>
           </Grid>
-          <Grid item xs={12} sm containers>
+          <Grid item xs={12} sm containers="true">
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">

@@ -1,10 +1,11 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
+// eslint-disable-next-line no-unused-vars
 import React, { useContext, useState, useEffect } from 'react';
 import {
+  // eslint-disable-next-line no-unused-vars
   Grid, TextField, MenuItem,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+// eslint-disable-next-line no-unused-vars
 import axios from 'axios';
 
 const categories = [
@@ -35,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// eslint-disable-next-line react/prop-types
 export default function EventForm({ category, updateCategory }) {
   const classes = useStyles();
 

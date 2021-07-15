@@ -1,8 +1,10 @@
-/* eslint-disable no-unused-vars */
+// eslint-disable-next-line no-unused-vars
 import React, { useContext, useState } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
+// eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles((theme) => ({
   flightContainer: {
     backgroundColor: 'blue',

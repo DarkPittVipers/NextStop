@@ -6,15 +6,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable eol-last */
 import React, { useContext, useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import { Fab } from '@material-ui/core/';
+import {
+  makeStyles, Grid, Paper, Typography, ButtonBase, FavoriteIcon, Button, IconButton, Fab,
+} from '@material-ui/core/styles';
 import axios from 'axios';
 import AppContext from '../../helpers/context';
 

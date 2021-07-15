@@ -1,17 +1,11 @@
-/* eslint-disable import/no-named-as-default */
-/* eslint-disable import/no-named-as-default-member */
-/* eslint-disable no-trailing-spaces */
-/* eslint-disable no-console */
-/* eslint-disable no-shadow */
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
+// eslint-disable-next-line no-unused-vars
 import React, { useContext, useState, useEffect } from 'react';
-import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import Entry from './Entry.jsx';
 import EventForm from './EventForm.jsx';
 
+// eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles((theme) => ({
   '@global': {
     '*::-webkit-scrollbar': {
@@ -61,10 +55,13 @@ export default function Events() {
   const [eventData, updateEventData] = useState();
   const [category, updateCategory] = useState('NIGHTLIFE');
   // const { latitude, longitude, city } = useContext(DestinationContext);
+  // eslint-disable-next-line no-unused-vars
   const [latitude, updateLatitude] = useState(37.810980);
+  // eslint-disable-next-line no-unused-vars
   const [longitude, updateLongitude] = useState(-122.483716);
 
   // axios request for event data
+  // eslint-disable-next-line no-shadow
   const getEventData = (latitude, longitude, category) => {
     axios.get('/api/events', {
       params: {
@@ -75,9 +72,9 @@ export default function Events() {
     })
       .then((result) => {
         updateEventData(result.data.data);
-        console.log(result.data.data);
       })
       .catch((err) => {
+        // eslint-disable-next-line no-console
         console.log('err getting event data in client', err);
       });
   };
@@ -95,7 +92,7 @@ export default function Events() {
         />
       </div>
       <div className={classes.entryContainer}>
-        {eventData ? eventData.map((event, index) => (
+        {eventData ? eventData.map((event) => (
           <Entry
             event={event}
             key={eventData.id}

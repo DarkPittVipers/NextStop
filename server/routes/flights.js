@@ -57,6 +57,7 @@ router.get('/pricing', (req, res) => {
     destinationLocationCode: req.query.destinationLocationCode,
     departureDate: req.query.departureDate,
     adults: req.query.adults,
+    currencyCode: 'USD',
   }).then((flightOffersResponse) => amadeus.shopping.flightOffers.pricing.post(
     JSON.stringify({
       data: {

@@ -26,7 +26,6 @@ router.get('/', (req, res) => {
 });
 
 router.post('/booking', (req, res) => {
-  console.log('hitting this');
   amadeus.shopping.hotelOffers.get({
     latitude: req.query.latitude,
     longitude: req.query.longitude,

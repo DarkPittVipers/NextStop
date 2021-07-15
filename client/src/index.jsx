@@ -1,8 +1,10 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch, HashRouter } from 'react-router-dom';
 
 import { CssBaseline } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -26,17 +28,9 @@ const useStyles = makeStyles(() => ({
 function App() {
   const [user, setUser] = useState('');
   const [userLogin, setUserLogin] = useState('LOG IN');
+  const [loginBtnDisplay, setLoginBtnDisplay] = useState('true');
+  const [profileBtnDisplay, setProfileBtnDisplay] = useState('true');
   const classes = useStyles();
-
-  const handleLogin = () => {
-    axios.get('/userdata')
-      .then((res) => {
-        if (res.data !== '') {
-          setUser(res.data.nickname);
-          setUserLogin(res.data.nickname);
-        }
-      });
-  };
 
   useEffect(() => {
     axios.get('/userdata')
@@ -44,30 +38,40 @@ function App() {
         if (res.data === '') {
           setUser('');
           setUserLogin('LOG IN');
+          setLoginBtnDisplay('true');
+          setProfileBtnDisplay('none');
         } else {
           setUser(res.data.nickname);
           setUserLogin(res.data.nickname);
+          setProfileBtnDisplay('true');
+          setLoginBtnDisplay('none');
         }
       })
       // eslint-disable-next-line no-console
       .catch((err) => console.log(err));
-  }, []);
+  }, [user]);
 
   return (
-    <div>
-      <AppContext.Provider value={{}}>
-        <CssBaseline />
-        <Navigation handleLogin={handleLogin} user={user} userLogin={userLogin} />
-        <div className={classes.main}>
-          <Router>
-            <Switch>
-              <Route path="/"><Home /></Route>
-              <Route path="/userPro"><UserProfile user={user} /></Route>
-            </Switch>
-          </Router>
+    <HashRouter>
+      <Switch>
+        <div>
+          <AppContext.Provider value={{}}>
+            <CssBaseline />
+            <Navigation
+              user={user}
+              userLogin={userLogin}
+              loginBtnDisplay={loginBtnDisplay}
+              profileBtnDisplay={profileBtnDisplay}
+            />
+            <div className={classes.main}>
+              <Route path="/profile" exact component={UserProfile} />
+              <Route path="/home" exact component={Home} />
+              <Route path="/" exact component={Home} />
+            </div>
+          </AppContext.Provider>
         </div>
-      </AppContext.Provider>
-    </div>
+      </Switch>
+    </HashRouter>
   );
 }
 ReactDOM.render(<App />, document.getElementById('app'));

@@ -1,3 +1,4 @@
+/* eslint-disable no-trailing-spaces */
 /* eslint-disable no-console */
 /* eslint-disable no-shadow */
 /* eslint-disable no-undef */
@@ -6,6 +7,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+import Entry from './Entry.jsx';
 
 const useStyles = makeStyles((theme) => ({
   eventContainer: {
@@ -30,18 +32,21 @@ export default function Events() {
   const classes = useStyles();
   const [eventData, updateEventData] = useState();
   const [category, updateCategory] = useState();
-  const { latitude, longitude, city } = useContext(DestinationContext);
+  // const { latitude, longitude, city } = useContext(DestinationContext);
+  const [latitude, updateLatitude] = useState(37.810980);
+  const [longitude, updateLongitude] = useState(-122.483716);
 
   // axios request for event data
-  const getEventData = (latitude, longitude, selection) => {
+  const getEventData = (latitude, longitude) => {
+    console.log('hitting this');
     axios.get('/api/events', {
       query: {
         latitude,
         longitude,
-        selection,
       },
     })
       .then((result) => {
+        console.log('result', result);
         updateEventData(result.data);
       })
       .catch((err) => {
@@ -50,12 +55,23 @@ export default function Events() {
   };
 
   useEffect(() => {
-    getEventData(latitude, longitude, category);
-  }, [latitude, longitude, category]);
+    console.log('hitting this');
+    getEventData(latitude, longitude);
+  }, [latitude, longitude]);
 
   return (
     <div className={classes.eventContainer}>
-      details go here
+      {
+        eventData.map((event, index) => (
+          <Entry
+            key={event.id}
+            index={index}
+            name={event.name}
+            category={event.category}
+            rating={rank}
+          />
+        ))
+      }
     </div>
   );
 }

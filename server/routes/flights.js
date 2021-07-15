@@ -63,7 +63,7 @@ router.get('/pricing', (req, res) => {
       data: {
         type: 'flight-offers-pricing',
         flightOffers: [
-          flightOffersResponse.data[req.query.offersId - 1],
+          flightOffersResponse.data[req.query.offersId],
         ],
       },
     }),

@@ -33,9 +33,10 @@ function App() {
   const [flights, setFlights] = useState([]);
   const [hotels, setHotels] = useState([]);
   const classes = useStyles();
+  const [favorites, setFavorites] = useState([])
 
   useEffect(() => {
-    axios.get('/userdata')
+    axios.get('/user/data')
       .then((res) => {
         if (res.data === '') {
           setUser('');
@@ -62,6 +63,8 @@ function App() {
             setFlights,
             hotels,
             setHotels,
+            favorites,
+            setFavorites,
           }}
           >
             <CssBaseline />

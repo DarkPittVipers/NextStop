@@ -21,13 +21,7 @@ export default function Flights() {
       />
       {flights.length === 0 ? null
         : flights.map((flight) => {
-          if (nonStop === true) {
-            return <FlightTile key={flight.id} flight={flight} />;
-          }
-          if ((flight.itineraries[0].segments.length < 2)
-            || (flight.itineraries[1].segments.length < 2)) {
-            return <FlightTile key={flight.id} flight={flight} />;
-          }
+          return <FlightTile key={flight.id} flight={flight} />
         })}
     </div>
   );

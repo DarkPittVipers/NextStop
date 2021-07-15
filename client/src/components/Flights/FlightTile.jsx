@@ -35,7 +35,9 @@ const displaySegments = (itinerary, arriveDepart) => {
     ${date}`;
   }
   if (itinerary.segments.length > 1) {
-    itinerary.segments.map((segment) => `${segment[arriveDepart].iataCode} @ ${segment[arriveDepart].at}`);
+    itinerary.segments.map((segment) => {
+      return <li>`${segment[arriveDepart].iataCode} @ ${segment[arriveDepart].at}`</li>
+    });
   }
 };
 

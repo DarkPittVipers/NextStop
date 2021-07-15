@@ -15,6 +15,7 @@ export default function Hotels() {
   const [hotels, setHotels] = useState([]);
   const classes = useStyles();
   useEffect(() => {
+    const justinData = JSON.stringify(hotels[2]);
   }, [hotels]);
   return (
     <div className={classes.tabContainer}>

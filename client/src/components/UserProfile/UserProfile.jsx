@@ -9,10 +9,14 @@ import userProStyles from './UserProStyles.jsx';
 
 export default function UserProfile({ user }) {
   const classes = userProStyles();
-  const [eventsTot, setHotelTot] = useState(0);
-  const [hotelsTot, setHotelsTot] = useState(0);
-  const [flightsTot, setFlightsTot] = useState(0);
+  const [eventsTot, setHotelTot] = useState('100.88');
+  const [hotelsTot, setHotelsTot] = useState('6.7');
+  const [flightsTot, setFlightsTot] = useState(5.4);
   const [total, setTotal] = useState(0);
+
+  const getTotal = (eventTot, flightTot, hotelTot) =>
+    (parseFloat(eventTot) + parseFloat(flightTot) + parseFloat(hotelTot)).toFixed(2);
+
   return (
     <Grid
       container
@@ -109,7 +113,7 @@ export default function UserProfile({ user }) {
             </div>
             <div>
               $
-              {total}
+              {getTotal(eventsTot, flightsTot, hotelsTot)}
             </div>
           </Grid>
         </Grid>

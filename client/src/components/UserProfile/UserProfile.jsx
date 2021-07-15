@@ -1,30 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-
+import axios from 'axios';
 import {
   Grid, Button,
 } from '@material-ui/core';
 
 import userProStyles from './UserProStyles.jsx';
 
-// IMPORT MODALS
-import BookFlight from './BookingModals/BookFlight.jsx';
-import BookHotel from './BookingModals/BookHotel.jsx';
-import BookEvent from './BookingModals/BookEvent.jsx';
+// IMPORT COMPONENTS
+import Budget from './Budget.jsx';
+import MyTrip from './MyTrip.jsx';
 
 export default function UserProfile({ user }) {
   const classes = userProStyles();
-  const [eventsTot, setHotelTot] = useState('100.88');
-  const [hotelsTot, setHotelsTot] = useState('6.7');
-  const [flightsTot, setFlightsTot] = useState(5.4);
-  const [total, setTotal] = useState(0);
-  const [flightInfo, setFlightInfo] = useState({ email: '', name: '' });
-  const [hotelInfo, setHotelInfo] = useState({ email: '', name: '' });
-  const [eventInfo, setEventInfo] = useState({ email: '', name: '' });
+  const [flightInfo, setFlightInfo] = useState({});
+  const [hotelInfo, setHotelInfo] = useState({});
+  const [eventInfo, setEventInfo] = useState({});
+  const [flightsTotPrice, setFlightsTotPrice] = useState(5.5);
+  const [eventsTotPrice, setHotelTot] = useState('100.88');
+  const [hotelsTotPrice, setHotelsTot] = useState('6.7');
 
-  const getTotal = (eventTot, flightTot, hotelTot) =>
-    (parseFloat(eventTot) + parseFloat(flightTot) + parseFloat(hotelTot)).toFixed(2);
+  const getFlightsHotels = () => axios.get('/user/trip')
+    .then((res) => setFlightInfo(res))
+    .then((res) => setHotelInfo(res))
+    .then((res) => setEventInfo(res));
 
+  useEffect(() => {
+    getFlightsHotels()
+      .then(() => {
+        console.log(flightInfo);
+      });
+  }, []);
   return (
     <Grid
       container
@@ -60,71 +66,13 @@ export default function UserProfile({ user }) {
           </Grid>
 
         </Grid>
-        <Grid
-          item
-          xs={12}
-          className={classes.budget}
-        >
-          <Grid
-            item
-            xs={12}
-            className={classes.budTitle}
-          >
-            Budget:
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            className={classes.budItems}
-          >
-            <div>
-              Events:
-            </div>
-            <div>
-              $
-              {eventsTot}
-            </div>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            className={classes.budItems}
-          >
-            <div>
-              Hotels:
-            </div>
-            <div>
-              $
-              {hotelsTot}
-            </div>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            className={classes.budItems}
-          >
-            <div>
-              Flights:
-            </div>
-            <div>
-              $
-              {flightsTot}
-            </div>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            className={classes.budItems}
-          >
-            <div>
-              Total:
-            </div>
-            <div>
-              $
-              {getTotal(eventsTot, flightsTot, hotelsTot)}
-            </div>
-          </Grid>
-        </Grid>
+
+        <Budget
+          flightsTotPrice={flightsTotPrice}
+          eventsTotPrice={eventsTotPrice}
+          hotelsTotPrice={hotelsTotPrice}
+        />
+
       </Grid>
 
       <Grid
@@ -132,44 +80,8 @@ export default function UserProfile({ user }) {
         xs={6}
         className={classes.rightContainer}
       >
-        <Grid
-          item
-          xs={12}
-          className={classes.myTrip}
-        >
-          <Grid
-            item
-            xs={12}
-            className={classes.myTripTitle}
-          >
-            My Trip List
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            className={classes.myTripEvents}
-          >
-            Events
-            <BookEvent eventInfo={eventInfo} />
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            className={classes.myTripHotels}
-          >
-            Hotels
-            <BookHotel hotelInfo={hotelInfo} />
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            className={classes.myTripFlights}
-          >
-            Flights
-            <BookFlight flightInfo={flightInfo} />
-          </Grid>
+        <MyTrip />
 
-        </Grid>
         <Grid
           item
           className={classes.logOutBtn}

@@ -47,7 +47,6 @@ export default function Navigation({ userLogin, loginBtnDisplay, profileBtnDispl
         <AccountCircle />
         <Button
           className={classes.loginBtn}
-          // onClick={handleLogin}
           href="/login"
           style={{ display: loginBtnDisplay }}
         >

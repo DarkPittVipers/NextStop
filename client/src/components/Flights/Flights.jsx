@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { CircularProgress } from '@material-ui/core';
-import useStyles from '../TabStyle.jsx'
+import useStyles from '../TabStyle.jsx';
+import { AppContext } from '../../helpers/context';
 import FlightController from './FlightController.jsx';
 import FlightTile from './FlightTile.jsx';
 
 export default function Flights() {
-  const [flights, setFlights] = useState([]);
+  const { flights, setFlights } = useContext(AppContext);
   const [nonStop, setNonStop] = useState(false);
   const [roundTrip, setRoundTrip] = useState(false);
   const classes = useStyles();

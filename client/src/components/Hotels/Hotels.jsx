@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { AppContext } from '../../helpers/context';
 import { CircularProgress } from '@material-ui/core';
 import useStyles from '../TabStyle.jsx';
 import HotelController from './HotelController.jsx';
 import HotelTile from './HotelTile.jsx';
 
 export default function Hotels() {
+  const { hotels, setHotels } = useContext(AppContext);
   const [hotelInfo, setHotelInfo] = useState({
     cityCode: '',
     checkInDate: '',
@@ -12,7 +14,6 @@ export default function Hotels() {
     adults: null,
 
   });
-  const [hotels, setHotels] = useState([]);
   const classes = useStyles();
   useEffect(() => {
   }, [hotels]);

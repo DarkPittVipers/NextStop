@@ -23,7 +23,7 @@ export default function FlightController({ setFlights, nonStop, setNonStop, roun
         returnDate: flightInfo.returnDate,
         currencyCode: 'USD',
         maxPrice: 1000,
-        max: 100,
+        max: 5,
       },
     })
       .then((response) => {
@@ -145,7 +145,6 @@ export default function FlightController({ setFlights, nonStop, setNonStop, roun
         onClick={(e) => {
           e.preventDefault();
           getFlight();
-        console.log(flightInfo);
         }}
       >
         Go

@@ -88,7 +88,7 @@ router.post('/booking', (req, res) => {
       data: {
         type: 'flight-offers-pricing',
         flightOffers: [
-          flightOffersResponse.data[req.body.offersId - 1],
+          flightOffersResponse.data[req.body.offersId],
         ],
       },
     }),
@@ -108,8 +108,8 @@ router.post('/booking', (req, res) => {
           contact: {
             emailAddress: req.body.email,
             phones: [{
-              deviceType: req.body.deviceType,
-              countryCallingCode: '34',
+              deviceType: 'mobile',
+              countryCallingCode: '01',
               number: req.body.phoneNumber,
             }],
           },

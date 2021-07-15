@@ -34,11 +34,11 @@ router.post('/booking', (req, res) => {
     adults: req.query.adults,
   })
     .then((hotels) => amadeus.shopping.hotelOffersByHotel.get({
-      hotelId: hotels.data[req.query.hotelIndex - 1].hotel.hotelId,
+      hotelId: hotels.data[req.query.hotelIndex].hotel.hotelId,
       checkInDate: req.query.checkInDate,
       checkOutDate: req.query.checkOutDate,
     }))
-    .then((hotelOffers) => amadeus.shopping.hotelOffer(hotelOffers.data.offers[req.query.hotelIndex - 1].id).get())
+    .then((hotelOffers) => amadeus.shopping.hotelOffer(hotelOffers.data.offers[req.query.hotelIndex].id).get())
     .then((pricingResponse) => amadeus.booking.hotelBookings.post(
       JSON.stringify({
         data: {

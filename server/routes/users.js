@@ -8,7 +8,7 @@ const Event = require('../database/models/events');
 
 const router = express.Router();
 
-router.get('/userdata', userInViews(), (req, res) => {
+router.get('/data', userInViews(), (req, res) => {
   if (req.user) {
     res.status(200).send(req.user);
   } else {
@@ -16,7 +16,7 @@ router.get('/userdata', userInViews(), (req, res) => {
   }
 });
 
-router.get('/user/trip', (req, res) => {
+router.get('/trip', (req, res) => {
   if (req.user) {
     const tripData = {};
     const query = Flight.find({ userId: req.user.id }).exec();
@@ -39,7 +39,7 @@ router.get('/user/trip', (req, res) => {
   }
 });
 
-router.put('/user/budget', (req, res) => {
+router.put('/budget', (req, res) => {
   if (req.user) {
     const query = User.find({ id: req.user.id }).exec();
 
@@ -49,7 +49,7 @@ router.put('/user/budget', (req, res) => {
       return user.save();
     })
       .then((user) => {
-        res.status(200).send(user);
+        res.status(204).send(user);
       })
       .catch((err) => console.error(err));
   } else {
@@ -57,13 +57,13 @@ router.put('/user/budget', (req, res) => {
   }
 });
 
-router.put('/user/events', (req, res) => {
+router.put('/events', (req, res) => {
   if (req.user) {
     const { body } = req;
     body.userId = req.user.user_id;
     Event.create(body)
       .then((event) => {
-        res.status(200).send(event);
+        res.status(201).send(event);
       })
       .catch((err) => console.error(err));
   } else {
@@ -71,13 +71,23 @@ router.put('/user/events', (req, res) => {
   }
 });
 
-router.put('/user/flights', (req, res) => {
+router.delete('/events', (req, res) => {
+  Event.findByIdAndDelete(req.query.id).exec()
+    .then(() => {
+      res.sendStatus(204);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
+
+router.put('/flights', (req, res) => {
   if (req.user) {
     const { body } = req;
     body.userId = req.user.user_id;
     Flight.create(body)
       .then((event) => {
-        res.status(200).send(event);
+        res.status(201).send(event);
       })
       .catch((err) => console.error(err));
   } else {
@@ -85,18 +95,38 @@ router.put('/user/flights', (req, res) => {
   }
 });
 
-router.put('/user/hotels', (req, res) => {
+router.delete('/flights', (req, res) => {
+  Flight.findByIdAndDelete(req.query.id).exec()
+    .then(() => {
+      res.sendStatus(204);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
+
+router.put('/hotels', (req, res) => {
   if (req.user) {
     const { body } = req;
     body.userId = req.user.user_id;
     Hotel.create(body)
-      .then((event) => {
-        res.status(200).send(event);
+      .then((hotel) => {
+        res.status(201).send(hotel);
       })
       .catch((err) => console.error(err));
   } else {
     res.status(401).send();
   }
+});
+
+router.delete('/hotels', (req, res) => {
+  Hotel.findByIdAndDelete(req.query.id).exec()
+    .then(() => {
+      res.sendStatus(204);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
 });
 
 module.exports = router;

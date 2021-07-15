@@ -12,18 +12,17 @@ import {
 } from '@material-ui/core/';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import axios from 'axios';
-import AppContext from '../../helpers/context';
+import { AppContext } from '../../helpers/context';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: 'green',
   },
   paper: {
     padding: theme.spacing(2),
     margin: 'auto',
     maxWidth: 500,
-    backgroundColor: 'green',
+    backgroundColor: '#f7fff7',
   },
   image: {
     width: 128,

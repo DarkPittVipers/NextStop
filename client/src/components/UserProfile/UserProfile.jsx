@@ -1,55 +1,117 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import PropTypes from 'prop-types';
+import axios from 'axios';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-} from 'react-router-dom';
-import {
-  Tab, Paper, Tabs,
+  Grid, Button,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import Events from '../Events/Events.jsx';
-import Flights from '../Flights/Flights.jsx';
-import Hotels from '../Hotels/Hotels.jsx';
-import FullWidthTabs from '../Tabs.jsx';
 
-const useStyles = makeStyles((theme) => ({
-  homeContainer: {
-    backgroundColor: '#f7fff7',
-    borderBottom: '2px solid #f7fff7',
-    height: '80vh',
-    width: '90vw',
-    padding: '10px 30px',
-    marginTop: '3%',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'top',
-    alignItems: 'center',
-    borderRadius: '20px',
-    fontFamily: '"Oswald", sans-serif',
-    color: 'black',
-    boxShadow: '0 20px 20px 20px rgba(0, 0, 0, 0.15), 0 5px 15px 15px rgba(0, 0, 0, 0.15)',
-  },
-  tabs: {
-    width: '100%',
-    position: 'relative',
-    top: '0',
-  },
-}));
+import userProStyles from './UserProStyles.jsx';
+import { AppContext } from '../../helpers/context';
 
-export default function Home() {
-  const classes = useStyles();
+// IMPORT COMPONENTS
+import Budget from './Budget.jsx';
+import MyTrip from './MyTrip.jsx';
+
+export default function UserProfile({ user }) {
+  const { favorites } = useContext(AppContext);
+  const classes = userProStyles();
+  const [flightInfo, setFlightInfo] = useState({});
+  const [hotelInfo, setHotelInfo] = useState({});
+  const [eventInfo, setEventInfo] = useState({});
+  const [flightsTotPrice, setFlightsTotPrice] = useState('5.5');
+  const [eventsTotPrice, setHotelTot] = useState('100.88');
+  const [hotelsTotPrice, setHotelsTot] = useState('6.7');
+
+  const getFlightsHotels = () => axios.get('/user/trip')
+    .then((res) => {
+    setFlightInfo(res);
+    setHotelInfo(res);
+    setEventInfo(res);
+    console.log('RES', res);
+  });
+
+  useEffect(() => {
+    getFlightsHotels()
+      .then(() => {
+        console.log('FLIGHTINFO', flightInfo);
+        console.log('FAVORITES', favorites);
+      });
+  }, [favorites]);
   return (
-    <div className={classes.homeContainer}>
-      <FullWidthTabs />
+    <Grid
+      container
+      spacing={2}
+      className={classes.profileContainer}
+    >
+      <Grid
+        xs={6}
+        item
+        className={classes.leftContainer}
+      >
+        <Grid
+          item
+          xs={12}
+          className={classes.profile}
+        >
+          <Grid
+            item
+            xs={6}
+            className={classes.userName}
+          >
+            Username:
+            &nbsp;
+            {user}
+          </Grid>
+          <Grid
+            item
+            xs={6}
+            className={classes.profilePic}
+          >
+            <img className={classes.profilePic} src="assets/png.png" alt="Broken Profile Pic" />
 
-    </div>
+          </Grid>
+
+        </Grid>
+
+        <Budget
+          flightsTotPrice={flightsTotPrice}
+          eventsTotPrice={eventsTotPrice}
+          hotelsTotPrice={hotelsTotPrice}
+        />
+
+      </Grid>
+
+      <Grid
+        item
+        xs={6}
+        className={classes.rightContainer}
+      >
+        <MyTrip />
+
+        <Grid
+          item
+          className={classes.logOutBtn}
+        >
+          <a
+            href="/logout"
+            style={{
+              textDecoration: 'none',
+            }}
+          >
+            <Button>
+              Log Out
+            </Button>
+          </a>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 }
 
-Home.propTypes = {
+UserProfile.propTypes = {
+  user: PropTypes.string,
 };
 
-Home.defaultProps = {
+UserProfile.defaultProps = {
+  user: '',
 };

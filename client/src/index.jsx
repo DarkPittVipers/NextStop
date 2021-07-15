@@ -2,15 +2,17 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
+
+import { Route, Switch, HashRouter } from 'react-router-dom';
 
 import { CssBaseline } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import Navigation from './components/Navigation.jsx';
+import Navigation from './components/Navigation/Navigation.jsx';
 import Home from './components/Home/Home.jsx';
-
-import { getCards } from './helpers/globalRequest';
-import AppContext from './helpers/context';
+import UserProfile from './components/UserProfile/UserProfile.jsx';
+import { AppContext } from './helpers/context';
 
 const useStyles = makeStyles(() => ({
   main: {
@@ -18,35 +20,69 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    height: '100vh',
-    width: '100vw',
+    height: 'auto',
+    width: 'auto',
   },
 }));
 
 function App() {
-  const [cards, setCards] = useState([]);
+  const [user, setUser] = useState('');
+  const [userLogin, setUserLogin] = useState('LOG IN');
+  const [loginBtnDisplay, setLoginBtnDisplay] = useState('true');
+  const [profileBtnDisplay, setProfileBtnDisplay] = useState('true');
+  const [flights, setFlights] = useState([]);
+  const [hotels, setHotels] = useState([]);
   const classes = useStyles();
+  const [favorites, setFavorites] = useState([])
 
   useEffect(() => {
-    getCards()
-      .then((postArr) => {
-        setCards(postArr);
+    axios.get('/user/data')
+      .then((res) => {
+        if (res.data === '') {
+          setUser('');
+          setUserLogin('LOG IN');
+          setLoginBtnDisplay('true');
+          setProfileBtnDisplay('none');
+        } else {
+          setUser(res.data.nickname);
+          setUserLogin(res.data.nickname);
+          setProfileBtnDisplay('true');
+          setLoginBtnDisplay('none');
+        }
       })
+      // eslint-disable-next-line no-console
       .catch((err) => console.log(err));
-  }, []);
+  }, [user]);
 
   return (
-    <div>
-      <AppContext.Provider value={{}}>
-        <CssBaseline />
-        <Navigation />
-        <div className={classes.main}>
-          <Home cards={cards} />
+    <HashRouter>
+      <Switch>
+        <div>
+          <AppContext.Provider value={{
+            flights,
+            setFlights,
+            hotels,
+            setHotels,
+            favorites,
+            setFavorites,
+          }}
+          >
+            <CssBaseline />
+            <Navigation
+              user={user}
+              userLogin={userLogin}
+              loginBtnDisplay={loginBtnDisplay}
+              profileBtnDisplay={profileBtnDisplay}
+            />
+            <div className={classes.main}>
+              <Route path="/profile" exact component={UserProfile} />
+              <Route path="/home" exact component={Home} />
+              <Route path="/" exact component={Home} />
+            </div>
+          </AppContext.Provider>
         </div>
-
-      </AppContext.Provider>
-    </div>
+      </Switch>
+    </HashRouter>
   );
 }
-
 ReactDOM.render(<App />, document.getElementById('app'));

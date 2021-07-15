@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   eventContainer: {
-    backgroundColor: 'green',
+    backgroundColor: '#f7fff7',
     borderBottom: '2px solid #f7fff7',
     height: '71vh',
     width: '88vw',
@@ -40,14 +40,12 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     height: '10%',
-    backgroundColor: 'green',
   },
   entryContainer: {
     display: 'flex',
     overflow: 'auto',
     flexDirection: 'column',
     height: '90%',
-    backgroundColor: 'green',
   },
 }));
 

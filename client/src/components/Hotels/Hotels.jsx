@@ -1,30 +1,31 @@
-import React, { useContext, useState } from 'react';
-import { Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-  hotelContainer: {
-    backgroundColor: 'red',
-    borderBottom: '2px solid #f7fff7',
-    height: '71vh',
-    width: '88vw',
-    padding: '10px 30px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontFamily: '"Oswald", sans-serif',
-    color: 'black',
-    borderBottomLeftRadius: '20px',
-    borderBottomRightRadius: '20px',
-  },
-}));
+import React, { useState, useEffect, useContext } from 'react';
+import { AppContext } from '../../helpers/context';
+import { CircularProgress } from '@material-ui/core';
+import useStyles from '../TabStyle.jsx';
+import HotelController from './HotelController.jsx';
+import HotelTile from './HotelTile.jsx';
 
 export default function Hotels() {
+  const { hotels, setHotels } = useContext(AppContext);
+  const [hotelInfo, setHotelInfo] = useState({
+    cityCode: '',
+    checkInDate: '',
+    checkOutDate: '',
+    adults: null,
+
+  });
   const classes = useStyles();
+  useEffect(() => {
+  }, [hotels]);
   return (
-    <div className={classes.hotelContainer}>
-      HOTEL STUFF
+    <div className={classes.tabContainer}>
+      <HotelController hotelInfo={hotelInfo} setHotels={setHotels}
+        setHotelInfo={setHotelInfo} hotels={hotels}
+      />
+      {hotels.length === 0 ? null
+        : hotels.map((hotel) => {
+          return <HotelTile key={hotel.hotel.hotelId} hotel={hotel} />;
+        })}
     </div>
   );
 }

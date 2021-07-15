@@ -6,7 +6,6 @@ import {
 } from '@material-ui/core';
 
 import userProStyles from './UserProStyles.jsx';
-import budgetTotal from './upHelperFuncs.jsx';
 
 export default function UserProfile({ user }) {
   const classes = userProStyles();

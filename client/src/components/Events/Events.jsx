@@ -75,6 +75,7 @@ export default function Events() {
     })
       .then((result) => {
         updateEventData(result.data.data);
+        console.log(result.data.data);
       })
       .catch((err) => {
         console.log('err getting event data in client', err);
@@ -82,7 +83,6 @@ export default function Events() {
   };
 
   useEffect(() => {
-    console.log('event data in use effect', eventData);
     getEventData(latitude, longitude, category);
   }, [latitude, longitude, category]);
 
@@ -97,9 +97,9 @@ export default function Events() {
       <div className={classes.entryContainer}>
         {eventData ? eventData.map((event, index) => (
           <Entry
+            event={event}
             key={eventData.id}
             category={category}
-            rank={event.rank}
             tags={event.tags}
             name={event.name}
           />

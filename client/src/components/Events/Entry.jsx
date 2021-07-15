@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable react/prop-types */
@@ -9,6 +11,12 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import { Fab } from '@material-ui/core/';
+import axios from 'axios';
+import AppContext from '../../helpers/context';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,12 +39,17 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '100%',
     maxHeight: '100%',
   },
+  input: {
+    display: 'none',
+  },
 }));
 
-export default function Events({
-  index, name, rank, tags, category,
+export default function Entry({
+  index, name, tags, category, event,
 }) {
+  const [fav, setFav] = useState(false);
   const classes = useStyles();
+  const { favorites, setFavorite } = useContext(AppContext);
   const getOnlyFirstFour = (array) => {
     const firstFour = array.slice(0, 4);
     return firstFour;
@@ -51,6 +64,15 @@ export default function Events({
     return source;
   };
   const icon = eventIcons(category);
+
+  const saveEvent = (favoritedEvent) => {
+    axios
+      .put('/users/events', favoritedEvent)
+      .then((response) => response)
+      .catch((err) => {
+        console.log('err saving event to user in client', err);
+      });
+  };
 
   return (
     <div className={classes.root}>
@@ -96,6 +118,30 @@ export default function Events({
                       </span>
                     ) : null}
                 </Typography>
+                <div>
+                  {fav === false ? (
+                    <Fab
+                      aria-label="like"
+                      size="small"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setFav(true);
+                        saveEvent(event);
+                        setFavorite([...favorites, event]);
+                      }}
+                    >
+                      <FavoriteIcon />
+                    </Fab>
+                  ) : (
+                    <Fab
+                      disabled
+                      aria-label="like"
+                      size="small"
+                    >
+                      <FavoriteIcon />
+                    </Fab>
+                  )}
+                </div>
               </Grid>
             </Grid>
           </Grid>

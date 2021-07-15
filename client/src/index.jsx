@@ -12,8 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Navigation from './components/Navigation/Navigation.jsx';
 import Home from './components/Home/Home.jsx';
 import UserProfile from './components/UserProfile/UserProfile.jsx';
-
-import AppContext from './helpers/context';
+import { AppContext } from './helpers/context';
 
 const useStyles = makeStyles(() => ({
   main: {

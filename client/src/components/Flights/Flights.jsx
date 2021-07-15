@@ -1,29 +1,33 @@
-import React, { useContext, useState } from 'react';
-import { Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-  flightContainer: {
-    backgroundColor: 'blue',
-    height: '71vh',
-    width: '88vw',
-    padding: '0px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontFamily: '"Oswald", sans-serif',
-    color: 'black',
-    borderBottomLeftRadius: '20px',
-    borderBottomRightRadius: '20px',
-  },
-}));
+import React, { useEffect, useState } from 'react';
+import { CircularProgress } from '@material-ui/core';
+import useStyles from '../TabStyle.jsx'
+import FlightController from './FlightController.jsx';
+import FlightTile from './FlightTile.jsx';
 
 export default function Flights() {
+  const [flights, setFlights] = useState([]);
+  const [nonStop, setNonStop] = useState(false);
+  const [roundTrip, setRoundTrip] = useState(false);
   const classes = useStyles();
+
+  useEffect(() => {
+    console.log(flights[0]);
+  }, [flights]);
   return (
-    <div className={classes.flightContainer}>
-      flight stuff
+    <div className={classes.tabContainer}>
+      <FlightController flights={flights} setFlights={setFlights}
+        nonStop={nonStop} setNonStop={setNonStop} roundTrip={roundTrip} setRoundTrip={setRoundTrip}
+      />
+      {flights.length === 0 ? null
+        : flights.map((flight) => {
+          if (nonStop === true) {
+            return <FlightTile key={flight.id} flight={flight} />;
+          }
+          if ((flight.itineraries[0].segments.length < 2)
+            || (flight.itineraries[1].segments.length < 2)) {
+            return <FlightTile key={flight.id} flight={flight} />;
+          }
+        })}
     </div>
   );
 }

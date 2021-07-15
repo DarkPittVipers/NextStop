@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
     latitude: req.query.latitude,
     longitude: req.query.longitude,
     radius: 100,
-    categories: req.query.categories,
+    category: req.query.category,
   }).then((response) => {
     res.status(200).send(response.result);
   }).catch((err) => {

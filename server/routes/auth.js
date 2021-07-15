@@ -39,9 +39,11 @@ router.get('/callback', (req, res, next) => {
       });
 
       query.exec()
+        // eslint-disable-next-line no-unused-vars
         .then((doc) => {
           res.redirect(returnTo || '/');
         })
+        // eslint-disable-next-line no-console
         .catch((error) => console.error(error));
     });
   })(req, res, next);

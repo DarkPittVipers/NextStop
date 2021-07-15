@@ -6,12 +6,12 @@ const EventSchema = mongoose.Schema({
   subType: String,
   id: String,
   self: {
-      href: String,
-      methods: [String],
+    href: String,
+    methods: [String],
   },
   geoCode: {
-      latitude: Number,
-      longitude: Number,
+    latitude: Number,
+    longitude: Number,
   },
   name: String,
   category: String,

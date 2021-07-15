@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Grid, Paper, Typography, ButtonBase, Fab,
 } from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import { AppContext } from '../../helpers/context';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 export default function FlightTile({ flight }) {
   const classes = useStyles();
   const [fav, setFav] = useState(false);
+  const { setFavorites, favorites } = useContext(AppContext);
 
   const displaySegments = (itinerary, arriveDepart) => {
     itinerary.segments.map((segment) => {
@@ -125,7 +127,8 @@ export default function FlightTile({ flight }) {
                     e.preventDefault();
                     setFav(true);
                     saveFlight(flight);
-                    console.log(flight);
+                    setFavorites([...favorites, flight]);
+                    console.log('FLIGHT', flight);
                   }}
                 >
                   <FavoriteIcon />

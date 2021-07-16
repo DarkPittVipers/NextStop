@@ -37,10 +37,6 @@ function App() {
   const [currentDestination, setCurrentDestination] = useState({});
   const [flights, setFlights] = useState([]);
   const [hotels, setHotels] = useState([]);
-<<<<<<< HEAD
-  const classes = useStyles();
-=======
->>>>>>> aa98581b3fcd2e7b38a08eee4a1efaadd5d2ae47
   const [favorites, setFavorites] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -50,19 +46,12 @@ function App() {
     axios.get('/user/data')
       .then((res) => {
         if (res.data === '') {
-<<<<<<< HEAD
           setUser('');
           setUserLogin('LOG IN');
           setLoggedIn(false);
         } else if (res.data.nickname) {
           setUser(res.data.nickname);
           setUserLogin(res.data.nickname);
-=======
-          setUser({});
-          setLoggedIn(false);
-        } else if (res.data.nickname) {
-          setUser(res.data);
->>>>>>> aa98581b3fcd2e7b38a08eee4a1efaadd5d2ae47
           setLoggedIn(true);
         }
       })

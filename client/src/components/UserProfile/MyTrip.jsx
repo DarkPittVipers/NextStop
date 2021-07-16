@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
@@ -50,7 +51,9 @@ export default function MyTrip({
         className={classes.myTripEvents}
       >
         Hotels
-        <HotelTile userInfo={userInfo} hotelBookInfo={hotelBookInfo} />
+        {hotelInfo
+          ? <HotelTile userInfo={userInfo} hotelBookInfo={hotelBookInfo} />
+          : null }
       </Grid>
       <Grid
         item
@@ -58,7 +61,9 @@ export default function MyTrip({
         className={classes.myTripFlights}
       >
         Flights
-        <FlightTile userInfo={userInfo} flightBookInfo={flightBookInfo} />
+        {flightInfo
+          ? <FlightTile userInfo={userInfo} flightBookInfo={flightBookInfo} />
+          : null }
       </Grid>
     </Grid>
   );

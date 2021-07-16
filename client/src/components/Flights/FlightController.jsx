@@ -5,7 +5,7 @@ import useStyles from '../TabStyle.jsx';
 import FlightDatePicker from './FlightDatePicker.jsx';
 
 // eslint-disable-next-line max-len
-export default function FlightController({ setFlights, nonStop, setNonStop, roundTrip, setRoundTrip }) {
+export default function FlightController({ setFlights, nonStop, setNonStop, roundTrip, setRoundTrip, setLoading }) {
   const [flightInfo, setFlightInfo] = useState({
     originLocationCode: '',
     destinationLocationCode: '',
@@ -28,6 +28,7 @@ export default function FlightController({ setFlights, nonStop, setNonStop, roun
     })
       .then((response) => {
         setFlights(response.data.data);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -48,6 +49,7 @@ export default function FlightController({ setFlights, nonStop, setNonStop, roun
     })
       .then((response) => {
         setFlights(response.data.data);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -140,6 +142,7 @@ export default function FlightController({ setFlights, nonStop, setNonStop, roun
         variant="outlined"
         onClick={(e) => {
           e.preventDefault();
+          setLoading(true);
           getFlight();
         }}
       >

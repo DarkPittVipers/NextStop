@@ -34,8 +34,8 @@ export default function BookHotel({ hotelInfo }) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [selectOpen, setSelectOpen] = useState(false);
-  const [name, setName] = useState(hotelInfo.name);
-  const [email, setEmail] = useState(hotelInfo.email);
+  const [name, setName] = useState('name');
+  const [email, setEmail] = useState('email');
 
   const handleSelectOpen = () => {
     setSelectOpen(true);

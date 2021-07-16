@@ -85,18 +85,16 @@ export default function HotelTile({ hotel }) {
                     : <span>No Description</span>}
                     ...
                 </Typography>
-                <Typography variant="body2" color="textSecondary">
                   <ul>
                 Amenities:{' '}
                   {hotel.hotel.amenities ? hotel.hotel.amenities.slice(0, 4).map((amenity) => {
                   return (
-                    <li style={{fontSize: '10px', display: 'inline'}}>{amenity}</li>
+                    <li key={amenity} style={{fontSize: '10px', display: 'inline'}}>{amenity}</li>
                   )})
                   : <p>No Amenities Listed</p>
                     }
                     ...
                   </ul>
-                </Typography>
               </Grid>
               <Grid item>
                 <Typography variant="body2" style={{ cursor: 'pointer' }}>
@@ -105,7 +103,7 @@ export default function HotelTile({ hotel }) {
               </Grid>
             </Grid>
             <Grid item>
-              <Typography variant="body3">
+              <Typography variant="body2">
                 Price:
                 {' '}
                 {hotel.offers[0].price.currency}

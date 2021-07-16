@@ -1,3 +1,5 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable max-len */
 import React, { useState, useEffect, useContext } from 'react';
 import { CircularProgress } from '@material-ui/core';
 import { AppContext } from '../../helpers/context';
@@ -12,8 +14,8 @@ export default function Hotels() {
     checkInDate: '',
     checkOutDate: '',
     adults: null,
-
   });
+  const [loading, setLoading] = useState(false);
   const classes = useStyles();
   useEffect(() => {
     console.log(hotels[0]);
@@ -25,9 +27,18 @@ export default function Hotels() {
         setHotels={setHotels}
         setHotelInfo={setHotelInfo}
         hotels={hotels}
+        setLoading={setLoading}
       />
-      {hotels.length === 0 ? null
-        : hotels.map((hotel) => <HotelTile key={hotel.hotel.hotelId} hotel={hotel} />)}
+      {
+        loading ? <CircularProgress />
+          : hotels.length > 0 ? hotels.map((hotel) => (
+            <HotelTile
+              key={hotel.hotel.hotelId}
+              hotel={hotel}
+            />
+          ))
+            : <p>Enter some data</p>
+          }
     </div>
   );
 }

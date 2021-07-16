@@ -41,8 +41,8 @@ const setPhoto = (carrierCode) => {
     if (photos[i] === carrierCode) {
       return carrierPhotos[carrierCode];
     }
-    return 'https://i.ibb.co/VMTKtZk/stupidplane.jpg';
   }
+  return 'https://i.ibb.co/VMTKtZk/stupidplane.jpg';
 };
 
 export default function FlightTile({ flight }) {

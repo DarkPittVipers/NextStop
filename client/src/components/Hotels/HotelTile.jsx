@@ -35,19 +35,18 @@ const useStyles = makeStyles((theme) => ({
 
 const hotelPhotos = {
   HI: 'https://i.ibb.co/jVTZ1mG/holidayinn.jpg',
-  HT: 'https://i.ibb.co/hggn58z/hilton.jpg',
+  HL: 'https://i.ibb.co/hggn58z/hilton.jpg',
   IC: 'https://i.ibb.co/FVk14Rz/intercon.jpg',
 };
 
 const setPhoto = (hotelCode) => {
-  console.log(hotelCode);
   const photos = Object.keys(hotelPhotos);
   for (let i = 0; i < photos.length; i++) {
     if (photos[i] === hotelCode) {
       return hotelPhotos[hotelCode];
     }
-    return 'https://i.ibb.co/Jv7TnGG/grand-budapest.jpg';
   }
+  return 'https://i.ibb.co/Jv7TnGG/grand-budapest.jpg';
 };
 
 export default function HotelTile({ hotel }) {

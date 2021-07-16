@@ -3,6 +3,7 @@ const passport = require('passport');
 const util = require('util');
 const url = require('url');
 const querystring = require('querystring');
+const User = require('../database/models/user');
 
 const router = express.Router();
 
@@ -24,12 +25,26 @@ router.get('/callback', (req, res, next) => {
   passport.authenticate('auth0', (err, user) => {
     if (err) { return next(err); }
     if (!user) { return res.redirect('/login'); }
+    const { _raw, _json, ...userProfile } = user;
     // eslint-disable-next-line consistent-return
     req.logIn(user, (err2) => {
       if (err2) { return next(err2); }
       const { returnTo } = req.session;
       delete req.session.returnTo;
-      res.redirect(returnTo || '/user');
+
+      const query = User.findOneAndUpdate({ id: user.id }, userProfile, {
+        new: true,
+        upsert: true,
+        rawResult: false,
+      });
+
+      query.exec()
+        // eslint-disable-next-line no-unused-vars
+        .then((doc) => {
+          res.redirect(returnTo || '/');
+        })
+        // eslint-disable-next-line no-console
+        .catch((error) => console.error(error));
     });
   })(req, res, next);
 });

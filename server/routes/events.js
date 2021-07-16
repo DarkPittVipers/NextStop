@@ -1,10 +1,27 @@
+/* eslint-disable no-console */
 const express = require('express');
+const Amadeus = require('amadeus');
 
 const router = express.Router();
-
-// Get request for a question with a default page of 1
-router.get('/', (req, res) => {
-  res.status(200).send([{ id: 0, url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/7.png' }]);
+const amadeus = new Amadeus({
+  clientId: process.env.AMADEUS_CLIENT_ID,
+  clientSecret: process.env.AMADEUS_CLIENT_SECRET,
 });
 
-module.exports.router = router;
+// Returns activities for a location in Barcelona based on geolocation coordinates
+// categories to choose from: SIGHTS, NIGHTLIFE, RESTAURANT, SHOPPING
+router.get('/', (req, res) => {
+  amadeus.referenceData.locations.pointsOfInterest.get({
+    latitude: req.query.latitude,
+    longitude: req.query.longitude,
+    radius: 100,
+    category: req.query.category,
+  }).then((response) => {
+    res.status(200).send(response.result);
+  }).catch((err) => {
+    console.log(err);
+    res.status(500).send(err);
+  });
+});
+
+module.exports = router;

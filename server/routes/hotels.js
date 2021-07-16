@@ -1,57 +1,111 @@
+/* eslint-disable max-len */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
 const express = require('express');
-const Card = require('../database/models/card');
+const Amadeus = require('amadeus');
 
 const router = express.Router();
+const amadeus = new Amadeus({
+  clientId: process.env.AMADEUS_CLIENT_ID,
+  clientSecret: process.env.AMADEUS_CLIENT_SECRET,
+});
 
 router.get('/', (req, res) => {
-  let { count = 5, page = 0 } = req.query;
-  count = Number(count);
-  page = Number(page);
-
-  const query = Card.find({}).sort('-createdAt').limit(count).skip(count * page)
-    .exec();
-
-  query.then((docs) => {
-    res.status(200).send(docs);
-  })
-    .catch((err) => console.log(err));
+  amadeus.shopping.hotelOffers.get({
+    latitude: req.query.latitude,
+    longitude: req.query.longitude,
+    checkInDate: req.query.checkInDate,
+    checkOutDate: req.query.checkOutDate,
+    adults: req.query.adults,
+  }).then((response) => {
+    res.status(200).send(response.result);
+  }).catch((err) => {
+    console.log('error in server getting flights', err);
+    res.status(500).send(err);
+  });
 });
 
-router.post('/', (req, res) => {
-  const { body } = req;
-  Card.create(body)
-    .then((doc) => {
-      res.status(200).send(doc);
+router.post('/booking', (req, res) => {
+  amadeus.booking.hotelBookings.post(
+    JSON.stringify({
+      data: {
+        offerId: req.body.offerId,
+        guests: [{
+          name: {
+            title: req.body.title,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+          },
+          contact: {
+            phone: req.body.phone,
+            email: req.body.email,
+          },
+        }],
+        payments: [{
+          method: req.body.method,
+          card: {
+            vendorCode: req.body.vendorCode,
+            cardNumber: req.body.cardNumber,
+            expiryDate: req.body.expiryDate,
+          },
+        }],
+      },
+    }),
+  )
+    .then((response) => {
+      res.status(200).send(response.result);
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log('error booking hotel', err);
+    });
 });
 
-router.post('/:cardId/comments', (req, res) => {
-  const query = Card.findById(req.params.cardId).exec();
+module.exports = router;
 
-  query.then((card) => {
-    card.comments.push(req.body);
-    return card.save();
-  })
-    .then((card) => {
-      res.status(200).send(card);
-    })
-    .catch((err) => console.log(err));
-});
-
-router.put('/:cardId', (req, res) => {
-  const query = Card.findById(req.params.cardId).exec();
-
-  query.then((card) => {
-    card.rating += Number(req.body.value);
-    return card.save();
-  })
-    .then((card) => {
-      res.status(200).send(card);
-    })
-    .catch((err) => console.log(err));
-});
-
-module.exports.router = router;
+// router.post('/booking', (req, res) => {
+//   amadeus.shopping.hotelOffers.get({
+//     latitude: req.query.latitude,
+//     longitude: req.query.longitude,
+//     checkInDate: req.query.checkInDate,
+//     checkOutDate: req.query.checkOutDate,
+//     adults: req.query.adults,
+//   })
+//     .then((hotels) => amadeus.shopping.hotelOffersByHotel.get({
+//       hotelId: hotels.data[req.query.hotelIndex].hotel.hotelId,
+//       checkInDate: req.query.checkInDate,
+//       checkOutDate: req.query.checkOutDate,
+//     }))
+//     .then((hotelOffers) => amadeus.shopping.hotelOffer(hotelOffers.data.offers[req.query.hotelIndex].id).get())
+//     .then((pricingResponse) => amadeus.booking.hotelBookings.post(
+//       JSON.stringify({
+//         data: {
+//           offerId: pricingResponse.result.data.offers[0].id,
+//           guests: [{
+//             name: {
+//               title: req.body.title,
+//               firstName: req.body.firstName,
+//               lastName: req.body.lastName,
+//             },
+//             contact: {
+//               phone: '+33679278416',
+//               email: req.body.email,
+//             },
+//           }],
+//           payments: [{
+//             method: 'creditCard',
+//             card: {
+//               vendorCode: req.body.vendorCode,
+//               cardNumber: req.body.cardNumber,
+//               expiryDate: req.body.expiryDate,
+//             },
+//           }],
+//         },
+//       }),
+//     ))
+//     .then((response) => {
+//       res.status(200).send(response.result);
+//     })
+//     .catch((err) => {
+//       console.log('error booking hotel', err);
+//     });
+// });

@@ -1,5 +1,6 @@
 import React from 'react';
 
-const AppContext = React.createContext();
-
-export default AppContext;
+export const AppContext = React.createContext();
+export const FlightContext = React.createContext();
+export const EventContext = React.createContext();
+export const HotelContext = React.createContext();

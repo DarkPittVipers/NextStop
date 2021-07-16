@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import axios from 'axios';
-import { Button, TextField, CircularProgress } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import { AppContext } from '../../helpers/context';
 import useStyles from '../TabStyle.jsx';
 import HotelDatePicker from './HotelDatePicker.jsx';

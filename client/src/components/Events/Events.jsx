@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
     flexDirection: 'column',
     height: '90%',
+    width: '100%',
   },
 }));
 
@@ -54,15 +55,13 @@ export default function Events() {
   const classes = useStyles();
   const [eventData, updateEventData] = useState();
   const [category, updateCategory] = useState('NIGHTLIFE');
-  // const { latitude, longitude } = useContext(AppContext);
-  // eslint-disable-next-line no-unused-vars
-  const [latitude, updateLatitude] = useState(37.810980);
-  // eslint-disable-next-line no-unused-vars
-  const [longitude, updateLongitude] = useState(-122.483716);
+  const { currentDestination } = useContext(AppContext);
 
   // axios request for event data
   // eslint-disable-next-line no-shadow
   const getEventData = (latitude, longitude, category) => {
+    console.log('lat', latitude);
+    console.log('lng', longitude);
     axios.get('/api/events', {
       params: {
         latitude,
@@ -80,8 +79,10 @@ export default function Events() {
   };
 
   useEffect(() => {
-    getEventData(latitude, longitude, category);
-  }, [latitude, longitude, category]);
+    if (currentDestination) {
+      getEventData(currentDestination.lat, currentDestination.lng, category);
+    }
+  }, [currentDestination, category]);
 
   return (
     <div className={classes.eventContainer}>

@@ -34,7 +34,6 @@ const useStyles = makeStyles(() => ({
 
 function App() {
   const [user, setUser] = useState('');
-  const [userLogin, setUserLogin] = useState('LOG IN');
   const [flights, setFlights] = useState([]);
   const [hotels, setHotels] = useState([]);
   const [favorites, setFavorites] = useState([]);
@@ -47,12 +46,10 @@ function App() {
     axios.get('/user/data')
       .then((res) => {
         if (res.data === '') {
-          setUser('');
-          setUserLogin('LOG IN');
+          setUser({});
           setLoggedIn(false);
         } else if (res.data.nickname) {
-          setUser(res.data.nickname);
-          setUserLogin(res.data.nickname);
+          setUser(res.data);
           setLoggedIn(true);
         }
       })

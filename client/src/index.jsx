@@ -7,16 +7,23 @@ import axios from 'axios';
 import { Route, Switch, HashRouter } from 'react-router-dom';
 
 import { CssBaseline } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import Navigation from './components/Navigation/Navigation.jsx';
 import Home from './components/Home/Home.jsx';
 import UserProfile from './components/UserProfile/UserProfile.jsx';
 import { AppContext } from './helpers/context';
 
+const theme = createTheme({
+  palette: {
+    background: {
+      default: '#4ecdc4',
+    },
+  },
+});
+
 const useStyles = makeStyles(() => ({
   main: {
-    backgroundColor: '#4ecdc4',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -27,29 +34,25 @@ const useStyles = makeStyles(() => ({
 
 function App() {
   const [user, setUser] = useState('');
-  const [userLogin, setUserLogin] = useState('LOG IN');
-  const [loginBtnDisplay, setLoginBtnDisplay] = useState('true');
-  const [profileBtnDisplay, setProfileBtnDisplay] = useState('true');
+  const [currentDestination, setCurrentDestination] = useState({});
   const [flights, setFlights] = useState([]);
   const [hotels, setHotels] = useState([]);
-  const classes = useStyles();
-  const [favorites, setFavorites] = useState([])
+  const [favorites, setFavorites] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
+
+  const classes = useStyles();
 
   useEffect(() => {
     axios.get('/user/data')
-    .then((res) => {
-      if (res.data === '' )
-      {
-        setUser('');
-        setUserLogin('LOG IN');
-        setLoggedIn(false);
-      } else if (res.data.nickname) {
-        setUser(res.data.nickname);
-        setUserLogin(res.data.nickname);
-        setLoggedIn(true);
-      }
-    })
+      .then((res) => {
+        if (res.data === '') {
+          setUser({});
+          setLoggedIn(false);
+        } else if (res.data.nickname) {
+          setUser(res.data);
+          setLoggedIn(true);
+        }
+      })
       // eslint-disable-next-line no-console
       .catch((err) => console.log('THIS IS ERROR', err));
   }, [user]);
@@ -57,7 +60,7 @@ function App() {
   return (
     <HashRouter>
       <Switch>
-        <div>
+        <ThemeProvider theme={theme}>
           <AppContext.Provider value={{
             flights,
             setFlights,
@@ -65,15 +68,14 @@ function App() {
             setHotels,
             favorites,
             setFavorites,
+            currentDestination,
           }}
           >
             <CssBaseline />
             <Navigation
               user={user}
-              userLogin={userLogin}
-              loginBtnDisplay={loginBtnDisplay}
-              profileBtnDisplay={profileBtnDisplay}
               loggedIn={loggedIn}
+              setCurrentDestination={setCurrentDestination}
             />
             <div className={classes.main}>
               <Route path="/profile" exact component={UserProfile} />
@@ -81,7 +83,7 @@ function App() {
               <Route path="/" exact component={Home} />
             </div>
           </AppContext.Provider>
-        </div>
+        </ThemeProvider>
       </Switch>
     </HashRouter>
   );

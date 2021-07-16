@@ -21,6 +21,13 @@ export default function UserProfile({ user }) {
   const [flightsTotPrice, setFlightsTotPrice] = useState(0);
   const [eventsTotPrice, setEventsTotPrice] = useState('100.88');
   const [hotelsTotPrice, setHotelsTotPrice] = useState('6.7');
+  const [userInfo, setUserInfo] = useState(
+    {
+      title: '',
+      firstName: '',
+      lastName: ''.
+      email: '',
+    })
 
   const getFlightsHotels = () => axios.get('/user/trip')
     .then((res) => {
@@ -109,6 +116,7 @@ export default function UserProfile({ user }) {
           flightInfo={flightInfo}
           eventInfo={eventInfo}
           hotelInfo={hotelInfo}
+          userInfo={userInfo}
         />
 
         <Grid

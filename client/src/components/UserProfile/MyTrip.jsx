@@ -12,7 +12,7 @@ import BookFlight from './BookingModals/BookFlight.jsx';
 import BookHotel from './BookingModals/BookHotel.jsx';
 import BookEvent from './BookingModals/BookEvent.jsx';
 
-export default function MyTrip({eventInfo, flightInfo, hotelInfo}) {
+export default function MyTrip({eventInfo, flightInfo, hotelInfo, userInfo}) {
   const classes = userProStyles();
   const [flightBookInfo, setBookFlightInfo] = useState({ email: '', name: '' });
   const [hotelBookInfo, setBookHotelInfo] = useState({ email: '', name: '' });
@@ -45,7 +45,7 @@ export default function MyTrip({eventInfo, flightInfo, hotelInfo}) {
         className={classes.myTripHotels}
       >
         Hotels
-        <BookHotel hotelBookInfo={hotelBookInfo} />
+        <BookHotel hotelBookInfo={hotelBookInfo} userInfo={userInfo} />
       </Grid>
       <Grid
         item

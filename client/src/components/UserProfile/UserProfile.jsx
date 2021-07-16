@@ -31,11 +31,9 @@ export default function UserProfile({ user }) {
       setFlightInfo(...res.data.flights);
     } if (res.data.hotels) {
       setHotelInfo(...res.data.hotels);
-      console.log('HOTEL RES', res.data);
     } if (res.data.events) {
       setEventInfo(...res.data.events);
     }
-    console.log('RES', res.data);
   });
 
   const addFlightsHotelsEventsPrices = () => axios
@@ -45,12 +43,7 @@ export default function UserProfile({ user }) {
       for (let i = 0; i < res.data.flights.length; i += 1) {
         const flightPrice = flightsTotPrice + parseFloat(res.data.flights[i].price.total);
         setFlightsTotPrice(flightPrice);
-        console.log('total', res.data.flights[i].price.total);
       }
-      // setHotelsTotPrice();
-      // setEventsTotPrice();
-      // setFlightsTotPrice(flightTotalPrice);
-      console.log('totalState', flightsTotPrice);
     });
 
   useEffect(() => {
@@ -58,11 +51,6 @@ export default function UserProfile({ user }) {
     addFlightsHotelsEventsPrices();
     // }, [flightInfo]);
   }, [favorites]);
-
-  console.log('FLIGHTINFO', flightInfo);
-  console.log('HOTELINFO', hotelInfo);
-  console.log('FAVORITES', favorites);
-  console.log('TOTSTATE', flightsTotPrice);
 
   return (
     <Grid container spacing={2} className={classes.profileContainer}>

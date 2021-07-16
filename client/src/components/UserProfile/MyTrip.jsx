@@ -13,12 +13,13 @@ import FlightTile from './Tiles/FlightTile.jsx';
 import HotelTile from './Tiles/HotelTile.jsx';
 import EventTile from './Tiles/EventTile.jsx';
 
-export default function MyTrip({eventInfo, hotelInfo, flightInfo, userInfo}) {
+export default function MyTrip({
+  eventInfo, hotelInfo, flightInfo, userInfo, setEventInfo, handleEventDelete,
+}) {
   const classes = userProStyles();
   const [flightBookInfo, setBookFlightInfo] = useState({ email: '', name: '' });
   const [eventBookInfo, setBookEventInfo] = useState({ email: '', name: '' });
   const [hotelBookInfo, setHotelBookInfo] = useState();
-
 
   return (
     <Grid
@@ -39,7 +40,9 @@ export default function MyTrip({eventInfo, hotelInfo, flightInfo, userInfo}) {
         className={classes.myTripEvents}
       >
         Events
-        <EventTile eventInfo={eventInfo} eventBookInfo={eventBookInfo} />
+        {eventInfo
+          ? <EventTile eventInfo={eventInfo} eventBookInfo={eventBookInfo} handleEventDelete={handleEventDelete} />
+          : null }
       </Grid>
       <Grid
         item

@@ -114,36 +114,36 @@ export default function UserProfile({ user }) {
             getAllHotels={getAllHotels}
           />
 
-      <Grid item xs={6} className={classes.rightContainer}>
-        <MyTrip
-          flightInfo={flightInfo}
-          setEventInfo={setEventInfo}
-          eventInfo={eventInfo}
-          hotelInfo={hotelInfo}
-          userInfo={userInfo}
-          handleEventDelete={handleEventDelete}
-        />
+          <Grid item xs={6} className={classes.rightContainer}>
+            <MyTrip
+              flightInfo={flightInfo}
+              setEventInfo={setEventInfo}
+              eventInfo={eventInfo}
+              hotelInfo={hotelInfo}
+              userInfo={userInfo}
+              handleEventDelete={handleEventDelete}
+            />
 
-        <Grid item className={classes.logOutBtn}>
-          <a
-            href="/logout"
-            style={{
-              textDecoration: 'none',
-            }}
-          >
-            <Button>Log Out</Button>
-          </a>
+            <Grid item className={classes.logOutBtn}>
+              <a
+                href="/logout"
+                style={{
+                  textDecoration: 'none',
+                }}
+              >
+                <Button>Log Out</Button>
+              </a>
+            </Grid>
+          </Grid>
         </Grid>
-      </Grid>
-</Grid>
     </FlightContext.Provider>
-  );
+      );
 }
 
-UserProfile.propTypes = {
-  user: PropTypes.string,
+      UserProfile.propTypes = {
+        user: PropTypes.string,
 };
 
-UserProfile.defaultProps = {
-  user: '',
+      UserProfile.defaultProps = {
+        user: '',
 };

@@ -63,7 +63,7 @@ export default function MyTrip({
         </div>
         {eventInfo
           ? <EventTile eventInfo={eventInfo} eventBookInfo={eventBookInfo} handleEventDelete={handleEventDelete} />
-          : null }
+          : null}
       </Grid>
       <Grid
         item
@@ -74,9 +74,9 @@ export default function MyTrip({
         <div className={classes.hotelTitle}>
           <b>Hotels</b>
         </div>
-        { hotelInfo.length > 0 ? hotelInfo.map((option) => (
+        {hotelInfo.length > 0 ? hotelInfo.map((option) => (
           <HotelTile key={option._id} option={option} getAllHotels={getAllHotels} />
-        )) : <div /> }
+        )) : <div />}
 
       </Grid>
       <Grid
@@ -88,9 +88,9 @@ export default function MyTrip({
         <div className={classes.flightTitle}>
           <b>Flights</b>
         </div>
-        { flightInfo.length > 0 ? flightInfo.map((option, index) => (
+        {flightInfo.length > 0 ? flightInfo.map((option, index) => (
           <FlightTile key={index} option={option} />
-        )) : <div /> }
+        )) : <div />}
 
       </Grid>
     </Grid>

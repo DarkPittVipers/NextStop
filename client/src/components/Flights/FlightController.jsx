@@ -6,17 +6,16 @@ import { AppContext } from '../../helpers/context'
 import FlightDatePicker from './FlightDatePicker.jsx';
 
 // eslint-disable-next-line max-len
-export default function FlightController({ setFlights, nonStop, setNonStop, roundTrip, setRoundTrip, setLoading }) {
+export default function FlightController({ setFlights, roundTrip, setRoundTrip, setLoading }) {
+  const { currentDestination } = useContext(AppContext);
   const [flightInfo, setFlightInfo] = useState({
     originLocationCode: '',
-    destinationLocationCode: '',
     departureDate: '',
     adults: null,
     returnDate: '',
   });
-  const { currentDestination } = useContext(AppContext)
   const getRoundTrip = () => {
-    axios.get('api/flights/roundTrip', {
+    axios.get('/api/flights/roundTrip', {
       params: {
         originLocationCode: flightInfo.originLocationCode,
         destinationLocationCode: currentDestination.airports[0],
@@ -38,10 +37,10 @@ export default function FlightController({ setFlights, nonStop, setNonStop, roun
   };
 
   const getOneWayTrip = () => {
-    axios.get('api/flights/oneWay', {
+    axios.get('/api/flights/oneWay', {
       params: {
         originLocationCode: flightInfo.originLocationCode,
-        destinationLocationCode: flightInfo.destinationLocationCode,
+        destinationLocationCode: currentDestination.airports[0],
         departureDate: flightInfo.departureDate,
         adults: flightInfo.adults,
         currencyCode: 'USD',
@@ -70,15 +69,6 @@ export default function FlightController({ setFlights, nonStop, setNonStop, roun
     flightInfo.departureDate = dates.starting;
     flightInfo.returnDate = dates.ending;
   }
-
-  function nonStopSwitch() {
-    if (nonStop === true) {
-      setNonStop(false);
-    } else if (nonStop === false) {
-      setNonStop(true);
-    }
-  }
-
   function roundTripSwitch() {
     setRoundTrip(!roundTrip);
   }
@@ -121,7 +111,7 @@ export default function FlightController({ setFlights, nonStop, setNonStop, roun
         name="checkedB"
         inputProps={{ 'aria-label': 'primary checkbox' }}
       />
-      <FlightDatePicker setDate={setDate} flightInfo={flightInfo} />
+      <FlightDatePicker setDate={setDate} flightInfo={flightInfo} roundTrip={roundTrip} />
 
       <Button
         variant="outlined"
@@ -129,6 +119,7 @@ export default function FlightController({ setFlights, nonStop, setNonStop, roun
           e.preventDefault();
           setLoading(true);
           getFlight();
+          console.log(currentDestination.airports[0]);
         }}
       >
         Go

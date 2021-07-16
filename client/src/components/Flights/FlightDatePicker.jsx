@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
-import { RangeDatePicker } from 'react-google-flight-datepicker';
+import { RangeDatePicker, SingleDatePicker } from 'react-google-flight-datepicker';
 import 'react-google-flight-datepicker/dist/main.css';
 
-export default function FlightDatePicker({ setDate }) {
+export default function FlightDatePicker({ setDate, roundTrip }) {
   const onDateChange = (startDate, endDate) => {
-    let start = formatDate(startDate);
-    let end = formatDate(endDate);
+    const start = formatDate(startDate);
+    const end = formatDate(endDate);
     const dates = {
       starting: start,
       ending: end,
@@ -13,25 +13,33 @@ export default function FlightDatePicker({ setDate }) {
     setDate(dates);
   };
   function formatDate(date) {
-    let d = new Date(date);
-    let month = '' + (d.getMonth() + 1)
-    let day = '' + d.getDate()
-    let year = d.getFullYear();
+    const d = new Date(date);
+    let month = `${d.getMonth() + 1}`;
+    let day = `${d.getDate()}`;
+    const year = d.getFullYear();
 
     if (month.length < 2) {
-      month = '0' + month;
+      month = `0${month}`;
     }
     if (day.length < 2) {
-      day = '0' + day;
+      day = `0${day}`;
     }
     return [year, month, day].join('-');
   }
 
   return (
-    <RangeDatePicker
-      startDate={new Date()}
-      endDate={new Date()}
-      onChange={(startDate, endDate) => onDateChange(startDate, endDate)}
-    />
+    roundTrip === true ? (
+      <RangeDatePicker
+        startDate={new Date()}
+        endDate={new Date()}
+        onChange={(startDate, endDate) => onDateChange(startDate, endDate)}
+      />
+    )
+      : (
+        <SingleDatePicker
+          startDate={new Date()}
+          onChange={(startDate, endDate) => onDateChange(startDate, endDate)}
+        />
+      )
   );
 }

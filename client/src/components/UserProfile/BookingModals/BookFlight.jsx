@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 
 import {
   Button, TextField, Dialog,
-  DialogActions, DialogContent, DialogContentText,
-  DialogTitle, Radio, RadioGroup, FormControl, FormLabel, FormControlLabel,
-  Select, MenuItem, InputLabel, Grid,
+  DialogActions, DialogContent,
+  DialogTitle, FormControl,
+  Select, MenuItem, InputLabel,
 } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
+
+import { FlightContext } from '../../../helpers/context';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -30,19 +32,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BookFlight({ flightBookInfo }) {
+export default function BookFlight() {
+  const {
+    setTitle,
+    setFirstName,
+    setLastName,
+    setEmail,
+    title,
+    firstName,
+    lastName,
+    email,
+  } = useContext(FlightContext);
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [selectOpen, setSelectOpen] = useState(false);
-  const [name, setName] = useState('name');
-  const [email, setEmail] = useState('email');
-
-  // const getLoadUserData = () => axios.get()
-
-  // useEffect(() => {
-  //   getFlightsHotels()
-  //   addFlightsHotelsEventsPrices()
-  //  }, [flightBookInfo]);
 
   const handleSelectOpen = () => {
     setSelectOpen(true);
@@ -62,46 +65,59 @@ export default function BookFlight({ flightBookInfo }) {
 
   // CHANGE POST ROUTE
   const postFlightBooking = (flightObj) => axios.post('/flightbooking', {
-    name: flightObj.name,
-    email: flightObj.email,
 
   }).then((res) => res.data)
     .then(() => {
       console.log('flightOBJ', flightObj);
     });
 
-  const handleBooking = () => {
-    const flightObj = {
-      name,
-      email,
-    };
-    postFlightBooking(flightObj)
-      .then(() => handleClose())
-      .then(console.log('Submit FLIGHT BOOKING WORKS', flightObj))
-      .catch();
-  };
-
   return (
     <div>
-      <Button onClick={handleClickOpen}>
-        <Grid item xs={6} sm={3} className="flightBook-container">
-
-          <div>Book!</div>
-        </Grid>
+      <Button variant="outlined" onClick={handleClickOpen}>
+        Book!
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Book Flight Information</DialogTitle>
         <DialogContent>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="demo-controlled-open-select-label">Title</InputLabel>
+            <Select
+              labelId="demo-controlled-open-select-label"
+              id="demo-controlled-open-select"
+              open={selectOpen}
+              onClose={handleSelectClose}
+              onOpen={handleSelectOpen}
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
+            >
+              <MenuItem value="Mr">Mr</MenuItem>
+              <MenuItem value="Mrs">Mrs</MenuItem>
+              <MenuItem value="Miss">Miss</MenuItem>
+            </Select>
+          </FormControl>
+
           <TextField
             autoFocus
             margin="dense"
-            id="name"
-            label="Full Name"
-            placeholder="Enter Your Full Name"
+            id="firstName"
+            label="First Name"
+            placeholder="Enter Your First Name"
             type="text"
             fullWidth
-            value={name}
-            onChange={(event) => setName(event.target.value)}
+            value={firstName}
+            onChange={(event) => setFirstName(event.target.value)}
+            required
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="lastName"
+            label="Last Name"
+            placeholder="Enter Your Last Name"
+            type="text"
+            fullWidth
+            value={lastName}
+            onChange={(event) => setLastName(event.target.value)}
             required
           />
           <TextField
@@ -116,18 +132,16 @@ export default function BookFlight({ flightBookInfo }) {
             onChange={(event) => setEmail(event.target.value)}
             required
           />
-
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleBooking} color="primary">
+          <Button onClick={() => { postFlightBooking(); }} color="primary">
             Submit Booking
           </Button>
         </DialogActions>
       </Dialog>
-
     </div>
   );
 }

@@ -33,23 +33,22 @@ function App() {
   const [flights, setFlights] = useState([]);
   const [hotels, setHotels] = useState([]);
   const classes = useStyles();
-  const [favorites, setFavorites] = useState([])
+  const [favorites, setFavorites] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
     axios.get('/user/data')
-    .then((res) => {
-      if (res.data === '' )
-      {
-        setUser('');
-        setUserLogin('LOG IN');
-        setLoggedIn(false);
-      } else if (res.data.nickname) {
-        setUser(res.data.nickname);
-        setUserLogin(res.data.nickname);
-        setLoggedIn(true);
-      }
-    })
+      .then((res) => {
+        if (res.data === '') {
+          setUser('');
+          setUserLogin('LOG IN');
+          setLoggedIn(false);
+        } else if (res.data.nickname) {
+          setUser(res.data.nickname);
+          setUserLogin(res.data.nickname);
+          setLoggedIn(true);
+        }
+      })
       // eslint-disable-next-line no-console
       .catch((err) => console.log('THIS IS ERROR', err));
   }, [user]);

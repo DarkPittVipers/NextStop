@@ -34,24 +34,24 @@ function App() {
   const [hotels, setHotels] = useState([]);
   const classes = useStyles();
   const [favorites, setFavorites] = useState([])
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    axios.get('/user/data')
-      .then((res) => {
-        if (res.data === '') {
-          setUser('');
-          setUserLogin('LOG IN');
-          setLoginBtnDisplay('true');
-          setProfileBtnDisplay('none');
-        } else {
-          setUser(res.data.nickname);
-          setUserLogin(res.data.nickname);
-          setProfileBtnDisplay('true');
-          setLoginBtnDisplay('none');
-        }
-      })
+    axios.get('/userdata')
+    .then((res) => {
+      if (res.data === '' )
+      {
+        setUser('');
+        setUserLogin('LOG IN');
+        setLoggedIn(false);
+      } else if (res.data.nickname) {
+        setUser(res.data.nickname);
+        setUserLogin(res.data.nickname);
+        setLoggedIn(true);
+      }
+    })
       // eslint-disable-next-line no-console
-      .catch((err) => console.log(err));
+      .catch((err) => console.log('THIS IS ERROR', err));
   }, [user]);
 
   return (
@@ -73,6 +73,7 @@ function App() {
               userLogin={userLogin}
               loginBtnDisplay={loginBtnDisplay}
               profileBtnDisplay={profileBtnDisplay}
+              loggedIn={loggedIn}
             />
             <div className={classes.main}>
               <Route path="/profile" exact component={UserProfile} />

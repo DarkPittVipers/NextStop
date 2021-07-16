@@ -60,8 +60,6 @@ export default function Events() {
   // axios request for event data
   // eslint-disable-next-line no-shadow
   const getEventData = (latitude, longitude, category) => {
-    console.log('lat', latitude);
-    console.log('lng', longitude);
     axios.get('/api/events', {
       params: {
         latitude,

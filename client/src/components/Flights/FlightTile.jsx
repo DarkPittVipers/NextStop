@@ -15,12 +15,12 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
-    margin: 'auto',
+    margin: '1',
     width: '100%',
   },
   image: {
-    width: 128,
-    height: 128,
+    width: 140,
+    height: 140,
   },
   img: {
     margin: 'auto',
@@ -30,6 +30,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const carrierPhotos = {
+  UA: 'https://i.ibb.co/Wz8mMCQ/united-Airlines.jpg',
+};
+
+const setPhoto = (carrierCode) => {
+  console.log(carrierCode);
+  const photos = Object.keys(carrierPhotos);
+  for (let i = 0; i < photos.length; i++) {
+    if (photos[i] === carrierCode) {
+      return carrierPhotos[carrierCode];
+    }
+  }
+  return 'https://i.ibb.co/VMTKtZk/stupidplane.jpg';
+};
+
 export default function FlightTile({ flight }) {
   const classes = useStyles();
   const [fav, setFav] = useState(false);
@@ -38,13 +53,37 @@ export default function FlightTile({ flight }) {
   const displaySegments = (itineraries) => {
     const displayBlock = [];
     itineraries.forEach((itinerary, index) => {
-      displayBlock[index] = itinerary.segments.map((segment) => (
-        <Typography variant="body2" gutterBottom>
-          {`Departure: ${segment.departure.iataCode} ${new Date(segment.departure.at)}`}
-          <br />
-          {`Arrival: ${segment.arrival.iataCode} ${new Date(segment.arrival.at)}`}
-        </Typography>
-      ));
+      displayBlock[index] = (
+        <div>
+          {' '}
+          Itinerary
+          {index + 1}
+          {itinerary.segments.map((segment) => {
+            const date = new Date(segment.arrival.at);
+            return (
+              <Typography variant="body2" gutterBottom>
+                <br />
+                <i className="fas fa-plane-departure" />
+                {`  ${segment.departure.iataCode} ${
+                  (date.getMonth() + 1).toString().padStart(2, '0')}/${
+                  date.getDate().toString().padStart(2, '0')}/${
+                  date.getFullYear().toString().padStart(4, '0')} ${
+                  date.getHours().toString().padStart(2, '0')}:${
+                  date.getMinutes().toString().padStart(2, '0')}:${
+                  date.getSeconds().toString().padStart(2, '0')}`}
+                <i className="fas fa-plane-arrival" />
+                {`  ${segment.arrival.iataCode} ${
+                  (date.getMonth() + 1).toString().padStart(2, '0')}/${
+                  date.getDate().toString().padStart(2, '0')}/${
+                  date.getFullYear().toString().padStart(4, '0')} ${
+                  date.getHours().toString().padStart(2, '0')}:${
+                  date.getMinutes().toString().padStart(2, '0')}:${
+                  date.getSeconds().toString().padStart(2, '0')}`}
+              </Typography>
+            );
+          })}
+        </div>
+      );
     });
     return displayBlock;
   };
@@ -59,24 +98,20 @@ export default function FlightTile({ flight }) {
       });
   };
 
-  useEffect(() => {
-
-  }, [displaySegments]);
-
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <Grid container spacing={2}>
           <Grid item>
             <ButtonBase className={classes.image}>
-              <img className={classes.img} alt="complex" src="/static/images/grid/complex.jpg" />
+              <img className={classes.img} alt="complex" src={setPhoto(flight.validatingAirlineCodes[0])} />
             </ButtonBase>
           </Grid>
           <Grid item xs={12} sm container>
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  Airline Name (eventually, hopefully?)
+                  {flight.validatingAirlineCodes[0] === 'UA' ? 'United Airlines' : 'Some Airlines Name'}
                 </Typography>
                 {displaySegments(flight.itineraries).map((itinerary) => (
                   <div key={itinerary.duration}>{itinerary}</div>
@@ -95,9 +130,10 @@ export default function FlightTile({ flight }) {
             </Grid>
             <Grid item>
               <Typography variant="subtitle1">
-                $
-                {flight.price.base}
+                ${flight.price.base}
               </Typography>
+              <br />
+              <br />
               {fav === false ? (
                 <Fab
                   aria-label="like"

@@ -40,7 +40,7 @@
   border: 1px solid #dadce0;
   border-radius: 4px;
   color: #3c4043;
-  height: 56px;
+  height: 42px;
   letter-spacing: 0.2px;
   font-size: 1rem;
   align-items: center;
@@ -170,7 +170,7 @@
   min-width: 200px;
   position: absolute;
   top: -2px;
-  left: -2px;
+  left: -30em;
   z-index: 120;
   height: max-content;
   width: 770px;
@@ -230,6 +230,7 @@
   border-bottom: 1px solid #dadce0;
   border-top: 1px solid #dadce0;
   position: relative;
+  z-index: 10000000;
 }
 
 .react-google-flight-datepicker .reset-button {

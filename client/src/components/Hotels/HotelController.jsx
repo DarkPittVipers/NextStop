@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import axios from 'axios';
-import { Button, TextField, CircularProgress } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
+import { AppContext } from '../../helpers/context';
 import useStyles from '../TabStyle.jsx';
 import HotelDatePicker from './HotelDatePicker.jsx';
 
 export default function HotelController({ setHotels, hotelInfo, setHotelInfo, setLoading }) {
   const classes = useStyles();
+  const { currentDestination } = useContext(AppContext);
 
   const getHotels = () => {
     axios.get('/api/hotels', {
       params: {
-        cityCode: hotelInfo.cityCode,
+        latitude: currentDestination.lat,
+        longitude: currentDestination.lng,
         checkInDate: hotelInfo.checkInDate,
         checkOutDate: hotelInfo.checkOutDate,
         adults: hotelInfo.adults,
@@ -35,15 +38,6 @@ export default function HotelController({ setHotels, hotelInfo, setHotelInfo, se
 
   return (
     <div className={classes.controlBar}>
-      <TextField
-        label="Destination"
-        id="destination-hotel"
-        placeholder="Where to?"
-        onChange={onHotelInfoChange('cityCode')}
-        variant="outlined"
-        defaultValue={hotelInfo.cityCode}
-        size="small"
-      />
       <TextField
         label="Guests"
         id="guests-hotel"

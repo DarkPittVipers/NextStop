@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: '"Oswald", sans-serif',
     color: 'black',
     boxShadow: '0 20px 20px 20px rgba(0, 0, 0, 0.15), 0 5px 15px 15px rgba(0, 0, 0, 0.15)',
+    overflow: 'hidden',
   },
   tabs: {
     width: '100%',

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
@@ -13,7 +14,9 @@ import FlightTile from './Tiles/FlightTile.jsx';
 import HotelTile from './Tiles/HotelTile.jsx';
 import EventTile from './Tiles/EventTile.jsx';
 
-export default function MyTrip({ getAllHotels, eventInfo, hotelInfo, flightInfo }) {
+export default function MyTrip({
+  getAllHotels, eventInfo, hotelInfo, flightInfo, userInfo, setEventInfo, handleEventDelete,
+}) {
   const classes = userProStyles();
   const [hotelOptions, setHotelOptions] = useState([]);
   const [eventOptions, setEventOptions] = useState([]);
@@ -58,31 +61,37 @@ export default function MyTrip({ getAllHotels, eventInfo, hotelInfo, flightInfo 
         <div className={classes.eventTitle}>
           <b>Events</b>
         </div>
-        <BookEvent eventInfo={eventInfo} />
+        {eventInfo
+          ? <EventTile eventInfo={eventInfo} eventBookInfo={eventBookInfo} handleEventDelete={handleEventDelete} />
+          : null }
       </Grid>
       <Grid
         item
         xs={12}
         className={classes.myTripEvents}
       >
+
         <div className={classes.hotelTitle}>
           <b>Hotels</b>
         </div>
         { hotelInfo.length > 0 ? hotelInfo.map((option) => (
           <HotelTile key={option._id} option={option} getAllHotels={getAllHotels} />
         )) : <div /> }
+
       </Grid>
       <Grid
         item
         xs={12}
         className={classes.myTripFlights}
       >
+
         <div className={classes.flightTitle}>
           <b>Flights</b>
         </div>
         { flightInfo.length > 0 ? flightInfo.map((option, index) => (
           <FlightTile key={index} option={option} />
         )) : <div /> }
+
       </Grid>
     </Grid>
   );

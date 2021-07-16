@@ -111,7 +111,7 @@ export default function FlightTile({ flight }) {
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  United Airlines
+                  {flight.validatingAirlineCodes[0] === 'UA' ? 'United Airlines' : 'Some Airlines Name'}
                 </Typography>
                 {displaySegments(flight.itineraries).map((itinerary) => (
                   <div key={itinerary.duration}>{itinerary}</div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { AppContext } from '../../helpers/context';
 import { CircularProgress } from '@material-ui/core';
+import { AppContext } from '../../helpers/context';
 import useStyles from '../TabStyle.jsx';
 import HotelController from './HotelController.jsx';
 import HotelTile from './HotelTile.jsx';
@@ -16,16 +16,18 @@ export default function Hotels() {
   });
   const classes = useStyles();
   useEffect(() => {
+    console.log(hotels[0]);
   }, [hotels]);
   return (
     <div className={classes.tabContainer}>
-      <HotelController hotelInfo={hotelInfo} setHotels={setHotels}
-        setHotelInfo={setHotelInfo} hotels={hotels}
+      <HotelController
+        hotelInfo={hotelInfo}
+        setHotels={setHotels}
+        setHotelInfo={setHotelInfo}
+        hotels={hotels}
       />
       {hotels.length === 0 ? null
-        : hotels.map((hotel) => {
-          return <HotelTile key={hotel.hotel.hotelId} hotel={hotel} />;
-        })}
+        : hotels.map((hotel) => <HotelTile key={hotel.hotel.hotelId} hotel={hotel} />)}
     </div>
   );
 }

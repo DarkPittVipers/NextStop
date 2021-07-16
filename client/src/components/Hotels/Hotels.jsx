@@ -18,7 +18,7 @@ export default function Hotels() {
   const [loading, setLoading] = useState(false);
   const classes = useStyles();
   useEffect(() => {
-    console.log(hotels[0]);
+    console.log(hotels);
   }, [hotels]);
   return (
     <div className={classes.tabContainer}>
@@ -30,7 +30,7 @@ export default function Hotels() {
         setLoading={setLoading}
       />
       {
-        loading ? <CircularProgress />
+        loading ? <img src="https://i.ibb.co/1JZ5jT4/output-onlinegiftools.gif" alt="hotel-loader" height="55%" border="0" />
           : hotels.length > 0 ? hotels.map((hotel) => (
             <HotelTile
               key={hotel.hotel.hotelId}

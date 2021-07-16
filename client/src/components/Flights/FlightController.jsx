@@ -120,14 +120,6 @@ export default function FlightController({ setFlights, nonStop, setNonStop, roun
         defaultValue={null}
         size="small"
       />
-      Non-Stop?
-      <Switch
-        checked={nonStop}
-        onChange={nonStopSwitch}
-        color="primary"
-        name="checkedB"
-        inputProps={{ 'aria-label': 'primary checkbox' }}
-      />
       Round Trip?
       <Switch
         checked={roundTrip}

@@ -29,7 +29,7 @@ export default function Flights() {
         setLoading={setLoading}
       />
       {
-        loading ? <CircularProgress />
+        loading ? <img src="https://i.ibb.co/qdjrmWW/planespinner.gif" alt="planespinner" height="60%" border="0" />
           : flights.length > 0 ? flights.map((flight) => (
             <FlightTile
               key={flight.id}

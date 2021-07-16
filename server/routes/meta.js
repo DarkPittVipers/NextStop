@@ -12,7 +12,7 @@ router.get('/cities', (req, res) => {
       { city_ascii: partialQuery },
       { country: partialQuery },
     ],
-  }).exec()
+  }).limit(15).exec()
     .then((docs) => {
       res.status(200).send(docs);
     })

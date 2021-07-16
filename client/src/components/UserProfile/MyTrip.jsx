@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -15,12 +15,30 @@ import HotelTile from './Tiles/HotelTile.jsx';
 import EventTile from './Tiles/EventTile.jsx';
 
 export default function MyTrip({
-  eventInfo, hotelInfo, flightInfo, userInfo, setEventInfo, handleEventDelete,
+  getAllHotels, eventInfo, hotelInfo, flightInfo, userInfo, setEventInfo, handleEventDelete,
 }) {
   const classes = userProStyles();
-  const [flightBookInfo, setBookFlightInfo] = useState({ email: '', name: '' });
-  const [eventBookInfo, setBookEventInfo] = useState({ email: '', name: '' });
-  const [hotelBookInfo, setHotelBookInfo] = useState();
+  const [hotelOptions, setHotelOptions] = useState([]);
+  const [eventOptions, setEventOptions] = useState([]);
+  const [flightOptions, setFlightOptions] = useState([]);
+
+  useEffect(() => {
+    if (hotelInfo) {
+      setHotelOptions([...hotelOptions, hotelInfo]);
+    }
+  }, [hotelInfo]);
+
+  useEffect(() => {
+    if (flightInfo) {
+      setFlightOptions([...flightOptions, flightInfo]);
+    }
+  }, [flightInfo]);
+
+  useEffect(() => {
+    if (eventInfo) {
+      setEventOptions([...eventOptions, eventInfo]);
+    }
+  }, [eventInfo]);
 
   return (
     <Grid
@@ -40,7 +58,9 @@ export default function MyTrip({
         xs={12}
         className={classes.myTripEvents}
       >
-        Events
+        <div className={classes.eventTitle}>
+          <b>Events</b>
+        </div>
         {eventInfo
           ? <EventTile eventInfo={eventInfo} eventBookInfo={eventBookInfo} handleEventDelete={handleEventDelete} />
           : null }
@@ -50,20 +70,28 @@ export default function MyTrip({
         xs={12}
         className={classes.myTripEvents}
       >
-        Hotels
-        {hotelInfo
-          ? <HotelTile userInfo={userInfo} hotelBookInfo={hotelBookInfo} />
-          : null }
+
+        <div className={classes.hotelTitle}>
+          <b>Hotels</b>
+        </div>
+        { hotelInfo.length > 0 ? hotelInfo.map((option) => (
+          <HotelTile key={option._id} option={option} getAllHotels={getAllHotels} />
+        )) : <div /> }
+
       </Grid>
       <Grid
         item
         xs={12}
         className={classes.myTripFlights}
       >
-        Flights
-        {flightInfo
-          ? <FlightTile userInfo={userInfo} flightBookInfo={flightBookInfo} />
-          : null }
+
+        <div className={classes.flightTitle}>
+          <b>Flights</b>
+        </div>
+        { flightInfo.length > 0 ? flightInfo.map((option, index) => (
+          <FlightTile key={index} option={option} />
+        )) : <div /> }
+
       </Grid>
     </Grid>
   );

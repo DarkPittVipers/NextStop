@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   Grid,
@@ -6,11 +6,26 @@ import {
 
 import userProStyles from './UserProStyles.jsx';
 
-export default function Budget({ flightsTotPrice, eventsTotPrice, hotelsTotPrice }) {
+export default function Budget({flightInfo, eventInfo, hotelInfo}) {
   const classes = userProStyles();
+  const [flightsTotPrice, setFlightsTotPrice] = useState(0);
+  const [eventsTotPrice, setEventsTotPrice] = useState(0);
+  const [hotelsTotPrice, setHotelsTotPrice] = useState(0);
 
   const getTotal = (eventTot, flightTot, hotelTot) => (
     parseFloat(eventTot) + parseFloat(flightTot) + parseFloat(hotelTot)).toFixed(2);
+
+  useEffect(() => {
+    if (hotelInfo) {
+      //   setHotelsTotPrice(hotelInfo.price.total);
+    }
+    if (flightInfo) {
+      // setFlightsTotPrice(flightInfo.price.total);
+    }
+    if (eventInfo) {
+      // setEventsTotPrice();
+    }
+  }, [hotelInfo]);
 
   return (
     <Grid
@@ -82,13 +97,7 @@ export default function Budget({ flightsTotPrice, eventsTotPrice, hotelsTotPrice
 }
 
 Budget.propTypes = {
-  eventsTotPrice: PropTypes.string,
-  flightsTotPrice: PropTypes.string,
-  hotelsTotPrice: PropTypes.string,
 };
 
 Budget.defaultProps = {
-  eventsTotPrice: '',
-  flightsTotPrice: '',
-  hotelsTotPrice: '',
 };

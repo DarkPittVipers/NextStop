@@ -37,12 +37,12 @@ router.post('/booking', (req, res) => {
             lastName: req.body.lastName,
           },
           contact: {
-            phone: '+33679278416',
+            phone: req.body.phone,
             email: req.body.email,
           },
         }],
         payments: [{
-          method: 'creditCard',
+          method: req.body.method,
           card: {
             vendorCode: req.body.vendorCode,
             cardNumber: req.body.cardNumber,

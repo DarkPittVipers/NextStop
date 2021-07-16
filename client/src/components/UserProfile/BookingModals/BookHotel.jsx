@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 import {
   Button,
@@ -7,20 +8,16 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
-  Radio,
-  RadioGroup,
   FormControl,
-  FormLabel,
-  FormControlLabel,
   Select,
   MenuItem,
   InputLabel,
-  Grid,
 } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
+
+import { FlightContext } from '../../../helpers/context';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -42,14 +39,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BookHotel({ hotelBookInfo, userInfo }) {
+export default function BookHotel({ offerID }) {
+  const {
+    setTitle,
+    setFirstName,
+    setLastName,
+    setEmail,
+    title,
+    firstName,
+    lastName,
+    email,
+  } = useContext(FlightContext);
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [selectOpen, setSelectOpen] = useState(false);
-  const [title, setTitle] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('lastName');
-  const [email, setEmail] = useState('email');
 
   const handleSelectOpen = () => {
     setSelectOpen(true);
@@ -67,61 +70,26 @@ export default function BookHotel({ hotelBookInfo, userInfo }) {
     setOpen(false);
   };
 
-  // CHANGE POST ROUTE
-  const postHotelBooking = (hotelObj) => axios
-    .post('/hotel/booking', {
-      data: {
-        offerId: hotelBookInfo.offerId,
-        guests: [
-          {
-            name: {
-              title: hotelObj.title,
-              firstName: hotelObj.firstName,
-              lastName: hotelObj.lastName,
-            },
-            contact: {
-              phone: '+33679278416',
-              email: hotelObj.email,
-            },
-          },
-        ],
-        payments: [
-          {
-            method: 'creditCard',
-            card: {
-              vendorCode: 'VI',
-              cardNumber: '4111111111111111',
-              expiryDate: '2023-01',
-            },
-          },
-        ],
-      },
+  const postHotelBooking = () => axios
+    .post('/api/hotels/booking', {
+      offerId: offerID,
+      title,
+      firstName,
+      lastName,
+      phone: '+33679278416',
+      email,
+      method: 'creditCard',
+      vendorCode: 'VI',
+      cardNumber: '4111111111111111',
+      expiryDate: '2023-01',
     })
-    .then((res) => res.data)
-    .then(() => {
-      console.log('hotelOBJ', hotelObj);
-    });
-
-  const handleBooking = () => {
-    const hotelObj = {
-      title: title,
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      offerId: hotelBookInfo.offerId,
-    };
-    postHotelBooking(hotelObj)
-      .then(() => handleClose())
-      .then(console.log('Submit HOTEL BOOKING WORKS', hotelObj))
-      .catch();
-  };
+    .then((res) => console.log('HOTEL BOOK RES', res))
+    .then(handleClose());
 
   return (
     <div>
-      <Button onClick={handleClickOpen}>
-        <Grid item xs={6} sm={3} className="hotelBook-container">
-          <div>Book!</div>
-        </Grid>
+      <Button variant="outlined" onClick={handleClickOpen}>
+        Book!
       </Button>
       <Dialog
         open={open}
@@ -130,6 +98,25 @@ export default function BookHotel({ hotelBookInfo, userInfo }) {
       >
         <DialogTitle id="form-dialog-title">Book Hotel Information</DialogTitle>
         <DialogContent>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="demo-controlled-open-select-label">
+              Title
+            </InputLabel>
+            <Select
+              labelId="demo-controlled-open-select-label"
+              id="demo-controlled-open-select"
+              open={selectOpen}
+              onClose={handleSelectClose}
+              onOpen={handleSelectOpen}
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
+            >
+              <MenuItem value="Mr">Mr</MenuItem>
+              <MenuItem value="Mrs">Mrs</MenuItem>
+              <MenuItem value="Miss">Miss</MenuItem>
+            </Select>
+          </FormControl>
+
           <TextField
             autoFocus
             margin="dense"
@@ -138,7 +125,7 @@ export default function BookHotel({ hotelBookInfo, userInfo }) {
             placeholder="Enter Your First Name"
             type="text"
             fullWidth
-            value={name}
+            value={firstName}
             onChange={(event) => setFirstName(event.target.value)}
             required
           />
@@ -150,7 +137,7 @@ export default function BookHotel({ hotelBookInfo, userInfo }) {
             placeholder="Enter Your Last Name"
             type="text"
             fullWidth
-            value={name}
+            value={lastName}
             onChange={(event) => setLastName(event.target.value)}
             required
           />
@@ -171,7 +158,12 @@ export default function BookHotel({ hotelBookInfo, userInfo }) {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleBooking} color="primary">
+          <Button
+            onClick={() => {
+              postHotelBooking();
+            }}
+            color="primary"
+          >
             Submit Booking
           </Button>
         </DialogActions>
@@ -180,8 +172,6 @@ export default function BookHotel({ hotelBookInfo, userInfo }) {
   );
 }
 
-BookHotel.propTypes = {
-};
+BookHotel.propTypes = {};
 
-BookHotel.defaultProps = {
-};
+BookHotel.defaultProps = {};

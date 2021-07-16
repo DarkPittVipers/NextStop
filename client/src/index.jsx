@@ -35,12 +35,11 @@ const useStyles = makeStyles(() => ({
 function App() {
   const [user, setUser] = useState('');
   const [userLogin, setUserLogin] = useState('LOG IN');
-  const [loginBtnDisplay, setLoginBtnDisplay] = useState('true');
-  const [profileBtnDisplay, setProfileBtnDisplay] = useState('true');
   const [flights, setFlights] = useState([]);
   const [hotels, setHotels] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [currentDestination, setCurrentDestination] = useState({});
 
   const classes = useStyles();
 

@@ -7,7 +7,7 @@ const NavStyles = makeStyles(() => ({
     justifyContent: 'space-between',
     fontFamily: '"Oswald", sans-serif',
     backgroundColor: '#1A535C',
-    boxShadow: '0 20px 20px 20px rgba(0, 0, 0, 0.15), 0 5px 15px 15px rgba(0, 0, 0, 0.15)',
+    boxShadow: '0px -5px 18px 10px rgba(0,0,0,0.5)',
     padding: '10px 30px',
     margin: 0,
   },
@@ -27,17 +27,38 @@ const NavStyles = makeStyles(() => ({
     fontWeight: '500',
     fontSize: '20px',
   },
-  searchInputBox: {
-    padding: '5px',
-    color: 'white',
+  mottoFont: {
+    color: '#fff',
+    marginTop: -5,
     fontFamily: '"Oswald", sans-serif',
-    fontWeight: '500',
-    fontSize: '20px',
-    marginLeft: '10px',
+    fontWeight: '300',
+    fontSize: '12px',
+  },
+  searchInputBox: {
+    '& .MuiInputBase-root': {
+      padding: '5px',
+      color: 'white',
+      fontFamily: '"Oswald", sans-serif',
+      fontWeight: '500',
+      fontSize: '18px',
+      border: '2px solid #fff',
+      borderRadius: 5,
+      backgroundColor: '#ffffff18',
+    },
+    '& .Mui-focused': {
+      border: '2px solid #ccc',
+      boxShadow: '0px 0px 8px -1px rgba(0,0,0,0.6)',
+    },
+    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+      borderColor: '#ff6b6b',
+      borderRadius: 3,
+    },
+    '& .MuiSvgIcon-root': {
+      fill: '#fff',
+    },
   },
   searchIcon: {
     marginLeft: '5px',
-
   },
   loginCont: {
     display: 'flex',
@@ -49,8 +70,15 @@ const NavStyles = makeStyles(() => ({
   loginBtn: {
     color: 'white',
     border: '2px solid white',
-    borderRadius: '8px',
-    marginLeft: '5px',
+    borderRadius: 5,
+    marginLeft: 5,
+    backgroundColor: '#ffffff18',
+    '&:hover': {
+      backgroundColor: '#ffffff28',
+    },
+  },
+  link: {
+    textDecoration: 'none',
   },
 }));
 

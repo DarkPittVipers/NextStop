@@ -11,6 +11,7 @@ import userProStyles from './UserProStyles.jsx';
 import BookEvent from './BookingModals/BookEvent.jsx';
 import FlightTile from './Tiles/FlightTile.jsx';
 import HotelTile from './Tiles/HotelTile.jsx';
+import EventTile from './Tiles/EventTile.jsx';
 
 export default function MyTrip({ getAllHotels, eventInfo, hotelInfo, flightInfo }) {
   const classes = userProStyles();
@@ -54,15 +55,20 @@ export default function MyTrip({ getAllHotels, eventInfo, hotelInfo, flightInfo 
         xs={12}
         className={classes.myTripEvents}
       >
+<<<<<<< HEAD
         <div className={classes.eventTitle}>
           <b>Events</b>
         </div>
         <BookEvent eventInfo={eventInfo} />
+=======
+        Events
+        <EventTile eventInfo={eventInfo} eventBookInfo={eventBookInfo} />
+>>>>>>> aa98581b3fcd2e7b38a08eee4a1efaadd5d2ae47
       </Grid>
       <Grid
         item
         xs={12}
-        className={classes.myTripHotels}
+        className={classes.myTripEvents}
       >
         <div className={classes.hotelTitle}>
           <b>Hotels</b>
@@ -76,12 +82,17 @@ export default function MyTrip({ getAllHotels, eventInfo, hotelInfo, flightInfo 
         xs={12}
         className={classes.myTripFlights}
       >
+<<<<<<< HEAD
         <div className={classes.flightTitle}>
           <b>Flights</b>
         </div>
         { flightInfo.length > 0 ? flightInfo.map((option, index) => (
           <FlightTile key={index} option={option} />
         )) : <div /> }
+=======
+        Flights
+        <FlightTile userInfo={userInfo} flightBookInfo={flightBookInfo} />
+>>>>>>> aa98581b3fcd2e7b38a08eee4a1efaadd5d2ae47
       </Grid>
     </Grid>
   );

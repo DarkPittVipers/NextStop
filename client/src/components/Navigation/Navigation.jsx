@@ -1,59 +1,100 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import { Grid, Typography, InputBase, Button } from "@material-ui/core";
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import {
+  Grid,
+  Typography,
+  TextField,
+  Button,
+} from '@material-ui/core';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 // MATERIAL UI ICONS
-import SearchIcon from "@material-ui/icons/Search";
-import AccountCircle from "@material-ui/icons/AccountCircle";
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
-import NavStyles from "./NavStyles.jsx";
+import NavStyles from './NavStyles.jsx';
 
 export default function Navigation({
-  userLogin,
-  loginBtnDisplay,
-  profileBtnDisplay,
-  loggedIn,
+  user, loggedIn, setCurrentDestination,
 }) {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [destinations, setDestinations] = useState([]);
+
   const classes = NavStyles();
+
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleAutoCompleteUpdate = () => {
+    if (searchTerm.length > 1) {
+      axios.get('/api/meta/cities', { params: { searchTerm } })
+        .then((response) => {
+          setDestinations(response.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
+  useEffect(() => {
+    handleAutoCompleteUpdate();
+  }, [searchTerm]);
 
   return (
     <Grid container className={classes.nav}>
-      <Link to="/">
-        <img src="assets/NextStopLogo.svg" height="64" alt="logo" />
-      </Link>
-      <Grid className={classes.destSearch} item>
-        <Typography className={classes.destFont}>
-          Destination: &nbsp; &nbsp;
-        </Typography>
-        <div className={classes.searchBar}>
-          <SearchIcon className={classes.searchIcon} />
-          <InputBase
-            className={classes.searchInputBox}
-            placeholder="Search…"
-            inputProps={{ "aria-label": "search" }}
+      <Grid item direction="column">
+        <Grid container direction="column" alignItems="flex-start">
+          <Link to="/">
+            <img src="assets/NextStopLogo.svg" height="48" alt="logo" />
+          </Link>
+          <Typography className={classes.mottoFont}>
+            The odds of dying abroad are 1 in
+            <br />
+            449,510 take your chances with us
+          </Typography>
+        </Grid>
+      </Grid>
+      <Grid
+        className={classes.destSearch}
+        item
+      >
+        <Grid container justifyContent="flex-start" alignItems="center">
+          <Typography className={classes.destFont}>Destination:&nbsp;</Typography>
+          <Autocomplete
+            id="search-destinations"
+            options={destinations}
+            getOptionLabel={(option) => `${option.city_ascii}, ${option.admin_name && option.iso2 === 'US' ? `${option.admin_name},` : ''} ${option.country}`}
+            onChange={(event, newValue) => {
+              setCurrentDestination(newValue);
+            }}
+            style={{ width: 250 }}
+            renderInput={(params) => (
+              <TextField
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                {...params}
+                variant="outlined"
+                placeholder="Search…"
+                color="primary"
+                className={classes.searchInputBox}
+                onChange={handleChange}
+              />
+            )}
           />
-        </div>
+        </Grid>
       </Grid>
 
       <Grid className={classes.loginCont} item>
         <AccountCircle />
         {loggedIn ? (
-          <Link to="/profile">
-            <Button
-              className={classes.loginBtn}
-              style={{ display: profileBtnDisplay }}
-            >
-              {userLogin}
+          <Link to="/profile" className={classes.link}>
+            <Button className={classes.loginBtn}>
+              {user.nickname}
             </Button>
           </Link>
         ) : (
-          <Button
-            className={classes.loginBtn}
-            href="/login"
-            style={{ display: loginBtnDisplay }}
-          >
-            {userLogin}
+          <Button className={classes.loginBtn} href="/login">
+            Log in
           </Button>
         )}
       </Grid>
@@ -62,13 +103,13 @@ export default function Navigation({
 }
 
 Navigation.propTypes = {
-  userLogin: PropTypes.string,
-  loginBtnDisplay: PropTypes.string,
-  profileBtnDisplay: PropTypes.string,
+  user: PropTypes.string,
+  loggedIn: PropTypes.bool,
+  setCurrentDestination: PropTypes.func,
 };
 
 Navigation.defaultProps = {
-  userLogin: "",
-  loginBtnDisplay: "true",
-  profileBtnDisplay: "none",
+  user: { nickname: 'Log in' },
+  loggedIn: false,
+  setCurrentDestination: () => {},
 };

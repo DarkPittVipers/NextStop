@@ -28,13 +28,17 @@ export default function UserProfile({ user }) {
     if (res.data.flights) {
       setFlightInfo([...res.data.flights]);
     } if (res.data.hotels) {
+<<<<<<< HEAD
       setHotelInfo([...res.data.hotels]);
+=======
+      setHotelInfo(...res.data.hotels);
+>>>>>>> aa98581b3fcd2e7b38a08eee4a1efaadd5d2ae47
     } if (res.data.events) {
       setEventInfo([...res.data.events]);
     }
-    console.log('RES', res.data);
   });
 
+<<<<<<< HEAD
   const getAllHotels = () => axios.get('/user/trip').then((res) => {
     if (res.data.hotels) {
       setHotelInfo(...res.data.hotels);
@@ -44,17 +48,31 @@ export default function UserProfile({ user }) {
   useEffect(() => {
     getFlightsHotels();
   }, []);
+=======
+  const addFlightsHotelsEventsPrices = () => axios
+    .get('/user/trip')
+  // let flightTotalPrice =  flightsTotPrice;
+    .then((res) => {
+      for (let i = 0; i < res.data.flights.length; i += 1) {
+        const flightPrice = flightsTotPrice + parseFloat(res.data.flights[i].price.total);
+        setFlightsTotPrice(flightPrice);
+      }
+    });
+>>>>>>> aa98581b3fcd2e7b38a08eee4a1efaadd5d2ae47
 
   useEffect(() => {
     getFlightsHotels();
   }, [favorites]);
 
+<<<<<<< HEAD
   // -----------------------------------CONSOLE LOGS-------------
   // console.log('FLIGHTINFO', flightInfo);
   // console.log('HOTELINFO', hotelInfo);
   // console.log('FAVORITES', favorites);
   // console.log('TOTSTATE', flightsTotPrice);
 
+=======
+>>>>>>> aa98581b3fcd2e7b38a08eee4a1efaadd5d2ae47
   return (
     <FlightContext.Provider value={{
       setTitle,

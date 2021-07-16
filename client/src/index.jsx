@@ -37,7 +37,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    axios.get('/userdata')
+    axios.get('/user/data')
     .then((res) => {
       if (res.data === '' )
       {

@@ -5,6 +5,7 @@ import axios from 'axios';
 // eslint-disable-next-line import/no-named-as-default-member
 import Entry from './Entry.jsx';
 import EventForm from './EventForm.jsx';
+import { AppContext } from '../../helpers/context';
 
 // eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles((theme) => ({
@@ -53,7 +54,7 @@ export default function Events() {
   const classes = useStyles();
   const [eventData, updateEventData] = useState();
   const [category, updateCategory] = useState('NIGHTLIFE');
-  // const { latitude, longitude, city } = useContext(DestinationContext);
+  // const { latitude, longitude } = useContext(AppContext);
   // eslint-disable-next-line no-unused-vars
   const [latitude, updateLatitude] = useState(37.810980);
   // eslint-disable-next-line no-unused-vars

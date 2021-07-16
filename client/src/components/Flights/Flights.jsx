@@ -42,13 +42,3 @@ export default function Flights() {
     </div>
   );
 }
-
-// loading ? <CircularProgress />
-//   : hotels.length > 0 ? hotels.map((hotel) => (
-//     <HotelTile
-//       key={hotel.hotel.hotelId}
-//       hotel={hotel}
-//     />
-//   ))
-//     : <p>Enter some data</p>
-//   }

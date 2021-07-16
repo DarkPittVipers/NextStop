@@ -1,7 +1,6 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable max-len */
 import React, { useState, useEffect, useContext } from 'react';
-import { CircularProgress } from '@material-ui/core';
 import { AppContext } from '../../helpers/context';
 import useStyles from '../TabStyle.jsx';
 import HotelController from './HotelController.jsx';

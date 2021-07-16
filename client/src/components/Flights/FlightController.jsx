@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Button, TextField, Switch } from '@material-ui/core';
 import axios from 'axios';
 import useStyles from '../TabStyle.jsx';
+import { AppContext } from '../../helpers/context'
 import FlightDatePicker from './FlightDatePicker.jsx';
 
 // eslint-disable-next-line max-len
@@ -13,11 +14,12 @@ export default function FlightController({ setFlights, nonStop, setNonStop, roun
     adults: null,
     returnDate: '',
   });
+  const { currentDestination } = useContext(AppContext)
   const getRoundTrip = () => {
     axios.get('api/flights/roundTrip', {
       params: {
         originLocationCode: flightInfo.originLocationCode,
-        destinationLocationCode: flightInfo.destinationLocationCode,
+        destinationLocationCode: currentDestination.airports[0],
         departureDate: flightInfo.departureDate,
         adults: flightInfo.adults,
         returnDate: flightInfo.returnDate,
@@ -99,15 +101,6 @@ export default function FlightController({ setFlights, nonStop, setNonStop, roun
         onChange={onFlightInfoChange('originLocationCode')}
         variant="outlined"
         defaultValue={flightInfo.originLocationCode}
-        size="small"
-      />
-      <TextField
-        label="Destination"
-        id="destination-flight"
-        placeholder="Where ya going?"
-        onChange={onFlightInfoChange('destinationLocationCode')}
-        variant="outlined"
-        defaultValue={flightInfo.destinationLocationCode}
         size="small"
       />
       <TextField

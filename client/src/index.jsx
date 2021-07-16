@@ -33,7 +33,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 function App() {
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState({});
   const [flights, setFlights] = useState([]);
   const [hotels, setHotels] = useState([]);
   const [favorites, setFavorites] = useState([]);
@@ -55,7 +55,7 @@ function App() {
       })
       // eslint-disable-next-line no-console
       .catch((err) => console.log('THIS IS ERROR', err));
-  }, [user]);
+  }, []);
 
   return (
     <HashRouter>

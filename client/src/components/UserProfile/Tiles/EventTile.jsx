@@ -7,7 +7,7 @@ import {
   Grid, Button,
 } from '@material-ui/core';
 
-export default function EventTile({ eventInfo, eventBookInfo, handleEventDelete }) {
+export default function EventTile({ eventInfo, handleEventDelete }) {
   // const classes = useStyles();
 
   return (
@@ -20,7 +20,7 @@ export default function EventTile({ eventInfo, eventBookInfo, handleEventDelete 
       <Button onClick={() => handleEventDelete(eventInfo)} color="primary">
         Delete Event
       </Button>
-      <BookEvent eventBookInfo={eventBookInfo} />
+      <BookEvent eventInfo={eventInfo} />
     </div>
   );
 }

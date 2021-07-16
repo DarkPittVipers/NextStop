@@ -15,7 +15,7 @@ import HotelTile from './Tiles/HotelTile.jsx';
 import EventTile from './Tiles/EventTile.jsx';
 
 export default function MyTrip({
-  getAllHotels, eventInfo, hotelInfo, flightInfo, userInfo, setEventInfo, handleEventDelete,
+  getAllHotels, eventInfo, hotelInfo, flightInfo, handleEventDelete,
 }) {
   const classes = userProStyles();
   const [hotelOptions, setHotelOptions] = useState([]);
@@ -62,7 +62,7 @@ export default function MyTrip({
           <b>Events</b>
         </div>
         {eventInfo
-          ? <EventTile eventInfo={eventInfo} eventBookInfo={eventBookInfo} handleEventDelete={handleEventDelete} />
+          ? <EventTile eventInfo={eventInfo} handleEventDelete={handleEventDelete} />
           : null}
       </Grid>
       <Grid

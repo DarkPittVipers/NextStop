@@ -76,7 +76,7 @@ export default function FlightTile({ flight }) {
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  Standard license
+                  Airline Name (eventually, hopefully?)
                 </Typography>
                 {displaySegments(flight.itineraries).map((itinerary) => (
                   <div key={itinerary.duration}>{itinerary}</div>

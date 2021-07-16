@@ -15,19 +15,19 @@ import MyTrip from './MyTrip.jsx';
 export default function UserProfile({ user }) {
   const { favorites } = useContext(AppContext);
   const classes = userProStyles();
-  const [flightInfo, setFlightInfo] = useState({});
-  const [hotelInfo, setHotelInfo] = useState({});
-  const [eventInfo, setEventInfo] = useState({});
+  const [flightInfo, setFlightInfo] = useState([]);
+  const [hotelInfo, setHotelInfo] = useState([]);
+  const [eventInfo, setEventInfo] = useState([]);
   const [flightsTotPrice, setFlightsTotPrice] = useState(0);
   const [eventsTotPrice, setEventsTotPrice] = useState('100.88');
   const [hotelsTotPrice, setHotelsTotPrice] = useState('6.7');
 
   const getFlightsHotels = () => axios.get('/user/trip')
     .then((res) => {
-    setFlightInfo(res);
-    setHotelInfo(res);
-    setEventInfo(res);
-    console.log('RES', res);
+    setFlightInfo(...res.data.flights);
+    setHotelInfo(...res.data.hotels);
+    setEventInfo(...res.data.events);
+    console.log('RES', res.data);
   });
 
   const addFlightsHotelsEventsPrices = () => axios.get('/user/trip')
@@ -45,16 +45,15 @@ export default function UserProfile({ user }) {
       console.log('totalState', flightsTotPrice);
     });
 
-  // useEffect(() => {
-  //   getFlightsHotels()
-  //   addFlightsHotelsEventsPrices()
-  //     .then(() => {
-  //       console.log('FLIGHTINFO', flightInfo)
-  //       console.log('FAVORITES', favorites)
-  //       console.log('TOTSTATE', flightsTotPrice)
-  //     });
-  // //}, [flightInfo]);
-  //  }, [favorites]);
+  useEffect(() => {
+    getFlightsHotels()
+    addFlightsHotelsEventsPrices()
+  //}, [flightInfo]);
+   }, [favorites]);
+
+    console.log('FLIGHTINFO', flightInfo)
+    console.log('FAVORITES', favorites)
+    console.log('TOTSTATE', flightsTotPrice)
 
   return (
     <Grid
@@ -106,7 +105,11 @@ export default function UserProfile({ user }) {
         className={classes.rightContainer}
       >
 
-        <MyTrip />
+        <MyTrip
+          flightInfo={flightInfo}
+          eventInfo={eventInfo}
+          hotelInfo={hotelInfo}
+        />
 
         <Grid
           item

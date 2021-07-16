@@ -34,8 +34,8 @@ export default function BookEvent({ eventInfo }) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [selectOpen, setSelectOpen] = useState(false);
-  const [name, setName] = useState(eventInfo.name);
-  const [email, setEmail] = useState(eventInfo.email);
+  const [name, setName] = useState('name');
+  const [email, setEmail] = useState('email');
 
   const handleSelectOpen = () => {
     setSelectOpen(true);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import {
@@ -30,12 +30,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BookFlight({ flightInfo }) {
+export default function BookFlight({ flightBookInfo }) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [selectOpen, setSelectOpen] = useState(false);
-  const [name, setName] = useState(flightInfo.name);
-  const [email, setEmail] = useState(flightInfo.email);
+  const [name, setName] = useState('name');
+  const [email, setEmail] = useState('email');
+
+  // const getLoadUserData = () => axios.get()
+
+  // useEffect(() => {
+  //   getFlightsHotels()
+  //   addFlightsHotelsEventsPrices()
+  //  }, [flightBookInfo]);
 
   const handleSelectOpen = () => {
     setSelectOpen(true);

@@ -8,15 +8,16 @@ import {
 import userProStyles from './UserProStyles.jsx';
 
 // IMPORT MODALS
-import BookFlight from './BookingModals/BookFlight.jsx';
-import BookHotel from './BookingModals/BookHotel.jsx';
 import BookEvent from './BookingModals/BookEvent.jsx';
+import FlightTile from './Tiles/FlightTile.jsx';
+import HotelTile from './Tiles/HotelTile.jsx';
 
-export default function MyTrip({eventInfo, flightInfo, hotelInfo, userInfo}) {
+export default function MyTrip({eventInfo, hotelInfo, flightInfo, userInfo}) {
   const classes = userProStyles();
   const [flightBookInfo, setBookFlightInfo] = useState({ email: '', name: '' });
-  const [hotelBookInfo, setBookHotelInfo] = useState({ email: '', name: '' });
   const [eventBookInfo, setBookEventInfo] = useState({ email: '', name: '' });
+  const [hotelBookInfo, setHotelBookInfo] = useState();
+
 
   return (
     <Grid
@@ -45,7 +46,7 @@ export default function MyTrip({eventInfo, flightInfo, hotelInfo, userInfo}) {
         className={classes.myTripHotels}
       >
         Hotels
-        <BookHotel hotelBookInfo={hotelBookInfo} userInfo={userInfo} />
+        <HotelTile userInfo={userInfo} hotelBookInfo={hotelBookInfo} />
       </Grid>
       <Grid
         item
@@ -53,7 +54,7 @@ export default function MyTrip({eventInfo, flightInfo, hotelInfo, userInfo}) {
         className={classes.myTripFlights}
       >
         Flights
-        <BookFlight flightBookInfo={flightBookInfo} />
+        <FlightTile userInfo={userInfo} hotelBookInfo={hotelBookInfo} />
       </Grid>
     </Grid>
   );

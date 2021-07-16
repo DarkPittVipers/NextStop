@@ -25,7 +25,7 @@ export default function UserProfile({ user }) {
     {
       title: '',
       firstName: '',
-      lastName: ''.
+      lastName: '',
       email: '',
     })
 

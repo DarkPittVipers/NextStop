@@ -2,10 +2,22 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 import {
-  Button, TextField, Dialog,
-  DialogActions, DialogContent, DialogContentText,
-  DialogTitle, Radio, RadioGroup, FormControl, FormLabel, FormControlLabel,
-  Select, MenuItem, InputLabel, Grid,
+  Button,
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Radio,
+  RadioGroup,
+  FormControl,
+  FormLabel,
+  FormControlLabel,
+  Select,
+  MenuItem,
+  InputLabel,
+  Grid,
 } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -56,45 +68,47 @@ export default function BookHotel({ hotelBookInfo, userInfo }) {
   };
 
   // CHANGE POST ROUTE
-  const postHotelBooking = (hotelObj) => axios.post('/hotel/booking',
-    {
-      "data": {
-        "offerId": hotelOjb.offerId,
-        "guests": [
+  const postHotelBooking = (hotelObj) => axios
+    .post('/hotel/booking', {
+      data: {
+        offerId: hotelBookInfo.offerId,
+        guests: [
           {
-            "name": {
-              "title": hotelObj.title,
-              "firstName": hotelObj.firstName,
-              "lastName": hotelObj.lastName
+            name: {
+              title: hotelObj.title,
+              firstName: hotelObj.firstName,
+              lastName: hotelObj.lastName,
             },
-            "contact": {
-              "phone": "+33679278416",
-              "email": hotelObj.email
-            }
-          }
+            contact: {
+              phone: '+33679278416',
+              email: hotelObj.email,
+            },
+          },
         ],
-        "payments": [
+        payments: [
           {
-            "method": "creditCard",
-            "card": {
-              "vendorCode": "VI",
-              "cardNumber": "4111111111111111",
-              "expiryDate": "2023-01"
-            }
-          }
-        ]
-      }
-    }
-
-  }).then((res) => res.data)
+            method: 'creditCard',
+            card: {
+              vendorCode: 'VI',
+              cardNumber: '4111111111111111',
+              expiryDate: '2023-01',
+            },
+          },
+        ],
+      },
+    })
+    .then((res) => res.data)
     .then(() => {
       console.log('hotelOBJ', hotelObj);
     });
 
   const handleBooking = () => {
     const hotelObj = {
-      name,
-      email,
+      title: title,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      offerId: hotelBookInfo.offerId,
     };
     postHotelBooking(hotelObj)
       .then(() => handleClose())
@@ -106,11 +120,14 @@ export default function BookHotel({ hotelBookInfo, userInfo }) {
     <div>
       <Button onClick={handleClickOpen}>
         <Grid item xs={6} sm={3} className="hotelBook-container">
-
           <div>Book!</div>
         </Grid>
       </Button>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
         <DialogTitle id="form-dialog-title">Book Hotel Information</DialogTitle>
         <DialogContent>
           <TextField
@@ -149,7 +166,6 @@ export default function BookHotel({ hotelBookInfo, userInfo }) {
             onChange={(event) => setEmail(event.target.value)}
             required
           />
-
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
@@ -160,7 +176,12 @@ export default function BookHotel({ hotelBookInfo, userInfo }) {
           </Button>
         </DialogActions>
       </Dialog>
-
     </div>
   );
 }
+
+BookHotel.propTypes = {
+};
+
+BookHotel.defaultProps = {
+};

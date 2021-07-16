@@ -27,13 +27,33 @@ const NavStyles = makeStyles(() => ({
     fontWeight: '500',
     fontSize: '20px',
   },
-  searchInputBox: {
-    padding: '5px',
-    color: 'white',
+  mottoFont: {
+    color: '#fff',
+    marginTop: -5,
     fontFamily: '"Oswald", sans-serif',
-    fontWeight: '500',
-    fontSize: '20px',
-    marginLeft: '10px',
+    fontWeight: '300',
+    fontSize: '12px',
+  },
+  searchInputBox: {
+    '& .MuiInputBase-root': {
+      padding: '5px',
+      color: 'white',
+      fontFamily: '"Oswald", sans-serif',
+      fontWeight: '500',
+      fontSize: '18px',
+      border: '1px solid #fff',
+      borderRadius: 3,
+    },
+    '& .Mui-focused': {
+      border: '1px solid #ccc',
+      boxShadow: '0px 0px 8px -1px rgba(0,0,0,0.6)',
+    },
+    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+      borderColor: '#ff6b6b',
+    },
+    '& .MuiSvgIcon-root': {
+      fill: '#fff',
+    },
   },
   searchIcon: {
     marginLeft: '5px',

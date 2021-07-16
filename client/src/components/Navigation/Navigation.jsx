@@ -4,21 +4,20 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import {
   Grid,
-  Container,
   Typography,
   TextField,
   Button,
-  InputAdornment,
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
 // MATERIAL UI ICONS
-import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
 import NavStyles from './NavStyles.jsx';
 
-export default function Navigation({ userLogin, loginBtnDisplay, profileBtnDisplay }) {
+export default function Navigation({
+  userLogin, loginBtnDisplay, profileBtnDisplay, loggedIn
+}) {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchObj, setSearchObj] = useState({});
   const [destinations, setDestinations] = useState([]);
@@ -44,24 +43,29 @@ export default function Navigation({ userLogin, loginBtnDisplay, profileBtnDispl
   }, [searchTerm]);
 
   return (
-    <Grid
-      container
-      className={classes.nav}
-    >
-      <Link to="/">
-        <img src="assets/NextStopLogo.svg" height="64" alt="logo" />
-      </Link>
+    <Grid container className={classes.nav}>
+      <Grid item direction="column">
+        <Grid container direction="column" alignItems="flex-start">
+          <Link to="/">
+            <img src="assets/NextStopLogo.svg" height="48" alt="logo" />
+          </Link>
+          <Typography className={classes.mottoFont}>
+            The odds of dying abroad are 1 in
+            <br />
+            449,510 take your chances with us
+          </Typography>
+        </Grid>
+      </Grid>
       <Grid
         className={classes.destSearch}
         item
       >
         <Grid container justifyContent="flex-start" alignItems="center">
-          <Typography className={classes.destFont}>Destination: &nbsp; &nbsp;</Typography>
+          <Typography className={classes.destFont}>Destination:&nbsp;</Typography>
           <Autocomplete
             id="search-destinations"
             options={destinations}
             getOptionLabel={(option) => `${option.city_ascii}, ${option.admin_name && option.iso2 === 'US' ? `${option.admin_name},` : ''} ${option.country}`}
-            className={classes.searchInputBox}
             onChange={(event, newValue) => {
               setSearchObj(newValue);
             }}
@@ -72,6 +76,8 @@ export default function Navigation({ userLogin, loginBtnDisplay, profileBtnDispl
                 {...params}
                 variant="outlined"
                 placeholder="Search…"
+                color="primary"
+                className={classes.searchInputBox}
                 onChange={handleChange}
               />
             )}
@@ -79,26 +85,26 @@ export default function Navigation({ userLogin, loginBtnDisplay, profileBtnDispl
         </Grid>
       </Grid>
 
-      <Grid
-        className={classes.loginCont}
-        item
-      >
+      <Grid className={classes.loginCont} item>
         <AccountCircle />
-        <Button
-          className={classes.loginBtn}
-          href="/login"
-          style={{ display: loginBtnDisplay }}
-        >
-          {userLogin}
-        </Button>
-        <Link to="/profile">
+        {loggedIn ? (
+          <Link to="/profile">
+            <Button
+              className={classes.loginBtn}
+              style={{ display: profileBtnDisplay }}
+            >
+              {userLogin}
+            </Button>
+          </Link>
+        ) : (
           <Button
             className={classes.loginBtn}
-            style={{ display: profileBtnDisplay }}
+            href="/login"
+            style={{ display: loginBtnDisplay }}
           >
             {userLogin}
           </Button>
-        </Link>
+        )}
       </Grid>
     </Grid>
   );
@@ -108,10 +114,12 @@ Navigation.propTypes = {
   userLogin: PropTypes.string,
   loginBtnDisplay: PropTypes.string,
   profileBtnDisplay: PropTypes.string,
+  loggedIn: PropTypes.bool,
 };
 
 Navigation.defaultProps = {
   userLogin: '',
   loginBtnDisplay: 'true',
   profileBtnDisplay: 'none',
+  loggedIn: false,
 };

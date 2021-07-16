@@ -1,3 +1,5 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable max-len */
 import React, { useEffect, useState, useContext } from 'react';
 import { CircularProgress } from '@material-ui/core';
 import useStyles from '../TabStyle.jsx';
@@ -9,6 +11,7 @@ export default function Flights() {
   const { flights, setFlights } = useContext(AppContext);
   const [nonStop, setNonStop] = useState(false);
   const [roundTrip, setRoundTrip] = useState(false);
+  const [loading, setLoading] = useState(false);
   const classes = useStyles();
 
   useEffect(() => {
@@ -16,13 +19,36 @@ export default function Flights() {
   }, [flights]);
   return (
     <div className={classes.tabContainer}>
-      <FlightController flights={flights} setFlights={setFlights}
-        nonStop={nonStop} setNonStop={setNonStop} roundTrip={roundTrip} setRoundTrip={setRoundTrip}
+      <FlightController
+        flights={flights}
+        setFlights={setFlights}
+        nonStop={nonStop}
+        setNonStop={setNonStop}
+        roundTrip={roundTrip}
+        setRoundTrip={setRoundTrip}
+        setLoading={setLoading}
       />
-      {flights.length === 0 ? null
-        : flights.map((flight) => {
-          return <FlightTile key={flight.id} flight={flight} />
-        })}
+      {
+        loading ? <CircularProgress />
+          : flights.length > 0 ? flights.map((flight) => (
+            <FlightTile
+              key={flight.id}
+              flight={flight}
+            />
+
+          ))
+            : <p>Enter some data</p>
+      }
     </div>
   );
 }
+
+// loading ? <CircularProgress />
+//   : hotels.length > 0 ? hotels.map((hotel) => (
+//     <HotelTile
+//       key={hotel.hotel.hotelId}
+//       hotel={hotel}
+//     />
+//   ))
+//     : <p>Enter some data</p>
+//   }

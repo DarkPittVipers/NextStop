@@ -48,7 +48,7 @@ const HotelSchema = mongoose.Schema({
       checkOutDate: Date,
       rateCode: String,
       room: {
-        type: String,
+        type: { type: String },
         typeEstimated: {
           category: String,
           beds: Number,

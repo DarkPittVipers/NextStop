@@ -34,29 +34,25 @@ const useStyles = makeStyles(() => ({
 
 function App() {
   const [user, setUser] = useState('');
-  const [userLogin, setUserLogin] = useState('LOG IN');
-  const [loginBtnDisplay, setLoginBtnDisplay] = useState('true');
-  const [profileBtnDisplay, setProfileBtnDisplay] = useState('true');
+  const [currentDestination, setCurrentDestination] = useState({});
   const [flights, setFlights] = useState([]);
   const [hotels, setHotels] = useState([]);
-  const classes = useStyles();
-  const [favorites, setFavorites] = useState([])
+  const [favorites, setFavorites] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
+
+  const classes = useStyles();
 
   useEffect(() => {
     axios.get('/user/data')
-    .then((res) => {
-      if (res.data === '' )
-      {
-        setUser('');
-        setUserLogin('LOG IN');
-        setLoggedIn(false);
-      } else if (res.data.nickname) {
-        setUser(res.data.nickname);
-        setUserLogin(res.data.nickname);
-        setLoggedIn(true);
-      }
-    })
+      .then((res) => {
+        if (res.data === '') {
+          setUser({});
+          setLoggedIn(false);
+        } else if (res.data.nickname) {
+          setUser(res.data);
+          setLoggedIn(true);
+        }
+      })
       // eslint-disable-next-line no-console
       .catch((err) => console.log('THIS IS ERROR', err));
   }, [user]);
@@ -72,15 +68,14 @@ function App() {
             setHotels,
             favorites,
             setFavorites,
+            currentDestination,
           }}
           >
             <CssBaseline />
             <Navigation
               user={user}
-              userLogin={userLogin}
-              loginBtnDisplay={loginBtnDisplay}
-              profileBtnDisplay={profileBtnDisplay}
               loggedIn={loggedIn}
+              setCurrentDestination={setCurrentDestination}
             />
             <div className={classes.main}>
               <Route path="/profile" exact component={UserProfile} />

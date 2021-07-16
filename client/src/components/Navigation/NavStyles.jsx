@@ -41,15 +41,17 @@ const NavStyles = makeStyles(() => ({
       fontFamily: '"Oswald", sans-serif',
       fontWeight: '500',
       fontSize: '18px',
-      border: '1px solid #fff',
-      borderRadius: 3,
+      border: '2px solid #fff',
+      borderRadius: 5,
+      backgroundColor: '#ffffff18',
     },
     '& .Mui-focused': {
-      border: '1px solid #ccc',
+      border: '2px solid #ccc',
       boxShadow: '0px 0px 8px -1px rgba(0,0,0,0.6)',
     },
     '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
       borderColor: '#ff6b6b',
+      borderRadius: 3,
     },
     '& .MuiSvgIcon-root': {
       fill: '#fff',
@@ -57,7 +59,6 @@ const NavStyles = makeStyles(() => ({
   },
   searchIcon: {
     marginLeft: '5px',
-
   },
   loginCont: {
     display: 'flex',
@@ -69,8 +70,15 @@ const NavStyles = makeStyles(() => ({
   loginBtn: {
     color: 'white',
     border: '2px solid white',
-    borderRadius: '8px',
-    marginLeft: '5px',
+    borderRadius: 5,
+    marginLeft: 5,
+    backgroundColor: '#ffffff18',
+    '&:hover': {
+      backgroundColor: '#ffffff28',
+    },
+  },
+  link: {
+    textDecoration: 'none',
   },
 }));
 

@@ -16,10 +16,9 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import NavStyles from './NavStyles.jsx';
 
 export default function Navigation({
-  userLogin, loginBtnDisplay, profileBtnDisplay, loggedIn
+  user, loggedIn, setCurrentDestination,
 }) {
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchObj, setSearchObj] = useState({});
   const [destinations, setDestinations] = useState([]);
 
   const classes = NavStyles();
@@ -67,7 +66,7 @@ export default function Navigation({
             options={destinations}
             getOptionLabel={(option) => `${option.city_ascii}, ${option.admin_name && option.iso2 === 'US' ? `${option.admin_name},` : ''} ${option.country}`}
             onChange={(event, newValue) => {
-              setSearchObj(newValue);
+              setCurrentDestination(newValue);
             }}
             style={{ width: 250 }}
             renderInput={(params) => (
@@ -88,21 +87,14 @@ export default function Navigation({
       <Grid className={classes.loginCont} item>
         <AccountCircle />
         {loggedIn ? (
-          <Link to="/profile">
-            <Button
-              className={classes.loginBtn}
-              style={{ display: profileBtnDisplay }}
-            >
-              {userLogin}
+          <Link to="/profile" className={classes.link}>
+            <Button className={classes.loginBtn}>
+              {user.nickname}
             </Button>
           </Link>
         ) : (
-          <Button
-            className={classes.loginBtn}
-            href="/login"
-            style={{ display: loginBtnDisplay }}
-          >
-            {userLogin}
+          <Button className={classes.loginBtn} href="/login">
+            Log in
           </Button>
         )}
       </Grid>
@@ -111,15 +103,13 @@ export default function Navigation({
 }
 
 Navigation.propTypes = {
-  userLogin: PropTypes.string,
-  loginBtnDisplay: PropTypes.string,
-  profileBtnDisplay: PropTypes.string,
+  user: PropTypes.string,
   loggedIn: PropTypes.bool,
+  setCurrentDestination: PropTypes.func,
 };
 
 Navigation.defaultProps = {
-  userLogin: '',
-  loginBtnDisplay: 'true',
-  profileBtnDisplay: 'none',
+  user: { nickname: 'Log in' },
   loggedIn: false,
+  setCurrentDestination: () => {},
 };

@@ -4,19 +4,22 @@ import BookEvent from '../BookingModals/BookEvent.jsx';
 
 import BookHotel from '../BookingModals/BookHotel.jsx';
 import {
-  Grid,
+  Grid, Button,
 } from '@material-ui/core';
 
-export default function EventTile({ eventInfo, eventBookInfo}) {
+export default function EventTile({ eventInfo, eventBookInfo, handleEventDelete }) {
   // const classes = useStyles();
-  console.log('event info', eventInfo);
-  console.log('eventBookInfo', eventBookInfo);
 
   return (
     <div>
       <div>
-        {eventInfo.name}
+        {
+        eventInfo ? eventInfo.name : null
+        }
       </div>
+      <Button onClick={() => handleEventDelete(eventInfo)} color="primary">
+        Delete Event
+      </Button>
       <BookEvent eventBookInfo={eventBookInfo} />
     </div>
   );

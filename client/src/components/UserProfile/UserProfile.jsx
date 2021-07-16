@@ -46,6 +46,22 @@ export default function UserProfile({ user }) {
       }
     });
 
+  const handleEventDelete = (eventData) => {
+    axios
+      .delete('/user/events', {
+        params: {
+          // eslint-disable-next-line no-underscore-dangle
+          id: eventData._id,
+        },
+      })
+      .then((response) => {
+        getFlightsHotels();
+      })
+      .catch((err) => {
+        console.log('err deleting event', err);
+      });
+  };
+
   useEffect(() => {
     getFlightsHotels();
     addFlightsHotelsEventsPrices();
@@ -79,9 +95,11 @@ export default function UserProfile({ user }) {
       <Grid item xs={6} className={classes.rightContainer}>
         <MyTrip
           flightInfo={flightInfo}
+          setEventInfo={setEventInfo}
           eventInfo={eventInfo}
           hotelInfo={hotelInfo}
           userInfo={userInfo}
+          handleEventDelete={handleEventDelete}
         />
 
         <Grid item className={classes.logOutBtn}>

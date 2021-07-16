@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-props-no-spreading */
+// eslint-disable-next-line no-unused-vars
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
@@ -28,8 +30,11 @@ function TabPanel(props) {
 }
 
 TabPanel.propTypes = {
+  // eslint-disable-next-line react/require-default-props
   children: PropTypes.node,
+  // eslint-disable-next-line react/forbid-prop-types
   index: PropTypes.any.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
   value: PropTypes.any.isRequired,
 };
 
@@ -74,6 +79,7 @@ export default function FullWidthTabs() {
           textColor="primary"
           variant="fullWidth"
           aria-label="full width tabs example"
+        // eslint-disable-next-line react/jsx-no-comment-textnodes
         >
           <Tab label="Events" {...a11yProps(0)} />
           <Tab label="Hotels" {...a11yProps(1)} />

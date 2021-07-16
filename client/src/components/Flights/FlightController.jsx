@@ -23,7 +23,7 @@ export default function FlightController({ setFlights, nonStop, setNonStop, roun
         returnDate: flightInfo.returnDate,
         currencyCode: 'USD',
         maxPrice: 1000,
-        max: 5,
+        max: 100,
       },
     })
       .then((response) => {
@@ -78,11 +78,7 @@ export default function FlightController({ setFlights, nonStop, setNonStop, roun
   }
 
   function roundTripSwitch() {
-    if (roundTrip === true) {
-      setRoundTrip(false);
-    } else if (roundTrip === false) {
-      setRoundTrip(true);
-    }
+    setRoundTrip(!roundTrip);
   }
 
   function getFlight() {

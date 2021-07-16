@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  Grid, Paper, Typography, ButtonBase, Fab,
+  Button, Grid, Paper, Typography, ButtonBase, Fab,
 } from '@material-ui/core';
 import axios from 'axios';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -97,9 +97,9 @@ export default function HotelTile({ hotel }) {
                   </ul>
               </Grid>
               <Grid item>
-                <Typography variant="body2" style={{ cursor: 'pointer' }}>
-                  Remove
-                </Typography>
+                <Button size="small" variant="contained" color="#cdc545">
+                  More Info
+                </Button>
               </Grid>
             </Grid>
             <Grid item>

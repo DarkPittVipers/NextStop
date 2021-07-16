@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, CircularProgress } from '@material-ui/core';
 import useStyles from '../TabStyle.jsx';
 import HotelDatePicker from './HotelDatePicker.jsx';
 
-export default function HotelController({ setHotels, hotelInfo, setHotelInfo }) {
+export default function HotelController({ setHotels, hotelInfo, setHotelInfo, setLoading }) {
   const classes = useStyles();
 
   const getHotels = () => {
@@ -18,9 +18,11 @@ export default function HotelController({ setHotels, hotelInfo, setHotelInfo }) 
     })
       .then((response) => {
         setHotels(response.data.data);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false);
       });
   };
 
@@ -59,6 +61,7 @@ export default function HotelController({ setHotels, hotelInfo, setHotelInfo }) 
         variant="outlined"
         onClick={(e) => {
           e.preventDefault();
+          setLoading(true);
           getHotels();
         }}
       >

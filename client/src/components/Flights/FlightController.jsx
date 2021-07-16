@@ -2,22 +2,23 @@ import React, { useContext, useState } from 'react';
 import { Button, TextField, Switch } from '@material-ui/core';
 import axios from 'axios';
 import useStyles from '../TabStyle.jsx';
+import { AppContext } from '../../helpers/context'
 import FlightDatePicker from './FlightDatePicker.jsx';
 
 // eslint-disable-next-line max-len
-export default function FlightController({ setFlights, nonStop, setNonStop, roundTrip, setRoundTrip, setLoading }) {
+export default function FlightController({ setFlights, roundTrip, setRoundTrip, setLoading }) {
+  const { currentDestination } = useContext(AppContext);
   const [flightInfo, setFlightInfo] = useState({
     originLocationCode: '',
-    destinationLocationCode: '',
     departureDate: '',
     adults: null,
     returnDate: '',
   });
   const getRoundTrip = () => {
-    axios.get('api/flights/roundTrip', {
+    axios.get('/api/flights/roundTrip', {
       params: {
         originLocationCode: flightInfo.originLocationCode,
-        destinationLocationCode: flightInfo.destinationLocationCode,
+        destinationLocationCode: currentDestination.airports[0],
         departureDate: flightInfo.departureDate,
         adults: flightInfo.adults,
         returnDate: flightInfo.returnDate,
@@ -36,10 +37,10 @@ export default function FlightController({ setFlights, nonStop, setNonStop, roun
   };
 
   const getOneWayTrip = () => {
-    axios.get('api/flights/oneWay', {
+    axios.get('/api/flights/oneWay', {
       params: {
         originLocationCode: flightInfo.originLocationCode,
-        destinationLocationCode: flightInfo.destinationLocationCode,
+        destinationLocationCode: currentDestination.airports[0],
         departureDate: flightInfo.departureDate,
         adults: flightInfo.adults,
         currencyCode: 'USD',
@@ -68,15 +69,6 @@ export default function FlightController({ setFlights, nonStop, setNonStop, roun
     flightInfo.departureDate = dates.starting;
     flightInfo.returnDate = dates.ending;
   }
-
-  function nonStopSwitch() {
-    if (nonStop === true) {
-      setNonStop(false);
-    } else if (nonStop === false) {
-      setNonStop(true);
-    }
-  }
-
   function roundTripSwitch() {
     setRoundTrip(!roundTrip);
   }
@@ -102,15 +94,6 @@ export default function FlightController({ setFlights, nonStop, setNonStop, roun
         size="small"
       />
       <TextField
-        label="Destination"
-        id="destination-flight"
-        placeholder="Where ya going?"
-        onChange={onFlightInfoChange('destinationLocationCode')}
-        variant="outlined"
-        defaultValue={flightInfo.destinationLocationCode}
-        size="small"
-      />
-      <TextField
         label="Passengers"
         id="passengers-flight"
         type="number"
@@ -120,14 +103,6 @@ export default function FlightController({ setFlights, nonStop, setNonStop, roun
         defaultValue={null}
         size="small"
       />
-      Non-Stop?
-      <Switch
-        checked={nonStop}
-        onChange={nonStopSwitch}
-        color="primary"
-        name="checkedB"
-        inputProps={{ 'aria-label': 'primary checkbox' }}
-      />
       Round Trip?
       <Switch
         checked={roundTrip}
@@ -136,7 +111,7 @@ export default function FlightController({ setFlights, nonStop, setNonStop, roun
         name="checkedB"
         inputProps={{ 'aria-label': 'primary checkbox' }}
       />
-      <FlightDatePicker setDate={setDate} flightInfo={flightInfo} />
+      <FlightDatePicker setDate={setDate} flightInfo={flightInfo} roundTrip={roundTrip} />
 
       <Button
         variant="outlined"
@@ -144,6 +119,7 @@ export default function FlightController({ setFlights, nonStop, setNonStop, roun
           e.preventDefault();
           setLoading(true);
           getFlight();
+          console.log(currentDestination.airports[0]);
         }}
       >
         Go

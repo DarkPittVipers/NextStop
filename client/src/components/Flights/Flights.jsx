@@ -9,7 +9,6 @@ import FlightTile from './FlightTile.jsx';
 
 export default function Flights() {
   const { flights, setFlights } = useContext(AppContext);
-  const [nonStop, setNonStop] = useState(false);
   const [roundTrip, setRoundTrip] = useState(false);
   const [loading, setLoading] = useState(false);
   const classes = useStyles();
@@ -22,14 +21,12 @@ export default function Flights() {
       <FlightController
         flights={flights}
         setFlights={setFlights}
-        nonStop={nonStop}
-        setNonStop={setNonStop}
         roundTrip={roundTrip}
         setRoundTrip={setRoundTrip}
         setLoading={setLoading}
       />
       {
-        loading ? <CircularProgress />
+        loading ? <img src="https://i.ibb.co/qdjrmWW/planespinner.gif" alt="planespinner" height="60%" border="0" />
           : flights.length > 0 ? flights.map((flight) => (
             <FlightTile
               key={flight.id}

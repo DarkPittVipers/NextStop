@@ -12,11 +12,11 @@ import BookFlight from './BookingModals/BookFlight.jsx';
 import BookHotel from './BookingModals/BookHotel.jsx';
 import BookEvent from './BookingModals/BookEvent.jsx';
 
-export default function MyTrip({}) {
+export default function MyTrip({eventInfo, flightInfo, hotelInfo}) {
   const classes = userProStyles();
-  const [flightInfo, setFlightInfo] = useState({ email: '', name: '' });
-  const [hotelInfo, setHotelInfo] = useState({ email: '', name: '' });
-  const [eventInfo, setEventInfo] = useState({ email: '', name: '' });
+  const [flightBookInfo, setBookFlightInfo] = useState({ email: '', name: '' });
+  const [hotelBookInfo, setBookHotelInfo] = useState({ email: '', name: '' });
+  const [eventBookInfo, setBookEventInfo] = useState({ email: '', name: '' });
 
   return (
     <Grid
@@ -37,7 +37,7 @@ export default function MyTrip({}) {
         className={classes.myTripEvents}
       >
         Events
-        <BookEvent eventInfo={eventInfo} />
+        <BookEvent eventBookInfo={eventBookInfo} />
       </Grid>
       <Grid
         item
@@ -45,7 +45,7 @@ export default function MyTrip({}) {
         className={classes.myTripHotels}
       >
         Hotels
-        <BookHotel hotelInfo={hotelInfo} />
+        <BookHotel hotelBookInfo={hotelBookInfo} />
       </Grid>
       <Grid
         item
@@ -53,7 +53,7 @@ export default function MyTrip({}) {
         className={classes.myTripFlights}
       >
         Flights
-        <BookFlight flightInfo={flightInfo} />
+        <BookFlight flightBookInfo={flightBookInfo} />
       </Grid>
     </Grid>
   );

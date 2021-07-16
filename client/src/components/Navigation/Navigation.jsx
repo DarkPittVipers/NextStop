@@ -1,65 +1,61 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import {
-  Grid,
-  Typography,
-  InputBase,
-  Button,
-} from '@material-ui/core';
+import React from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import { Grid, Typography, InputBase, Button } from "@material-ui/core";
 
 // MATERIAL UI ICONS
-import SearchIcon from '@material-ui/icons/Search';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import SearchIcon from "@material-ui/icons/Search";
+import AccountCircle from "@material-ui/icons/AccountCircle";
 
-import NavStyles from './NavStyles.jsx';
+import NavStyles from "./NavStyles.jsx";
 
-export default function Navigation({ userLogin, loginBtnDisplay, profileBtnDisplay }) {
+export default function Navigation({
+  userLogin,
+  loginBtnDisplay,
+  profileBtnDisplay,
+  loggedIn,
+}) {
   const classes = NavStyles();
 
   return (
-    <Grid
-      container
-      className={classes.nav}
-    >
+    <Grid container className={classes.nav}>
       <Link to="/">
         <img src="assets/NextStopLogo.svg" height="64" alt="logo" />
       </Link>
-      <Grid
-        className={classes.destSearch}
-        item
-      >
-        <Typography className={classes.destFont}>Destination: &nbsp; &nbsp;</Typography>
+      <Grid className={classes.destSearch} item>
+        <Typography className={classes.destFont}>
+          Destination: &nbsp; &nbsp;
+        </Typography>
         <div className={classes.searchBar}>
           <SearchIcon className={classes.searchIcon} />
           <InputBase
             className={classes.searchInputBox}
             placeholder="Search…"
-            inputProps={{ 'aria-label': 'search' }}
+            inputProps={{ "aria-label": "search" }}
           />
         </div>
       </Grid>
 
-      <Grid
-        className={classes.loginCont}
-        item
-      >
+      <Grid className={classes.loginCont} item>
         <AccountCircle />
-        <Button
-          className={classes.loginBtn}
-          href="/login"
-          style={{ display: loginBtnDisplay }}
-        >
-          {userLogin}
-        </Button>
-        <Link to="/profile">
+        {loggedIn ? (
+          <Link to="/profile">
+            <Button
+              className={classes.loginBtn}
+              style={{ display: profileBtnDisplay }}
+            >
+              {userLogin}
+            </Button>
+          </Link>
+        ) : (
           <Button
             className={classes.loginBtn}
-            style={{ display: profileBtnDisplay }}
+            href="/login"
+            style={{ display: loginBtnDisplay }}
           >
             {userLogin}
           </Button>
-        </Link>
+        )}
       </Grid>
     </Grid>
   );
@@ -72,7 +68,7 @@ Navigation.propTypes = {
 };
 
 Navigation.defaultProps = {
-  userLogin: '',
-  loginBtnDisplay: 'true',
-  profileBtnDisplay: 'none',
+  userLogin: "",
+  loginBtnDisplay: "true",
+  profileBtnDisplay: "none",
 };

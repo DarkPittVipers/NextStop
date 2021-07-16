@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -35,14 +35,18 @@ export default function FlightTile({ flight }) {
   const [fav, setFav] = useState(false);
   const { setFavorites, favorites } = useContext(AppContext);
 
-  const displaySegments = (itinerary, arriveDepart) => {
-    itinerary.segments.map((segment) => {
-      const arrivalTime = segment[arriveDepart].at;
-      const date = new Date(arrivalTime);
-      return (
-        console.log('segment', segment[arriveDepart].iataCode, date)
-      );
+  const displaySegments = (itineraries) => {
+    const displayBlock = [];
+    itineraries.forEach((itinerary, index) => {
+      displayBlock[index] = itinerary.segments.map((segment) => (
+        <Typography variant="body2" gutterBottom>
+          {`Departure: ${segment.departure.iataCode} ${new Date(segment.departure.at)}`}
+          <br />
+          {`Arrival: ${segment.arrival.iataCode} ${new Date(segment.arrival.at)}`}
+        </Typography>
+      ));
     });
+    return displayBlock;
   };
 
   const saveFlight = (favFlight) => {
@@ -54,6 +58,10 @@ export default function FlightTile({ flight }) {
         console.log(err);
       });
   };
+
+  useEffect(() => {
+
+  }, [displaySegments]);
 
   return (
     <div className={classes.root}>
@@ -70,38 +78,9 @@ export default function FlightTile({ flight }) {
                 <Typography gutterBottom variant="subtitle1">
                   Standard license
                 </Typography>
-                {flight.itineraries.length < 2 ? (
-                  <Typography variant="body2" gutterBottom>
-                    Departure:
-                    {' '}
-                    {displaySegments(flight.itineraries[0], 'departure')}
-                    <br />
-                    Arrival:
-                    {' '}
-                    {displaySegments(flight.itineraries[0], 'arrival')}
-                  </Typography>
-                ) : (
-                  <>
-                    <Typography variant="body2" gutterBottom>
-                      Departure:
-                      {' '}
-                      {displaySegments(flight.itineraries[0], 'departure')}
-                      <br />
-                      Arrival:
-                      {' '}
-                      {displaySegments(flight.itineraries[0], 'arrival')}
-                    </Typography>
-                    <Typography variant="body2" gutterBottom>
-                      `Departure:
-                      {displaySegments(flight.itineraries[1], 'departure')}
-                      `
-                      <br />
-                      Arrival:
-                      {' '}
-                      {displaySegments(flight.itineraries[1], 'arrival')}
-                    </Typography>
-                  </>
-                )}
+                {displaySegments(flight.itineraries).map((itinerary) => (
+                  <div key={itinerary.duration}>{itinerary}</div>
+                ))}
                 <Typography variant="body2" color="textSecondary">
                   Availabile Seats:
                   {' '}

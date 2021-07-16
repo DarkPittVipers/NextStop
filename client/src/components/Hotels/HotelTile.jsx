@@ -13,19 +13,20 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
   },
   paper: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(1),
     margin: 'auto',
+    marginBottom: '2px',
     width: '100%',
   },
   image: {
-    width: 128,
-    height: 128,
+    width: 50,
+    height: 50,
   },
   img: {
     margin: 'auto',
     display: 'block',
-    maxWidth: '100%',
-    maxHeight: '100%',
+    maxWidth: '12rem',
+    maxHeight: '12rem',
   },
   amenities: {
     display: 'inline',
@@ -33,17 +34,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const hotelPhotos = {
-  HL: 'https://image.shutterstock.com/shutterstock/photos/311673374/display_1500/stock-photo-amsterdam-netherlands-august-sign-in-front-of-the-holiday-in-hotel-in-amsterdam-311673374.jpg',
-  HT: 'https://www.shutterstock.com/image-photo/frankfurt-main-germany-september-10-2016-493283194',
+  HI: 'https://i.ibb.co/jVTZ1mG/holidayinn.jpg',
+  HL: 'https://i.ibb.co/hggn58z/hilton.jpg',
+  IC: 'https://i.ibb.co/FVk14Rz/intercon.jpg',
 };
 
 const setPhoto = (hotelCode) => {
   const photos = Object.keys(hotelPhotos);
   for (let i = 0; i < photos.length; i++) {
     if (photos[i] === hotelCode) {
-      return hotelPhotos[i];
+      return hotelPhotos[hotelCode];
     }
   }
+  return 'https://i.ibb.co/Jv7TnGG/grand-budapest.jpg';
 };
 
 export default function HotelTile({ hotel }) {
@@ -66,9 +69,7 @@ export default function HotelTile({ hotel }) {
       <Paper className={classes.paper}>
         <Grid container spacing={2}>
           <Grid item>
-            <ButtonBase className={classes.image}>
-              <img src={setPhoto(hotel.hotel.chainCode)} alt="hotel-img" />
-            </ButtonBase>
+              <img className={classes.img} src={setPhoto(hotel.hotel.chainCode)} alt="hotel-img" />
           </Grid>
           <Grid item xs={12} sm container>
             <Grid item xs container direction="column" spacing={2}>
@@ -83,18 +84,17 @@ export default function HotelTile({ hotel }) {
                 <Typography variant="body2" gutterBottom>
                   {hotel.hotel.description ? hotel.hotel.description.text.slice(0, 200)
                     : <span>No Description</span>}
-                    ...
+                  ...
                 </Typography>
-                  <ul>
-                Amenities:{' '}
-                  {hotel.hotel.amenities ? hotel.hotel.amenities.slice(0, 4).map((amenity) => {
-                  return (
-                    <li key={amenity} style={{fontSize: '10px', display: 'inline'}}>{amenity}</li>
-                  )})
-                  : <p>No Amenities Listed</p>
-                    }
-                    ...
-                  </ul>
+                <ul>
+                  Amenities:
+                  {' '}
+                  {hotel.hotel.amenities ? hotel.hotel.amenities.slice(0, 4).map((amenity) => (
+                    <li key={amenity} style={{ fontSize: '10px', display: 'inline' }}>{amenity}</li>
+                  ))
+                    : <p>No Amenities Listed</p>}
+                  ...
+                </ul>
               </Grid>
               <Grid item>
                 <Button size="small" variant="contained" color="#cdc545">

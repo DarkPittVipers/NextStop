@@ -44,7 +44,7 @@ export default function Entry({
 }) {
   const [fav, setFav] = useState(false);
   const classes = useStyles();
-  const { favorites, setFavorite } = useContext(AppContext);
+  const { favorites, setFavorites } = useContext(AppContext);
   const getOnlyFirstFour = (array) => {
     const firstFour = array.slice(0, 4);
     return firstFour;
@@ -62,7 +62,7 @@ export default function Entry({
 
   const saveEvent = (favoritedEvent) => {
     axios
-      .put('/users/events', favoritedEvent)
+      .put('/user/events', favoritedEvent)
       .then((response) => response)
       .catch((err) => {
         console.log('err saving event to user in client', err);
@@ -122,7 +122,7 @@ export default function Entry({
                         e.preventDefault();
                         setFav(true);
                         saveEvent(event);
-                        setFavorite([...favorites, event]);
+                        setFavorites([...favorites, event]);
                       }}
                     >
                       <FavoriteIcon />

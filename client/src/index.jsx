@@ -7,16 +7,23 @@ import axios from 'axios';
 import { Route, Switch, HashRouter } from 'react-router-dom';
 
 import { CssBaseline } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import Navigation from './components/Navigation/Navigation.jsx';
 import Home from './components/Home/Home.jsx';
 import UserProfile from './components/UserProfile/UserProfile.jsx';
 import { AppContext } from './helpers/context';
 
+const theme = createTheme({
+  palette: {
+    background: {
+      default: '#4ecdc4',
+    },
+  },
+});
+
 const useStyles = makeStyles(() => ({
   main: {
-    backgroundColor: '#4ecdc4',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -57,7 +64,7 @@ function App() {
   return (
     <HashRouter>
       <Switch>
-        <div>
+        <ThemeProvider theme={theme}>
           <AppContext.Provider value={{
             flights,
             setFlights,
@@ -80,7 +87,7 @@ function App() {
               <Route path="/" exact component={Home} />
             </div>
           </AppContext.Provider>
-        </div>
+        </ThemeProvider>
       </Switch>
     </HashRouter>
   );

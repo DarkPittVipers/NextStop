@@ -7,7 +7,7 @@ const NavStyles = makeStyles(() => ({
     justifyContent: 'space-between',
     fontFamily: '"Oswald", sans-serif',
     backgroundColor: '#1A535C',
-    boxShadow: '0 20px 20px 20px rgba(0, 0, 0, 0.15), 0 5px 15px 15px rgba(0, 0, 0, 0.15)',
+    boxShadow: '0px -5px 18px 10px rgba(0,0,0,0.5)',
     padding: '10px 30px',
     margin: 0,
   },

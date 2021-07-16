@@ -1,9 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import {
-  Grid, Button,
-} from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
 
 import userProStyles from './UserProStyles.jsx';
 import { AppContext } from '../../helpers/context';
@@ -21,81 +19,66 @@ export default function UserProfile({ user }) {
   const [flightsTotPrice, setFlightsTotPrice] = useState(0);
   const [eventsTotPrice, setEventsTotPrice] = useState('100.88');
   const [hotelsTotPrice, setHotelsTotPrice] = useState('6.7');
-  const [userInfo, setUserInfo] = useState(
-    {
-      title: '',
-      firstName: '',
-      lastName: '',
-      email: '',
-    })
+  const [userInfo, setUserInfo] = useState({
+    title: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+  });
 
-  const getFlightsHotels = () => axios.get('/user/trip')
-    .then((res) => {
-    setFlightInfo(...res.data.flights);
-    setHotelInfo(...res.data.hotels);
-    setEventInfo(...res.data.events);
+  const getFlightsHotels = () => axios.get('/user/trip').then((res) => {
+    if (res.data.flights) {
+      setFlightInfo(...res.data.flights);
+    } if (res.data.hotels) {
+      setHotelInfo(...res.data.hotels);
+      console.log('HOTEL RES', res.data);
+    } if (res.data.events) {
+      setEventInfo(...res.data.events);
+    }
     console.log('RES', res.data);
   });
 
-  const addFlightsHotelsEventsPrices = () => axios.get('/user/trip')
+  const addFlightsHotelsEventsPrices = () => axios
+    .get('/user/trip')
   // let flightTotalPrice =  flightsTotPrice;
     .then((res) => {
       for (let i = 0; i < res.data.flights.length; i += 1) {
-        flightsTotPrice += parseFloat(res.data.flights[i].price.total);
-
+        const flightPrice = flightsTotPrice + parseFloat(res.data.flights[i].price.total);
+        setFlightsTotPrice(flightPrice);
         console.log('total', res.data.flights[i].price.total);
-
       }
       // setHotelsTotPrice();
       // setEventsTotPrice();
-      setFlightsTotPrice(flightTotalPrice);
+      // setFlightsTotPrice(flightTotalPrice);
       console.log('totalState', flightsTotPrice);
     });
 
   useEffect(() => {
-    getFlightsHotels()
-    addFlightsHotelsEventsPrices()
-  //}, [flightInfo]);
-   }, [favorites]);
+    getFlightsHotels();
+    addFlightsHotelsEventsPrices();
+    // }, [flightInfo]);
+  }, [favorites]);
 
-    console.log('FLIGHTINFO', flightInfo)
-    console.log('FAVORITES', favorites)
-    console.log('TOTSTATE', flightsTotPrice)
+  console.log('FLIGHTINFO', flightInfo);
+  console.log('HOTELINFO', hotelInfo);
+  console.log('FAVORITES', favorites);
+  console.log('TOTSTATE', flightsTotPrice);
 
   return (
-    <Grid
-      container
-      spacing={2}
-      className={classes.profileContainer}
-    >
-      <Grid
-        xs={6}
-        item
-        className={classes.leftContainer}
-      >
-        <Grid
-          item
-          xs={12}
-          className={classes.profile}
-        >
-          <Grid
-            item
-            xs={6}
-            className={classes.userName}
-          >
-            Username:
-            &nbsp;
+    <Grid container spacing={2} className={classes.profileContainer}>
+      <Grid xs={6} item className={classes.leftContainer}>
+        <Grid item xs={12} className={classes.profile}>
+          <Grid item xs={6} className={classes.userName}>
+            Username: &nbsp;
             {user}
           </Grid>
-          <Grid
-            item
-            xs={6}
-            className={classes.profilePic}
-          >
-            <img className={classes.profilePic} src="assets/png.png" alt="Broken Profile Pic" />
-
+          <Grid item xs={6} className={classes.profilePic}>
+            <img
+              className={classes.profilePic}
+              src="assets/png.png"
+              alt="Broken Profile Pic"
+            />
           </Grid>
-
         </Grid>
 
         <Budget
@@ -103,15 +86,9 @@ export default function UserProfile({ user }) {
           eventsTotPrice={eventsTotPrice}
           hotelsTotPrice={hotelsTotPrice}
         />
-
       </Grid>
 
-      <Grid
-        item
-        xs={6}
-        className={classes.rightContainer}
-      >
-
+      <Grid item xs={6} className={classes.rightContainer}>
         <MyTrip
           flightInfo={flightInfo}
           eventInfo={eventInfo}
@@ -119,19 +96,14 @@ export default function UserProfile({ user }) {
           userInfo={userInfo}
         />
 
-        <Grid
-          item
-          className={classes.logOutBtn}
-        >
+        <Grid item className={classes.logOutBtn}>
           <a
             href="/logout"
             style={{
               textDecoration: 'none',
             }}
           >
-            <Button>
-              Log Out
-            </Button>
+            <Button>Log Out</Button>
           </a>
         </Grid>
       </Grid>

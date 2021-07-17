@@ -1,11 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { Button } from '@material-ui/core';
 import BookEvent from '../BookingModals/BookEvent.jsx';
-
-import BookHotel from '../BookingModals/BookHotel.jsx';
-import {
-  Grid, Button,
-} from '@material-ui/core';
 
 export default function EventTile({ eventInfo, handleEventDelete }) {
   // const classes = useStyles();
@@ -13,9 +9,7 @@ export default function EventTile({ eventInfo, handleEventDelete }) {
   return (
     <div>
       <div>
-        {
-        eventInfo ? eventInfo.name : null
-        }
+        {eventInfo.name}
       </div>
       <Button onClick={() => handleEventDelete(eventInfo)} color="primary">
         Delete Event
@@ -24,3 +18,15 @@ export default function EventTile({ eventInfo, handleEventDelete }) {
     </div>
   );
 }
+
+EventTile.propTypes = {
+  eventInfo: PropTypes.shape({
+    name: PropTypes.string,
+  }),
+  handleEventDelete: PropTypes.func,
+};
+
+EventTile.defaultProps = {
+  eventInfo: { _id: 'Invalid ID' },
+  handleEventDelete: () => { },
+};

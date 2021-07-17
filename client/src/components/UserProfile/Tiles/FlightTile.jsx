@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -23,28 +24,31 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function FlightTile({ option }) {
+export default function FlightTile({ flight }) {
   const classes = useStyles();
 
-  const deleteFlightBooking = (optionID) => axios.delete(`/user/flights?id=${optionID}`).then((res) => res.data).then(console.log('Delete FLights clicked'));
+  const deleteFlightBooking = (flightID) => axios.delete(`/user/flights?id=${flightID}`).then((res) => res.data).then(console.log('Delete FLights clicked'));
 
   return (
     <div className={classes.flightContainer}>
-      {option.length !== 0 ? (
+      {flight ? (
         <div className={classes.flightTile}>
 
           <div>
             <b>Itineraries:</b>
           </div>
-          {option.itineraries.map((trip) => (
-            <div key={ trip._id } >
+          {flight.itineraries.map((trip) => (
+            <div key={trip._id}>
               {trip.segments.map((seg) => (
-                <div key={ seg._id } >
-                  <div>Departure: {' '} {seg.departure.iataCode}</div>
-                  <div>Departure Time: {' '} {seg.departure.iataCode}</div>
-                  <div>Arrival: {' '} {seg.arrival.iataCode}</div>
-                  <div>Arrival Time: {' '} {seg.arrival.at}</div>
-                  <div><b>Airline:</b> {' '} {seg.carrierCode}</div>
+                <div key={seg._id} >
+                  <div>{`Departure: ${seg.departure.iataCode}`}</div>
+                  <div>{`Departure Time: ${seg.departure.at}`}</div>
+                  <div>{`Arrival: ${seg.arrival.iataCode}`}</div>
+                  <div>{`Arrival Time: ${seg.arrival.at}`}</div>
+                  <div>
+                    <b>Airline:</b>
+                    {` ${seg.carrierCode}`}
+                  </div>
                 </div>
               ))}
             </div>
@@ -52,14 +56,14 @@ export default function FlightTile({ option }) {
           <div>
             <b>Price:</b>
             {' '}
-            {option.price.total}
+            {flight.price.total}
           </div>
           <div className={classes.flightBtns}>
-            <BookFlight option={option} />
+            <BookFlight flight={flight} />
             <Button
               variant="outlined"
               onClick={() => {
-                deleteFlightBooking(option._id);
+                deleteFlightBooking(flight._id);
               }}
               color="primary"
             >
@@ -73,3 +77,17 @@ export default function FlightTile({ option }) {
     </div>
   );
 }
+
+FlightTile.propTypes = {
+  flight: PropTypes.shape({
+    itineraries: PropTypes.arrayOf(
+
+    ),
+  }),
+};
+
+FlightTile.defaultProps = {
+  flight: [
+    { _id: 'Invalid ID' },
+  ],
+};

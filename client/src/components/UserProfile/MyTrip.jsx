@@ -9,7 +9,6 @@ import {
 import userProStyles from './UserProStyles.jsx';
 
 // IMPORT MODALS
-import BookEvent from './BookingModals/BookEvent.jsx';
 import FlightTile from './Tiles/FlightTile.jsx';
 import HotelTile from './Tiles/HotelTile.jsx';
 import EventTile from './Tiles/EventTile.jsx';
@@ -75,6 +74,7 @@ export default function MyTrip({
           <b>Hotels</b>
         </div>
         {hotelInfo.length > 0 ? hotelInfo.map((option) => (
+          // eslint-disable-next-line no-underscore-dangle
           <HotelTile key={option._id} option={option} getAllHotels={getAllHotels} />
         )) : <div />}
 
@@ -88,8 +88,9 @@ export default function MyTrip({
         <div className={classes.flightTitle}>
           <b>Flights</b>
         </div>
-        {flightInfo.length > 0 ? flightInfo.map((option, index) => (
-          <FlightTile key={index} option={option} />
+        {flightInfo.length > 0 ? flightInfo.map((flight) => (
+          // eslint-disable-next-line no-underscore-dangle
+          <FlightTile key={flight._id} flight={flight} />
         )) : <div />}
 
       </Grid>
@@ -98,8 +99,23 @@ export default function MyTrip({
 }
 
 MyTrip.propTypes = {
-
+  getAllHotels: PropTypes.func,
+  eventInfo: PropTypes.arrayOf(
+    PropTypes.shape({ _id: PropTypes.string }),
+  ),
+  hotelInfo: PropTypes.arrayOf(
+    PropTypes.shape({ _id: PropTypes.string }),
+  ),
+  flightInfo: PropTypes.arrayOf(
+    PropTypes.shape({ _id: PropTypes.string }),
+  ),
+  handleEventDelete: PropTypes.func,
 };
 
 MyTrip.defaultProps = {
+  getAllHotels: () => { },
+  eventInfo: { _id: 'Invalid ID' },
+  hotelInfo: { _id: 'Invalid ID' },
+  flightInfo: { _id: 'Invalid ID' },
+  handleEventDelete: () => { },
 };

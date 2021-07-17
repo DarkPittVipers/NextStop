@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -37,7 +37,7 @@ const carrierPhotos = {
 const setPhoto = (carrierCode) => {
   console.log(carrierCode);
   const photos = Object.keys(carrierPhotos);
-  for (let i = 0; i < photos.length; i++) {
+  for (let i = 0; i < photos.length; i += 1) {
     if (photos[i] === carrierCode) {
       return carrierPhotos[carrierCode];
     }
@@ -50,38 +50,32 @@ export default function FlightTile({ flight }) {
   const [fav, setFav] = useState(false);
   const { setFavorites, favorites } = useContext(AppContext);
 
+  const formatFlightDate = (flightDate) => {
+    const date = new Date(flightDate.at);
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const dayOfMonth = date.getDate().toString().padStart(2, '0');
+    const year = date.getFullYear();
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const seconds = date.getSeconds().toString().padStart(2, '0');
+    return `  ${flightDate.iataCode} ${month}/${dayOfMonth}/${year} ${hours}:${minutes}:${seconds}`;
+  };
+
   const displaySegments = (itineraries) => {
     const displayBlock = [];
     itineraries.forEach((itinerary, index) => {
       displayBlock[index] = (
         <div>
-          {' '}
-          Itinerary
-          {index + 1}
-          {itinerary.segments.map((segment) => {
-            const date = new Date(segment.arrival.at);
-            return (
-              <Typography variant="body2" gutterBottom>
-                <br />
-                <i className="fas fa-plane-departure" />
-                {`  ${segment.departure.iataCode} ${
-                  (date.getMonth() + 1).toString().padStart(2, '0')}/${
-                  date.getDate().toString().padStart(2, '0')}/${
-                  date.getFullYear().toString().padStart(4, '0')} ${
-                  date.getHours().toString().padStart(2, '0')}:${
-                  date.getMinutes().toString().padStart(2, '0')}:${
-                  date.getSeconds().toString().padStart(2, '0')}`}
-                <i className="fas fa-plane-arrival" />
-                {`  ${segment.arrival.iataCode} ${
-                  (date.getMonth() + 1).toString().padStart(2, '0')}/${
-                  date.getDate().toString().padStart(2, '0')}/${
-                  date.getFullYear().toString().padStart(4, '0')} ${
-                  date.getHours().toString().padStart(2, '0')}:${
-                  date.getMinutes().toString().padStart(2, '0')}:${
-                  date.getSeconds().toString().padStart(2, '0')}`}
-              </Typography>
-            );
-          })}
+          {`Itinerary ${index + 1}`}
+          {itinerary.segments.map((segment) => (
+            <Typography variant="body2" gutterBottom>
+              <br />
+              <i className="fas fa-plane-departure" />
+              {formatFlightDate(segment.departure)}
+              <i className="fas fa-plane-arrival" />
+              {formatFlightDate(segment.arrival)}
+            </Typography>
+          ))}
         </div>
       );
     });

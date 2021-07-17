@@ -52,7 +52,7 @@ export default function UserProfile({ user }) {
           id: eventData._id,
         },
       })
-      .then((response) => {
+      .then(() => {
         getFlightsHotels();
       })
       .catch((err) => {
